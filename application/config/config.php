@@ -23,7 +23,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/project_athena_emr/';
+date_default_timezone_set('Asia/Jakarta');
+//Azure
+$config['base_url'] = 'http://athenaemr.azurewebsites.net/';
+
+//local
+//$config['base_url'] = 'http://localhost/project_athena_emr/';
+/*
 
 /*
 |--------------------------------------------------------------------------
