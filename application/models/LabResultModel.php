@@ -26,7 +26,10 @@
 
         public function getWorkerID(){
             $data = array();
-            $query = $this->db->get('worker');
+            $this->db->select("*");
+            $this->db->from('worker');
+            $this->db->where('role', 'lab');
+            $query = $this->db->get();
             if ($query->num_rows() > 0) {
                 foreach ($query->result_array() as $row){
                         $data[] = $row;

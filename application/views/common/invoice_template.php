@@ -153,7 +153,24 @@
                     Price
                 </td>
             </tr>
-            
+            <?php
+                if($query->info == "new"){
+            ?>
+                    <tr class="item">
+                        <td>
+                            Registration
+                        </td>
+                        
+                        <td>
+                            15000
+                        </td>
+                    </tr>
+            <?php
+                } else {
+
+                }
+
+            ?>
             
             <tr class="item last">
                 <td>
@@ -169,7 +186,15 @@
                 </td>
                 
                 <td>
-                    <?= $query->amount; ?>
+                    <?php
+                        if($query->info == "new"){
+                            $amount = $query->amount;
+                            $total = $amount - 15000;
+                            echo $total;
+                        } else {
+                            echo $query->amount;
+                        }
+                    ?>
                 </td>
             </tr>
             

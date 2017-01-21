@@ -62,9 +62,11 @@ class Payment extends CI_Controller {
 
 				if ($this->PaymentModel->create_payment($payment_id, $register_id, 
 				$worker_id, $type, $amount)) {
-				
-					// user creation ok
-					$this->PaymentModel->Redirect();
+					if($this->PaymentModel->update_register($register_id)){
+						// user creation ok
+						$this->PaymentModel->Redirect();
+					}
+					
 					
 				} else {
 				

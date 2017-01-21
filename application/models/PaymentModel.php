@@ -26,7 +26,10 @@
 
         public function getWorkerID(){
             $data = array();
-            $query = $this->db->get('worker');
+            $this->db->select("*");
+            $this->db->from('worker');
+            $this->db->where('role', 'payment');
+            $query = $this->db->get();
             if ($query->num_rows() > 0) {
                 foreach ($query->result_array() as $row){
                         $data[] = $row;
@@ -45,18 +48,56 @@
         public function create_payment($payment_id, $register_id, 
 				$worker_id, $type, $amount) {
 		
+        $getnew = $this->check_new_registration($register_id);
+        $total = $getnew + $amount;
+
+        $info = "";
+        if($getnew > 0){
+            $info = "new";
+        } else if($getnew <= 0){
+            $info = "";
+        }
+
 		$data = array(
 			'payment_id'   => $payment_id,
 			'register_id'   => $register_id,
 			'worker_id'      => $worker_id,
             'type'      => $type,
-            'amount'      => $amount,
+            'amount'      => $total,
 			'time' => date('Y-m-j H:i:s'),
+            'info' => $info,
 		);
 		
 		return $this->db->insert('payment', $data);
 
 	    }
+
+        public function check_new_registration($register_id){
+            $amount = 0;
+            $this->db->select('*');
+            $this->db->from('registration');
+            $this->db->where('register_id', $register_id);
+
+            $query = $this->db->get();
+            $ret = $query->row();
+            $type = $ret->patient_type;
+            if($type === "0"){
+                $amount = 0;
+            } else if($type === "1") {
+                $amount = 15000;
+            }
+            return $amount;
+        }
+
+        public function update_register($register_id){
+            $data = array(
+                'patient_type'   => 0,
+            );
+
+            $this->db->where("register_id", $register_id);
+            $this->db->update("registration",$data);
+            $this->Redirect();
+        }
 
         public function generate_id(){
             $today = date("Y-m-d");

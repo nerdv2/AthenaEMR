@@ -187,6 +187,7 @@ CREATE TABLE `payment` (
   `type` varchar(50) NOT NULL,
   `amount` double NOT NULL,
   `time` date NOT NULL,
+  `info` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`payment_id`),
   KEY `worker_id` (`worker_id`),
   KEY `payment_ibfk_1` (`register_id`),
@@ -196,7 +197,7 @@ CREATE TABLE `payment` (
 
 /*Data for the table `payment` */
 
-insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`) values ('PAY-210117-0000','REG-210117-0000','WRK-0001','clinic',50000,'2017-01-21');
+insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`,`info`) values ('PAY-210117-0000','REG-210117-0000','WRK-0000','lab',65000,'2017-01-21','new');
 
 /*Table structure for table `prescription` */
 
@@ -255,7 +256,7 @@ CREATE TABLE `registration` (
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`,`patient_type`) values ('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0,1);
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`,`patient_type`) values ('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0,0);
 
 /*Table structure for table `user` */
 
