@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+	 * AthenaEMR - Gema Aji Wardian
+     * Registration controller.
+     * <gema_wardian@hotmail.com>
+     * ----------------------------------------------
+     * control registration management(view, add, edit, delete)
+     * ----------------------------------------------
+	 */
 class Registration extends CI_Controller {
 
 
@@ -35,6 +43,7 @@ class Registration extends CI_Controller {
 			$this->form_validation->set_rules('clinic_id', 'Type', 'trim|required');
 			$this->form_validation->set_rules('doctor_id', 'ClinicID', 'trim|alpha_dash');
 			$this->form_validation->set_rules('category', 'ClinicID', 'trim');
+			$this->form_validation->set_rules('patient_type', 'Patient Type', 'required');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -53,9 +62,10 @@ class Registration extends CI_Controller {
 				$clinic_id = $this->input->post('clinic_id');
 				$doctor_id = $this->input->post('doctor_id');
 				$category = $this->input->post('category');
+				$patient_type = $this->input->post('patient_type');
 
 				if ($this->RegistrationModel->create_registration($register_id, $worker_id, 
-				$patient_id, $clinic_id, $doctor_id, $category)) {
+				$patient_id, $clinic_id, $doctor_id, $category, $patient_type)) {
 
 					$this->RegistrationModel->Redirect();
 

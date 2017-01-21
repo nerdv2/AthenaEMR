@@ -23,10 +23,38 @@
             <div class="row">
               <?= form_open() ?>
                 <div class="col-md-12">
-                     <input type="text" class="form-control" placeholder="From (example: 01-2017)" name="start" required>
+                    <div class='input-group date' id='datetimepicker'>
+                        <input type='text' class="form-control"  name="start" placeholder="Start Date" required />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar">
+                            </span>
+                        </span>
+                    </div>
+                    <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'MM-YYYY'
+                                });
+                            });
+                    </script>
                 </div>
                 <div class="col-md-12">
-                     <input type="text" class="form-control" placeholder="To (example: 02-2017)" name="end" required>
+                     <div class='input-group date' id='datetimepicker2'>
+                        <input type='text' class="form-control"  name="end" placeholder="End Date" required />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar">
+                            </span>
+                        </span>
+                    </div>
+                    <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker2').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'MM-YYYY'
+                                });
+                            });
+                    </script>
                 </div>
                 <div class="form-footer">
                   <div class="form-group">

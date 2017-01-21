@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+	 * AthenaEMR - Gema Aji Wardian
+     * Labresult controller.
+     * <gema_wardian@hotmail.com>
+     * ----------------------------------------------
+     * control lab result management(view, add, edit, delete)
+     * ----------------------------------------------
+	 */
 class Labresult extends CI_Controller {
 
 

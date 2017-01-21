@@ -31,7 +31,7 @@ CREATE TABLE `clinic` (
 
 /*Data for the table `clinic` */
 
-insert  into `clinic`(`clinic_id`,`name`,`tariff`,`created_at`,`updated_at`) values ('DIV-0000','Dentist',45000,'2017-01-18 11:50:12','2017-01-18 11:50:41'),('DIV-0001','General',50000,'2017-01-18 11:50:52',NULL);
+insert  into `clinic`(`clinic_id`,`name`,`tariff`,`created_at`,`updated_at`) values ('DIV-0000','General',50000,'2017-01-21 19:26:21',NULL),('DIV-0001','Dentist',75000,'2017-01-21 19:26:31',NULL);
 
 /*Table structure for table `doctor` */
 
@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS `doctor`;
 
 CREATE TABLE `doctor` (
   `doctor_id` varchar(10) NOT NULL,
-  `clinic_id` varchar(8) NOT NULL,
+  `clinic_id` varchar(8) DEFAULT NULL,
   `name` varchar(100) NOT NULL,
   `gender` varchar(10) NOT NULL,
   `dob` date NOT NULL,
@@ -49,13 +49,13 @@ CREATE TABLE `doctor` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`doctor_id`),
-  KEY `id_poli` (`clinic_id`),
-  CONSTRAINT `doctor_ibfk_1` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON UPDATE CASCADE
+  KEY `clinic_id` (`clinic_id`),
+  CONSTRAINT `doctor_ibfk_1` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `doctor` */
 
-insert  into `doctor`(`doctor_id`,`clinic_id`,`name`,`gender`,`dob`,`address`,`phone`,`photo`,`created_at`,`updated_at`) values ('DOC-0000','DIV-0000','Dr. Sukarman Nugraha','male','1988-01-11','<p>Jl. Pahlawan No. 12, Bandung, Indonesia.</p>','082257846988','','2017-01-18 11:51:41',NULL),('DOC-0001','DIV-0001','Drs. Annisa Baharmin','female','1990-05-22','<p>Jl. Jakarta No. 82 Bandung, Indonesia</p>','08218242574','','2017-01-18 11:53:39',NULL);
+insert  into `doctor`(`doctor_id`,`clinic_id`,`name`,`gender`,`dob`,`address`,`phone`,`photo`,`created_at`,`updated_at`) values ('DOC-0000','DIV-0000','Drs. Annisa Baharmin','female','1992-11-13','<p>Home Address</p>','','','2017-01-21 19:26:48',NULL),('DOC-0001','DIV-0001','Dr. Sukarman Nugraha','male','1973-02-11','<p>Home Address</p>','','','2017-01-21 19:27:03',NULL);
 
 /*Table structure for table `lab` */
 
@@ -72,25 +72,21 @@ CREATE TABLE `lab` (
 
 /*Data for the table `lab` */
 
-insert  into `lab`(`lab_id`,`name`,`tariff`,`created_at`,`updated_at`) values ('LAB-0000','XRay',50000,'2017-01-18 12:47:34',NULL),('LAB-0001','Blood Test',70000,'2017-01-18 12:47:50','2017-01-18 12:47:57');
-
 /*Table structure for table `lab_result` */
 
 DROP TABLE IF EXISTS `lab_result`;
 
 CREATE TABLE `lab_result` (
   `result_id` varchar(25) NOT NULL,
-  `worker_id` varchar(10) NOT NULL,
+  `worker_id` varchar(10) DEFAULT NULL,
   `result_data` text NOT NULL,
   `time` date NOT NULL,
   PRIMARY KEY (`result_id`),
-  KEY `id_petugas` (`worker_id`),
-  CONSTRAINT `lab_result_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON UPDATE CASCADE
+  KEY `worker_id` (`worker_id`),
+  CONSTRAINT `lab_result_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `lab_result` */
-
-insert  into `lab_result`(`result_id`,`worker_id`,`result_data`,`time`) values ('RES-190117-0000','WRK-0000','<table style=\"width: 950px;\">\r\n<tbody>\r\n<tr class=\"heading\" style=\"height: 14px;\">\r\n<td style=\"width: 200px; height: 14px;\">Test Name</td>\r\n<td style=\"width: 200px; height: 14px;\">Result</td>\r\n<td style=\"width: 50px; height: 14px;\">Flag</td>\r\n<td style=\"width: 100px; height: 14px;\">Unit</td>\r\n<td style=\"width: 200px; height: 14px;\">Ref. Value</td>\r\n<td style=\"width: 200px; height: 14px;\">Method</td>\r\n</tr>\r\n<tr style=\"height: 15px;\">\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;TEST</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;1</td>\r\n<td style=\"width: 50px; height: 15px;\">&nbsp;x</td>\r\n<td style=\"width: 100px; height: 15px;\">&nbsp;31</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;xxa</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;31</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>','2017-01-19');
 
 /*Table structure for table `medical_record` */
 
@@ -98,9 +94,9 @@ DROP TABLE IF EXISTS `medical_record`;
 
 CREATE TABLE `medical_record` (
   `record_id` varchar(20) NOT NULL,
-  `doctor_id` varchar(10) NOT NULL,
+  `doctor_id` varchar(10) DEFAULT NULL,
   `register_id` varchar(15) DEFAULT NULL,
-  `patient_id` varchar(15) NOT NULL,
+  `patient_id` varchar(15) DEFAULT NULL,
   `time` date NOT NULL,
   `lab_id` varchar(18) DEFAULT NULL,
   `result_id` varchar(25) DEFAULT NULL,
@@ -110,23 +106,21 @@ CREATE TABLE `medical_record` (
   `diagnosis` text NOT NULL,
   `handling` text,
   PRIMARY KEY (`record_id`),
-  KEY `id_dokter` (`doctor_id`),
-  KEY `id_daftar` (`register_id`),
-  KEY `id_pasien` (`patient_id`),
-  KEY `id_hasil` (`result_id`),
-  KEY `id_resep` (`prescription_id`),
-  KEY `id_lab` (`lab_id`),
-  CONSTRAINT `medical_record_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_2` FOREIGN KEY (`register_id`) REFERENCES `registration` (`register_id`) ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_3` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_4` FOREIGN KEY (`result_id`) REFERENCES `lab_result` (`result_id`) ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_5` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_6` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`lab_id`) ON UPDATE CASCADE
+  KEY `doctor_id` (`doctor_id`),
+  KEY `register_id` (`register_id`),
+  KEY `patient_id` (`patient_id`),
+  KEY `lab_id` (`lab_id`),
+  KEY `result_id` (`result_id`),
+  KEY `prescription_id` (`prescription_id`),
+  CONSTRAINT `medical_record_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_2` FOREIGN KEY (`register_id`) REFERENCES `registration` (`register_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_3` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_4` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`lab_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_5` FOREIGN KEY (`result_id`) REFERENCES `lab_result` (`result_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_6` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medical_record` */
-
-insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-190117-0000','DOC-0001','REG-180117-0000','USR-000000','2017-01-19','LAB-0000','RES-190117-0000','PSC-190117-0000','<p>Complaints</p>','<p>Symptoms</p>','<p>Diagnosis</p>','<p>Handling</p>');
 
 /*Table structure for table `medicine` */
 
@@ -134,7 +128,7 @@ DROP TABLE IF EXISTS `medicine`;
 
 CREATE TABLE `medicine` (
   `medicine_id` varchar(10) NOT NULL,
-  `type_id` varchar(11) NOT NULL,
+  `type_id` varchar(11) DEFAULT NULL,
   `name` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   `price` double NOT NULL,
@@ -142,13 +136,11 @@ CREATE TABLE `medicine` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`medicine_id`),
-  KEY `id_jenis` (`type_id`),
-  CONSTRAINT `medicine_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `medicine_type` (`type_id`) ON UPDATE CASCADE
+  KEY `type_id` (`type_id`),
+  CONSTRAINT `medicine_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `medicine_type` (`type_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medicine` */
-
-insert  into `medicine`(`medicine_id`,`type_id`,`name`,`description`,`price`,`amount`,`created_at`,`updated_at`) values ('MED-0000','TYP-0000','Bloodlust','<p>Clean surface of skins</p>',40000,20,'2017-01-18 13:08:58',NULL);
 
 /*Table structure for table `medicine_type` */
 
@@ -163,8 +155,6 @@ CREATE TABLE `medicine_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medicine_type` */
-
-insert  into `medicine_type`(`type_id`,`name`,`created_at`,`updated_at`) values ('TYP-0000','Antiseptic','2017-01-18 13:07:41',NULL),('TYP-0001','Bandages','2017-01-18 13:07:58',NULL);
 
 /*Table structure for table `patient` */
 
@@ -184,7 +174,7 @@ CREATE TABLE `patient` (
 
 /*Data for the table `patient` */
 
-insert  into `patient`(`patient_id`,`name`,`dob`,`gender`,`address`,`phone`,`created_at`,`updated_at`) values ('USR-000000','Dana Abraham','1997-12-02','female','<p>Jl. Suparman No. 41</p>','','2017-01-18 12:04:05',NULL);
+insert  into `patient`(`patient_id`,`name`,`dob`,`gender`,`address`,`phone`,`created_at`,`updated_at`) values ('USR-000000','Dana Abraham','1997-06-19','female','<p>Home Address</p>','','2017-01-21 19:29:09',NULL);
 
 /*Table structure for table `payment` */
 
@@ -192,21 +182,21 @@ DROP TABLE IF EXISTS `payment`;
 
 CREATE TABLE `payment` (
   `payment_id` varchar(15) NOT NULL,
-  `register_id` varchar(15) NOT NULL,
-  `worker_id` varchar(10) NOT NULL,
+  `register_id` varchar(15) DEFAULT NULL,
+  `worker_id` varchar(10) DEFAULT NULL,
   `type` varchar(50) NOT NULL,
   `amount` double NOT NULL,
   `time` date NOT NULL,
   PRIMARY KEY (`payment_id`),
-  KEY `id_daftar` (`register_id`),
-  KEY `id_petugas` (`worker_id`),
+  KEY `worker_id` (`worker_id`),
+  KEY `payment_ibfk_1` (`register_id`),
   CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`register_id`) REFERENCES `registration` (`register_id`) ON UPDATE CASCADE,
-  CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON UPDATE CASCADE
+  CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `payment` */
 
-insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`) values ('PAY-180117-0000','REG-180117-0000','WRK-0000','clinic',50000,'2017-01-18');
+insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`) values ('PAY-210117-0000','REG-210117-0000','WRK-0001','clinic',50000,'2017-01-21');
 
 /*Table structure for table `prescription` */
 
@@ -214,20 +204,18 @@ DROP TABLE IF EXISTS `prescription`;
 
 CREATE TABLE `prescription` (
   `prescription_id` varchar(18) NOT NULL,
-  `record_id` varchar(20) NOT NULL,
-  `worker_id` varchar(10) NOT NULL,
+  `record_id` varchar(20) DEFAULT NULL,
+  `worker_id` varchar(10) DEFAULT NULL,
   `time` date NOT NULL,
   `description` text,
   PRIMARY KEY (`prescription_id`),
-  KEY `id_petugas` (`worker_id`),
-  KEY `resep_ibfk_1` (`record_id`),
-  CONSTRAINT `prescription_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `prescription_ibfk_3` FOREIGN KEY (`record_id`) REFERENCES `medical_record` (`record_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `worker_id` (`worker_id`),
+  KEY `record_id` (`record_id`),
+  CONSTRAINT `prescription_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `prescription_ibfk_2` FOREIGN KEY (`record_id`) REFERENCES `medical_record` (`record_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `prescription` */
-
-insert  into `prescription`(`prescription_id`,`record_id`,`worker_id`,`time`,`description`) values ('PSC-190117-0000','REC-190117-0000','WRK-0000','2017-01-19','<p>Info</p>');
 
 /*Table structure for table `prescription_detail` */
 
@@ -235,20 +223,18 @@ DROP TABLE IF EXISTS `prescription_detail`;
 
 CREATE TABLE `prescription_detail` (
   `prescription_id` varchar(18) NOT NULL,
-  `medicine_id` varchar(10) NOT NULL,
+  `medicine_id` varchar(10) DEFAULT NULL,
   `dosage` varchar(100) NOT NULL,
   `amount` int(11) NOT NULL,
   `total` int(11) NOT NULL,
   `usage` text NOT NULL,
-  KEY `id_obat` (`medicine_id`),
-  KEY `id_resep` (`prescription_id`),
-  CONSTRAINT `prescription_detail_ibfk_1` FOREIGN KEY (`medicine_id`) REFERENCES `medicine` (`medicine_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
-  CONSTRAINT `prescription_detail_ibfk_2` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `prescription_id` (`prescription_id`),
+  KEY `medicine_id` (`medicine_id`),
+  CONSTRAINT `prescription_detail_ibfk_1` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `prescription_detail_ibfk_2` FOREIGN KEY (`medicine_id`) REFERENCES `medicine` (`medicine_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `prescription_detail` */
-
-insert  into `prescription_detail`(`prescription_id`,`medicine_id`,`dosage`,`amount`,`total`,`usage`) values ('PSC-190117-0000','MED-0000','1',2,3,'<p>Usage Info</p>');
 
 /*Table structure for table `registration` */
 
@@ -256,27 +242,20 @@ DROP TABLE IF EXISTS `registration`;
 
 CREATE TABLE `registration` (
   `register_id` varchar(15) NOT NULL,
-  `worker_id` varchar(10) NOT NULL,
-  `patient_id` varchar(15) NOT NULL,
+  `worker_id` varchar(10) DEFAULT NULL,
+  `patient_id` varchar(15) DEFAULT NULL,
   `clinic_id` varchar(8) DEFAULT NULL,
   `doctor_id` varchar(10) DEFAULT NULL,
   `category` varchar(100) NOT NULL,
   `time` date NOT NULL,
   `entry_no` int(11) DEFAULT NULL,
-  PRIMARY KEY (`register_id`),
-  KEY `id_pasien` (`patient_id`),
-  KEY `id_petugas` (`worker_id`),
-  KEY `id_poli` (`clinic_id`),
-  KEY `id_dokter` (`doctor_id`),
-  CONSTRAINT `registration_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON UPDATE CASCADE,
-  CONSTRAINT `registration_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON UPDATE CASCADE,
-  CONSTRAINT `registration_ibfk_3` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON UPDATE CASCADE,
-  CONSTRAINT `registration_ibfk_4` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON UPDATE CASCADE
+  `patient_type` tinyint(1) NOT NULL,
+  PRIMARY KEY (`register_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`) values ('REG-180117-0000','WRK-0000','USR-000000','DIV-0001','DOC-0001','clinic','2017-01-18',0),('REG-180117-0001','WRK-0000','USR-000000','DIV-0000','DOC-0001','clinic','2017-01-18',1);
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`,`patient_type`) values ('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0,1);
 
 /*Table structure for table `user` */
 
@@ -292,15 +271,15 @@ CREATE TABLE `user` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id_user`),
-  KEY `id_dokter` (`doctor_id`),
-  KEY `id_petugas` (`worker_id`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON UPDATE CASCADE,
-  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+  KEY `worker_id` (`worker_id`),
+  KEY `doctor_id` (`doctor_id`),
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`) values (1,'admin','$2a$06$6MQPW/i7LqJmGIQ5sL3LIeitYVCNvd7D9p7m.A5qJLV/Z6t5PzvY2','admin',NULL,NULL,'2017-01-17 17:08:11',NULL),(9,'administrator','$2y$10$Wqjfbypqeb1Qw5OfSBDNEesGPleD1QZasADkUztDNqcsfmmpkPOmG','admin',NULL,NULL,'2017-01-18 13:56:41',NULL),(10,'register','$2y$10$dm.FBWYOkW5J9RC7g9Drt.gsA/T6GupRK0JFdkyoIRgEe1LfSdmBi','registration',NULL,'WRK-0001','2017-01-18 13:57:00',NULL),(11,'doctor','$2y$10$ceetmI2DLP6E.ljWrXMqV.LpQ1k3RwPsdWMe3Pl7vW8PP4dE/d8.O','doctor','DOC-0001',NULL,'2017-01-18 13:57:23',NULL);
+insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL);
 
 /*Table structure for table `worker` */
 
@@ -321,7 +300,7 @@ CREATE TABLE `worker` (
 
 /*Data for the table `worker` */
 
-insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`photo`,`created_at`,`updated_at`) values ('WRK-0000','Gema Aji Wardian','male','lab','1992-11-13','<p>Jl. Sukagalih Gg.H.Gozali No.74</p>','','2017-01-18 11:39:48',NULL),('WRK-0001','Dian Yuliana','female','registration','1973-02-11','<p>Bandung, Jawa Barat, Indonesia</p>','','2017-01-18 11:44:43',NULL);
+insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`photo`,`created_at`,`updated_at`) values ('WRK-0000','Dian Yuliana','female','registration','1997-06-19','<p>Jl. Sukagalih Gg.H.Gozali</p>','','2017-01-21 19:25:42','2017-01-21 19:25:58'),('WRK-0001','Gema Aji Wardian','male','payment','1990-05-22','<p>Home Address</p>','','2017-01-21 19:28:40',NULL);
 
 /* Procedure structure for procedure `getInvoice` */
 
@@ -348,6 +327,49 @@ BEGIN
 	SELECT lab_result.*,patient.`patient_id` , patient.`name`  FROM lab_result, worker, medical_record, patient
 	WHERE medical_record.`result_id` = lab_result.`result_id` AND lab_result.`worker_id` = worker.`worker_id`
 	AND patient.`patient_id` = medical_record.`patient_id` AND lab_result.`result_id` = iddata;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getPatientMonth` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getPatientMonth` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPatientMonth`(IN startdate VARCHAR(255), IN enddate VARCHAR(255), 
+    IN iddata2 VARCHAR(255))
+BEGIN
+SELECT registration.`time` AS "Date", patient.`name` AS "Name", registration.`doctor_id` FROM registration, patient, doctor
+WHERE registration.`patient_id` = patient.`patient_id` AND doctor.`doctor_id` = registration.`doctor_id`
+AND registration.`doctor_id` = iddata2
+AND DATE_FORMAT(registration.time, "%m-%Y") >= startdate AND DATE_FORMAT(registration.time, "%m-%Y") <= enddate GROUP BY patient.`name`;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getRecordMonth` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getRecordMonth` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRecordMonth`(IN iddata VARCHAR(255), IN startdate VARCHAR(255), IN enddate VARCHAR(255))
+BEGIN
+	SELECT medical_record.* FROM medical_record 
+	WHERE medical_record.`patient_id` = iddata AND DATE_FORMAT(medical_record.time, "%m-%Y") >= startdate 
+	AND DATE_FORMAT(medical_record.time, "%m-%Y") <= enddate;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getRegistrationMonth` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getRegistrationMonth` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRegistrationMonth`(IN startdate VARCHAR(255), IN enddate VARCHAR(255))
+BEGIN
+	SELECT registration.* FROM registration 
+	WHERE DATE_FORMAT(registration.time, "%m-%Y") >= startdate AND DATE_FORMAT(registration.time, "%m-%Y") <= enddate;
     END */$$
 DELIMITER ;
 

@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+	 * AthenaEMR - Gema Aji Wardian
+     * Workers controller.
+     * <gema_wardian@hotmail.com>
+     * ----------------------------------------------
+     * control workers management(view, add, edit, delete)
+     * ----------------------------------------------
+	 */
 class Workers extends CI_Controller {
 
 

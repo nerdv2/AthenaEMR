@@ -44,7 +44,21 @@
                      </select>
                 </div>
                 <div class="col-md-12">
-                     <input type="text" class="form-control" placeholder="Date of Birth (e.g 1992-11-13)" name="dob" required>
+                    <div class='input-group date' id='datetimepicker'>
+                        <input type='text' class="form-control"  name="dob" placeholder="Date of Birth" required />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar">
+                            </span>
+                        </span>
+                    </div>
+                    <script type="text/javascript">
+                            $(function () {
+                                $('#datetimepicker').datetimepicker({
+                                    viewMode: 'years',
+                                    format: 'YYYY-MM-DD'
+                                });
+                            });
+                    </script>
                 </div>
                 <div class="col-md-12">
                      <textarea name="address" class="form-control">Home Address</textarea>

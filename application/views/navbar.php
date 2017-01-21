@@ -24,7 +24,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown profile">
           <a href="/html/pages/profile.html" class="dropdown-toggle"  data-toggle="dropdown">
-            <img class="profile-img" src="./assets/images/profile.png">
+            <img class="profile-img" src="<?php echo base_url("/assets/images/profile.png"); ?>">
             <div class="title">Profile</div>
           </a>
           <div class="dropdown-menu">

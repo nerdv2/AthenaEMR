@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+	 * AthenaEMR - Gema Aji Wardian
+     * Payment controller.
+     * <gema_wardian@hotmail.com>
+     * ----------------------------------------------
+     * control payment management(view, add, edit, delete)
+     * ----------------------------------------------
+	 */
 class Payment extends CI_Controller {
 
 

@@ -41,6 +41,22 @@
                     </select>
                 </div>
                 <div class="col-md-12">
+                  <div class="radio">
+                      <input type="radio" name="patient_type" id="radio3" value="1" checked>
+                      <label for="radio3">
+                          New Patient
+                      </label>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="radio">
+                      <input type="radio" name="patient_type" id="radio4" value="0">
+                      <label for="radio4">
+                          Existing Patient
+                      </label>
+                  </div>
+                </div>
+                <div class="col-md-12">
                      <?php
                       echo "<select class='select2' name='patient_id' id='patient_id'>";
                       echo "<option value=''>Select Patient</option>";

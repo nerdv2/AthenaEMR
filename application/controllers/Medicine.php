@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+	 * AthenaEMR - Gema Aji Wardian
+     * Medicine controller.
+     * <gema_wardian@hotmail.com>
+     * ----------------------------------------------
+     * control medicine management(view, add, edit, delete)
+     * ----------------------------------------------
+	 */
 class Medicine extends CI_Controller {
 
 

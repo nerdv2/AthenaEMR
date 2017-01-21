@@ -1,6 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+	 * AthenaEMR - Gema Aji Wardian
+     * Lab controller.
+     * <gema_wardian@hotmail.com>
+     * ----------------------------------------------
+     * control Lab management(view, add, edit, delete)
+     * ----------------------------------------------
+	 */
 class Lab extends CI_Controller {
 
 

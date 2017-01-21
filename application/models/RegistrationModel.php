@@ -81,7 +81,7 @@
         }
 
         public function create_registration($register_id, $worker_id, 
-				$patient_id, $clinic_id, $doctor_id, $category) {
+				$patient_id, $clinic_id, $doctor_id, $category, $patient_type) {
 		
         $entrynumber = $this->get_entrynumber($clinic_id);
 
@@ -94,6 +94,7 @@
             'category'      => $category,
 			'time' => date('Y-m-j H:i:s'),
             'entry_no'    => $entrynumber,
+            'patient_type'  => $patient_type,
 		);
 		
 		return $this->db->insert('registration', $data);
