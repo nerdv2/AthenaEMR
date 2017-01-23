@@ -19,7 +19,7 @@ body{
 	bottom: -40px;
 	width: auto;
 	height: auto;
-	background-image: url("http://localhost/project_athena_emr/assets/img/medic_login_background.jpg");
+	background-image: url("http://localhost/project_athena_emr/assets/collage.jpg");
 	background-size: cover;
 	-webkit-filter: blur(2px);
 	z-index: 0;

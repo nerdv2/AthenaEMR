@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-/*
+
 //Azure
 $connectstr_dbhost = '';
 $connectstr_dbname = '';
@@ -112,9 +112,9 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-*/
 
 
+/*
 //local
 $db['default'] = array(
 	'dsn'	=> '',
@@ -137,3 +137,4 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+*/

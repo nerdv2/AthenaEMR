@@ -2958,7 +2958,8 @@ aside.app-sidebar {
       border-bottom-color: #29c75f; }
 
 .app-login {
-  background: #29c75f;
+  background-image: url("http://localhost/project_athena_emr/assets/images/collage.jpg");
+  background-size: cover;
   padding: 0 !important; }
   .app-login .app-body {
     position: relative;
