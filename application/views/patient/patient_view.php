@@ -14,13 +14,20 @@
 
                 $this->table->set_heading('PatientID','Name','D.O.B','Gender','Created At','Updated At','');
                 foreach($query as $row){
+                  if($_SESSION['status'] == "ADMIN"){
+                      $edit = "<a href='".site_url()."/athenaReport/get_id/".$row->patient_id."' title='".$row->name."'>Get ID</a>
+                      <br>
+                      <a href='".site_url()."/patient/viewdata/".$row->patient_id."' title='".$row->name."'>View</a>
+                      <br>
+                      <a href='".site_url()."/patient/editdata/".$row->patient_id."' title='".$row->name."'>Edit</a>
+                      <br>
+                      <a href='".site_url()."/patient/deletedata/".$row->patient_id."' title='".$row->name."' onclick='return confirmDelete();'>Delete</a>"; 
+                  } else {
                     $edit = "<a href='".site_url()."/athenaReport/get_id/".$row->patient_id."' title='".$row->name."'>Get ID</a>
                     <br>
-                    <a href='".site_url()."/patient/viewdata/".$row->patient_id."' title='".$row->name."'>View</a>
-                    <br>
-                    <a href='".site_url()."/patient/editdata/".$row->patient_id."' title='".$row->name."'>Edit</a>
-                    <br>
-                    <a href='".site_url()."/patient/deletedata/".$row->patient_id."' title='".$row->name."' onclick='return confirmDelete();'>Delete</a>"; 
+                    <a href='".site_url()."/patient/viewdata/".$row->patient_id."' title='".$row->name."'>View</a>"; 
+                  }
+                    
                     $this->table->add_row($row->patient_id, $row->name, $row->dob, $row->gender, $row->created_at, $row->updated_at,$edit);
                 }
                 echo $this->table->generate();

@@ -14,8 +14,12 @@
 
                 $this->table->set_heading('RegisterID','WorkerID','PatientID','Type','Time of Register','Entry Number','');
                 foreach($query as $row){
+                  if($_SESSION['status'] == "ADMIN"){
                     $edit = "
                     <a href='".site_url()."/registration/deletedata/".$row->register_id."' title='".$row->patient_id."' onclick='return confirmDelete();'>Delete</a>"; 
+                  } else {
+                    $edit = "";
+                  }
                     $this->table->add_row($row->register_id, $row->worker_id, $row->patient_id, $row->category, $row->time, $row->entry_no,$edit);
                 }
                 echo $this->table->generate();

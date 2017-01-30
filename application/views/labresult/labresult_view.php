@@ -14,12 +14,18 @@
 
                 $this->table->set_heading('LabResultID','WorkerID','Time of Entry','');
                 foreach($query as $row){
+                  if($_SESSION['status'] == "ADMIN"){
                     $edit = "<a href='".site_url()."/athenaReport/get_labresult/".$row->result_id."' title='".$row->result_id."'>Print</a><br>
                     <a href='".site_url()."/labresult/viewdata/".$row->result_id."' title='".$row->result_id."'>View</a>
                     <br>
                     <a href='".site_url()."/labresult/editdata/".$row->result_id."' title='".$row->result_id."'>Edit</a>
                     <br>
                     <a href='".site_url()."/labresult/deletedata/".$row->result_id."' title='".$row->result_id."' onclick='return confirmDelete();'>Delete</a>"; 
+                  } else {
+                    $edit = "<a href='".site_url()."/athenaReport/get_labresult/".$row->result_id."' title='".$row->result_id."'>Print</a><br>
+                    <a href='".site_url()."/labresult/viewdata/".$row->result_id."' title='".$row->result_id."'>View</a>"; 
+                  }
+                    
                     $this->table->add_row($row->result_id, $row->worker_id, $row->time, $edit);
                 }
                 echo $this->table->generate();

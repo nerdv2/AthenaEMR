@@ -14,9 +14,14 @@
 
                 $this->table->set_heading('PrescriptionID','RecordID','WorkerID','Time of Entry','');
                 foreach($query as $row){
+                  if($_SESSION['status'] == "ADMIN"){
                     $edit = "<a href='".site_url()."/prescription/viewdata/".$row->prescription_id."' title='".$row->record_id."'>View</a>
                     <br>
                     <a href='".site_url()."/prescription/deletedata/".$row->prescription_id."' title='".$row->record_id."' onclick='return confirmDelete();'>Delete</a>"; 
+                  } else {
+                    $edit = "<a href='".site_url()."/prescription/viewdata/".$row->prescription_id."' title='".$row->record_id."'>View</a>"; 
+                  }
+                    
                     $this->table->add_row($row->prescription_id, $row->record_id, $row->worker_id, $row->time, $edit);
                 }
                 echo $this->table->generate();

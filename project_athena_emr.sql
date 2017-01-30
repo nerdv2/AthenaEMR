@@ -72,6 +72,8 @@ CREATE TABLE `lab` (
 
 /*Data for the table `lab` */
 
+insert  into `lab`(`lab_id`,`name`,`tariff`,`created_at`,`updated_at`) values ('LAB-0000','Blood Testing',50000,'2017-01-30 17:39:23',NULL);
+
 /*Table structure for table `lab_result` */
 
 DROP TABLE IF EXISTS `lab_result`;
@@ -87,6 +89,8 @@ CREATE TABLE `lab_result` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `lab_result` */
+
+insert  into `lab_result`(`result_id`,`worker_id`,`result_data`,`time`) values ('RES-300117-0000','WRK-0002','<table style=\"width: 950px;\">\r\n<tbody>\r\n<tr class=\"heading\" style=\"height: 14px;\">\r\n<td style=\"width: 200px; height: 14px;\">Test Name</td>\r\n<td style=\"width: 200px; height: 14px;\">Result</td>\r\n<td style=\"width: 50px; height: 14px;\">Flag</td>\r\n<td style=\"width: 100px; height: 14px;\">Unit</td>\r\n<td style=\"width: 200px; height: 14px;\">Ref. Value</td>\r\n<td style=\"width: 200px; height: 14px;\">Method</td>\r\n</tr>\r\n<tr style=\"height: 15px;\">\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;Hemoglobin</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;812</td>\r\n<td style=\"width: 50px; height: 15px;\">&nbsp;</td>\r\n<td style=\"width: 100px; height: 15px;\">&nbsp;ms/G</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;1002</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>','2017-01-30');
 
 /*Table structure for table `medical_record` */
 
@@ -122,7 +126,7 @@ CREATE TABLE `medical_record` (
 
 /*Data for the table `medical_record` */
 
-insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-230117-0000','DOC-0000','REG-210117-0000','USR-000000','2017-01-23',NULL,NULL,NULL,'<p>Complaints</p>','<p>Symptoms</p>','<p>Diagnosis</p>','<p>Handling</p>');
+insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-230117-0000','DOC-0000','REG-210117-0000','USR-000000','2017-01-23','LAB-0000','RES-300117-0000','PSC-300117-0000','<p>Complaints</p>','<p>Symptoms</p>','<p>Diagnosis</p>','<p>Handling</p>');
 
 /*Table structure for table `medicine` */
 
@@ -144,6 +148,8 @@ CREATE TABLE `medicine` (
 
 /*Data for the table `medicine` */
 
+insert  into `medicine`(`medicine_id`,`type_id`,`name`,`description`,`price`,`amount`,`created_at`,`updated_at`) values ('MED-0000','TYP-0000','Abrosive','<p>Description</p>',90000,98,'2017-01-30 17:45:38',NULL),('MED-0001','TYP-0000','Avioux','<p>Description</p>',10000,15,'2017-01-30 17:52:54',NULL);
+
 /*Table structure for table `medicine_type` */
 
 DROP TABLE IF EXISTS `medicine_type`;
@@ -157,6 +163,8 @@ CREATE TABLE `medicine_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medicine_type` */
+
+insert  into `medicine_type`(`type_id`,`name`,`created_at`,`updated_at`) values ('TYP-0000','Alcohol','2017-01-30 17:45:09',NULL);
 
 /*Table structure for table `patient` */
 
@@ -220,6 +228,8 @@ CREATE TABLE `prescription` (
 
 /*Data for the table `prescription` */
 
+insert  into `prescription`(`prescription_id`,`record_id`,`worker_id`,`time`,`description`) values ('PSC-300117-0000','REC-230117-0000','WRK-0003','2017-01-30','<p>Info</p>');
+
 /*Table structure for table `prescription_detail` */
 
 DROP TABLE IF EXISTS `prescription_detail`;
@@ -238,6 +248,8 @@ CREATE TABLE `prescription_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `prescription_detail` */
+
+insert  into `prescription_detail`(`prescription_id`,`medicine_id`,`dosage`,`amount`,`total`,`usage`) values ('PSC-300117-0000','MED-0000','450 gram per day.',2,2,'<p>Usage Info</p>');
 
 /*Table structure for table `registration` */
 
@@ -303,7 +315,20 @@ CREATE TABLE `worker` (
 
 /*Data for the table `worker` */
 
-insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`photo`,`created_at`,`updated_at`) values ('WRK-0000','Dian Yuliana','female','registration','1997-06-19','<p>Jl. Sukagalih Gg.H.Gozali</p>','','2017-01-21 19:25:42','2017-01-21 19:25:58'),('WRK-0001','Gema Aji Wardian','male','payment','1990-05-22','<p>Home Address</p>','','2017-01-21 19:28:40',NULL);
+insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`photo`,`created_at`,`updated_at`) values ('WRK-0000','Dian Yuliana','female','registration','1997-06-19','<p>Jl. Sukagalih Gg.H.Gozali</p>','','2017-01-21 19:25:42','2017-01-21 19:25:58'),('WRK-0001','Gema Aji Wardian','male','payment','1990-05-22','<p>Home Address</p>','','2017-01-21 19:28:40',NULL),('WRK-0002','Brian Robinson','male','lab','1983-12-22','<p>Home Address</p>','','2017-01-30 17:38:55',NULL),('WRK-0003','Ian Damien','male','pharmacist','1996-07-11','<p>Home Address</p>','','2017-01-30 17:44:58',NULL);
+
+/* Trigger structure for table `prescription_detail` */
+
+DELIMITER $$
+
+/*!50003 DROP TRIGGER*//*!50032 IF EXISTS */ /*!50003 `update_stock` */$$
+
+/*!50003 CREATE */ /*!50017 DEFINER = 'root'@'localhost' */ /*!50003 TRIGGER `update_stock` AFTER INSERT ON `prescription_detail` FOR EACH ROW BEGIN
+	UPDATE medicine set amount=(medicine.`amount` - new.amount) where medicine_id = NEW.medicine_id;
+    END */$$
+
+
+DELIMITER ;
 
 /* Procedure structure for procedure `getInvoice` */
 

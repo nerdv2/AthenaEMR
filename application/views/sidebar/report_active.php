@@ -9,14 +9,17 @@
   </div>
   <div class="sidebar-menu">
     <ul class="sidebar-nav">
-      <li class="dropdown ">
-         <a href="<?php echo base_url('index.php/athenaMain/'); ?>">
+      <li>
+        <a href="<?php echo base_url('index.php/athenaMain/'); ?>">
           <div class="icon">
             <i class="fa fa-tasks" aria-hidden="true"></i>
           </div>
           <div class="title">Dashboard</div>
         </a>
       </li>
+      <?php
+        if($_SESSION['status'] == "ADMIN"){
+      ?>
       <li class="dropdown ">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <div class="icon">
@@ -40,37 +43,98 @@
           </ul>
         </div>
       </li>
+      <?php
+        }
+      ?>
+      
       <li class="dropdown ">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <div class="icon">
             <i class="fa fa-book" aria-hidden="true"></i>
           </div>
-          <div class="title">Management</div>     
+          <div class="title">Management</div>
         </a>
         <div class="dropdown-menu">
           <ul>
+            <?php
+                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+            ?>
             <li class="section"><i class="fa fa-group" aria-hidden="true"></i> Registration Management</li>
             <li><a href="<?php echo base_url('index.php/athenaMain/registration_view'); ?>">Registration Data</a></li>
+            <?php
+                if($_SESSION['status'] == "ADMIN"){
+            ?>
             <li><a href="<?php echo base_url('index.php/athenaMain/clinic_view'); ?>">Clinic Data</a></li>
+            <?php
+                }
+            ?>
             <li class="line"></li>
+            <?php
+                }
+            ?>
+            <?php
+                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "PAYMENT"){
+            ?>
             <li class="section"><i class="fa fa-usd" aria-hidden="true"></i> Payment Management</li>
             <li><a href="<?php echo base_url('index.php/athenaMain/payment_view'); ?>">Payment Data</a></li>
             <li class="line"></li>
+            <?php
+                }
+            ?>
+            <?php
+                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION" or $_SESSION['status'] == "DOCTOR"){
+            ?>
             <li class="section"><i class="fa fa-stethoscope" aria-hidden="true"></i> Records Management</li>
+            <?php
+                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+            ?>
             <li><a href="<?php echo base_url('index.php/athenaMain/patient_view'); ?>">Patient Data</a></li>
+            <?php
+                }
+            ?>
+            <?php
+                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "DOCTOR"){
+            ?>
             <li><a href="<?php echo base_url('index.php/athenaMain/emr_view'); ?>">Medical Records Data</a></li>
+            <?php
+                }
+            ?>
             <li class="line"></li>
+            <?php
+                }
+            ?>
+            <?php
+                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "LAB"){
+            ?>
             <li class="section"><i class="fa fa-heartbeat" aria-hidden="true"></i> Lab Management</li>
+            <?php
+                if($_SESSION['status'] == "ADMIN"){
+            ?>
             <li><a href="<?php echo base_url('index.php/athenaMain/lab_view'); ?>">Lab Data</a></li>
+            <?php
+                }
+            ?>
             <li><a href="<?php echo base_url('index.php/athenaMain/labresult_view'); ?>">Lab Result Data</a></li>
             <li class="line"></li>
+            <?php
+                }
+            ?>
+            <?php
+                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "PHARMACIST"){
+            ?>
             <li class="section"><i class="fa fa-medkit" aria-hidden="true"></i> Pharmacist Management</li>
             <li><a href="<?php echo base_url('index.php/athenaMain/prescription_view'); ?>">Prescription Data</a></li>
             <li><a href="<?php echo base_url('index.php/athenaMain/medicine_view'); ?>">Medicine Data</a></li>
             <li><a href="<?php echo base_url('index.php/athenaMain/medicine_type_view'); ?>">Medicine Type Data</a></li>
+            <?php
+                }
+            ?>
           </ul>
         </div>
       </li>
+      <?php
+        if($_SESSION['status'] == "ADMIN"){
+      ?>
       <li class="active dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
           <div class="icon">
@@ -106,6 +170,9 @@
       <li><a href="#"><span class="flag-icon flag-icon-us flag-icon-squared"></span></a></li>
     </ul>
   </div>
+  <?php
+        }
+  ?>
 </aside>
 
 <script type="text/ng-template" id="sidebar-dropdown.tpl.html">
