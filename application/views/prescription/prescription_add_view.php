@@ -16,7 +16,7 @@
 		<?php endif; ?>
     <?php $data = $this->PrescriptionModel->generate_id(); ?>
     <?php $record = $this->PrescriptionModel->getRecordID(); ?>
-    <?php $worker = $this->PrescriptionModel->getWorkerID(); ?>
+    <?php $worker = $this->PrescriptionModel->getWorkerID($_SESSION['worker_id']); ?>
     <?php $medicine = $this->PrescriptionModel->getMedicineID(); ?>
   <div class="col-md-12">
       <div class="card">
@@ -42,7 +42,7 @@
                 <div class="col-md-12">
                      <?php
                       echo "<select class='select2' name='worker_id' id='worker_id'>";
-                      echo "<option value=''>Select Workers</option>";
+                      //echo "<option value=''>Select Workers</option>";
                       foreach ($worker as $list) {
                         echo "<option value='". $list['worker_id'] . "'>" . $list['name'] . "</option>";
                       }

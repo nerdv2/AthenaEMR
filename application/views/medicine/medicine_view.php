@@ -15,11 +15,16 @@
                 $this->table->set_heading('Medicine ID','Type Medicine ID','Medicine Name',
                 'Price','Unit','Created At','Updated At','');
                 foreach($query as $row){
+                  if($_SESSION['status'] == "ADMIN"){
                     $edit = "<a href='".site_url()."/medicine/viewdata/".$row->medicine_id."' title='".$row->name."'>View</a>
                     <br>
                     <a href='".site_url()."/medicine/editdata/".$row->medicine_id."' title='".$row->name."'>Edit</a>
                     <br>
                     <a href='".site_url()."/medicine/deletedata/".$row->medicine_id."' title='".$row->name."' onclick='return confirmDelete();'>Delete</a>"; 
+                  } else {
+                    $edit = "<a href='".site_url()."/medicine/viewdata/".$row->medicine_id."' title='".$row->name."'>View</a>"; 
+                  }
+                    
                     $this->table->add_row($row->medicine_id, $row->type_id,$row->name,$row->price,
                     $row->amount, $row->created_at, $row->updated_at,$edit);
                 }

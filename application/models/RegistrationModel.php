@@ -12,11 +12,12 @@
             return $query->result();
         }
 
-        public function getWorkerID(){
+        public function getWorkerID($iddata){
             $data = array();
             $this->db->select("*");
             $this->db->from('worker');
             $this->db->where('role', 'registration');
+            $this->db->where('worker_id', $iddata);
             $query = $this->db->get();
             if ($query->num_rows() > 0) {
                 foreach ($query->result_array() as $row){

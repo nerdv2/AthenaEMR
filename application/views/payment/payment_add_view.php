@@ -16,7 +16,7 @@
 		<?php endif; ?>
     <?php $data = $this->PaymentModel->generate_id(); ?>
     <?php $register = $this->PaymentModel->getRegisterID(); ?>
-    <?php $worker = $this->PaymentModel->getWorkerID(); ?>
+    <?php $worker = $this->PaymentModel->getWorkerID($_SESSION['worker_id']); ?>
   <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -41,7 +41,7 @@
                 <div class="col-md-12">
                      <?php
                       echo "<select class='select2' name='worker_id' id='worker_id'>";
-                      echo "<option value=''>Select Worker</option>";
+                      //echo "<option value=''>Select Worker</option>";
                       foreach ($worker as $list) {
                         echo "<option value='". $list['worker_id'] . "'>" . $list['name'] . "</option>";
                       }

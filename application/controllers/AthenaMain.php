@@ -308,6 +308,7 @@ class AthenaMain extends CI_Controller {
                 $_SESSION['user_id'] = (int)$user->id_user;
                 $_SESSION['username'] = (string)$user->username;
                 $_SESSION['doctor_id'] = (string)$user->doctor_id;
+                $_SESSION['worker_id'] = (string)$user->worker_id;
                 $_SESSION['logged_in'] = (bool)true;
                 
                 $auth_status = $user->status;

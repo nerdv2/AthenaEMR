@@ -15,7 +15,7 @@
 			</div>
 		<?php endif; ?>
     <?php $data = $this->RegistrationModel->generate_id(); ?>
-    <?php $worker = $this->RegistrationModel->getWorkerID(); ?>
+    <?php $worker = $this->RegistrationModel->getWorkerID($_SESSION['worker_id']); ?>
     <?php $patient = $this->RegistrationModel->getPatientID(); ?>
     <?php $clinic = $this->RegistrationModel->getClinicID(); ?>
     <?php $doctor = $this->RegistrationModel->getDoctorID(); ?>
@@ -33,7 +33,7 @@
                 <div class="col-md-12">
                      <?php
                       echo "<select class='select2' name='worker_id' id='worker_id'>";
-                      echo "<option value=''>Select Worker</option>";
+                      //echo "<option value=''>Select Worker</option>";
                       foreach ($worker as $list) {
                         echo "<option value='". $list['worker_id'] . "'>" . $list['name'] . "</option>";
                       }

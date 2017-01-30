@@ -14,10 +14,15 @@
 
                 $this->table->set_heading('Medicine Type ID','Medicine Type Name','Created At','Updated At','');
                 foreach($query as $row){
+                  if($_SESSION['status'] == "ADMIN"){
                     $edit = "
                     <a href='".site_url()."/medicineType/editdata/".$row->type_id."' title='".$row->name."'>Edit</a>
                     <br>
                     <a href='".site_url()."/medicineType/deletedata/".$row->type_id."' title='".$row->name."' onclick='return confirmDelete();'>Delete</a>"; 
+                  } else {
+                    $edit = "";
+                  }
+                    
                     $this->table->add_row($row->type_id,$row->name, $row->created_at, $row->updated_at,$edit);
                 }
                 echo $this->table->generate();
