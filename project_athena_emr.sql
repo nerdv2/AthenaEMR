@@ -122,6 +122,8 @@ CREATE TABLE `medical_record` (
 
 /*Data for the table `medical_record` */
 
+insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-230117-0000','DOC-0000','REG-210117-0000','USR-000000','2017-01-23',NULL,NULL,NULL,'<p>Complaints</p>','<p>Symptoms</p>','<p>Diagnosis</p>','<p>Handling</p>');
+
 /*Table structure for table `medicine` */
 
 DROP TABLE IF EXISTS `medicine`;
@@ -276,11 +278,11 @@ CREATE TABLE `user` (
   KEY `doctor_id` (`doctor_id`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL);
+insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL),(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,'2017-01-23 08:07:27',NULL),(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,'2017-01-23 08:08:25',NULL),(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,'2017-01-23 08:09:25',NULL),(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,'2017-01-23 08:09:49',NULL),(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,'2017-01-23 08:10:10',NULL);
 
 /*Table structure for table `worker` */
 
@@ -340,7 +342,7 @@ DELIMITER $$
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPatientMonth`(IN startdate VARCHAR(255), IN enddate VARCHAR(255), 
     IN iddata2 VARCHAR(255))
 BEGIN
-SELECT registration.`time` AS "Date", patient.`name` AS "Name", registration.`doctor_id` FROM registration, patient, doctor
+SELECT registration.`time` AS "Date", patient.`name` AS "Name", doctor.`name` AS "doctor_name" FROM registration, patient, doctor
 WHERE registration.`patient_id` = patient.`patient_id` AND doctor.`doctor_id` = registration.`doctor_id`
 AND registration.`doctor_id` = iddata2
 AND DATE_FORMAT(registration.time, "%m-%Y") >= startdate AND DATE_FORMAT(registration.time, "%m-%Y") <= enddate GROUP BY patient.`name`;
@@ -355,9 +357,24 @@ DELIMITER $$
 
 /*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getRecordMonth`(IN iddata VARCHAR(255), IN startdate VARCHAR(255), IN enddate VARCHAR(255))
 BEGIN
-	SELECT medical_record.* FROM medical_record 
-	WHERE medical_record.`patient_id` = iddata AND DATE_FORMAT(medical_record.time, "%m-%Y") >= startdate 
-	AND DATE_FORMAT(medical_record.time, "%m-%Y") <= enddate;
+	SELECT medical_record.`record_id`,
+	medical_record.`doctor_id`,
+	doctor.`name` AS "doctor_name",
+	medical_record.`register_id`,
+	medical_record.`patient_id`,
+	patient.`name` AS "patient_name",
+	medical_record.`time`,
+	medical_record.`lab_id`,
+	medical_record.`result_id`,
+	medical_record.`prescription_id`,
+	medical_record.`complaint`,
+	medical_record.`symptoms`,
+	medical_record.`diagnosis`,
+	medical_record.`handling`
+FROM medical_record, patient, doctor
+WHERE medical_record.`patient_id` = iddata AND medical_record.`patient_id` = patient.`patient_id` 
+AND doctor.`doctor_id` = medical_record.`doctor_id` AND DATE_FORMAT(medical_record.time, "%m-%Y") >= startdate 
+AND DATE_FORMAT(medical_record.time, "%m-%Y") <= enddate;
     END */$$
 DELIMITER ;
 

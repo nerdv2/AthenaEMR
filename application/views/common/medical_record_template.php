@@ -134,12 +134,20 @@
                 <td><?php echo $row->doctor_id; ?></td>
             </tr>
             <tr>
+                <td>Doctor Name: </td>
+                <td><?php echo $row->doctor_name; ?></td>
+            </tr>
+            <tr>
                 <td>Register ID: </td>
                 <td><?php echo $row->register_id; ?></td>
             </tr>
             <tr>
                 <td>Patient ID: </td>
                 <td><?php echo $row->patient_id; ?></td>
+            </tr>
+            <tr>
+                <td>Patient Name: </td>
+                <td><?php echo $row->patient_name; ?></td>
             </tr>
             <tr>
                 <td>Time: </td>
