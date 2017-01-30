@@ -64,7 +64,7 @@
                      <textarea name="address" class="form-control">Home Address</textarea>
                 </div>
                 <div class="col-md-12">
-                     <input type="text" class="form-control" placeholder="Photo filename" name="photo">
+                     <br><input type="text" class="form-control" placeholder="Photo filename" name="photo" disabled>
                 </div>
                 <div class="form-footer">
                   <div class="form-group">
