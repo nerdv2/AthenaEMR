@@ -43,7 +43,6 @@ class Workers extends CI_Controller {
 			$this->form_validation->set_rules('role', 'Role', 'trim|required');
 			$this->form_validation->set_rules('dob', 'D.O.B', 'trim|required');
 			$this->form_validation->set_rules('address', 'Address', 'trim|required');
-			$this->form_validation->set_rules('photo', 'Photo', 'trim');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -62,10 +61,9 @@ class Workers extends CI_Controller {
 				$role = $this->input->post('role');
 				$dob = $this->input->post('dob');
 				$address = $this->input->post('address');
-				$photo = $this->input->post('photo');
 
 				if ($this->WorkersModel->create_workers($worker_id, $name, 
-				$gender, $role, $dob, $address, $photo)) {
+				$gender, $role, $dob, $address)) {
 				
 					// user creation ok
 					$this->WorkersModel->Redirect();
@@ -105,7 +103,6 @@ class Workers extends CI_Controller {
 			$this->form_validation->set_rules('role', 'Role', 'trim|required');
 			$this->form_validation->set_rules('dob', 'D.O.B', 'trim|required');
 			$this->form_validation->set_rules('address', 'Address', 'trim|required');
-			$this->form_validation->set_rules('photo', 'Photo', 'trim');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -125,10 +122,9 @@ class Workers extends CI_Controller {
 				$role = $this->input->post('role');
 				$dob = $this->input->post('dob');
 				$address = $this->input->post('address');
-				$photo = $this->input->post('photo');
 
 				if ($this->WorkersModel->Update($worker_id, $name, 
-				$gender, $role, $dob, $address, $photo)) {
+				$gender, $role, $dob, $address)) {
 				
 					// user creation ok
 					$this->WorkersModel->Redirect();

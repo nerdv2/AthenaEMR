@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/registration/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('RegisterID','WorkerID','PatientID','Type','Time of Register','Entry Number','');
+                $this->table->set_heading('RegisterID','WorkerID','PatientID','ClinicID','Time of Register','Entry Number','');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                     $edit = "
@@ -20,7 +20,7 @@
                   } else {
                     $edit = "";
                   }
-                    $this->table->add_row($row->register_id, $row->worker_id, $row->patient_id, $row->category, $row->time, $row->entry_no,$edit);
+                    $this->table->add_row($row->register_id, $row->worker_id, $row->patient_id, $row->clinic_id, $row->time, $row->entry_no,$edit);
                 }
                 echo $this->table->generate();
         ?>

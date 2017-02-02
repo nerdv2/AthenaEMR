@@ -53,9 +53,6 @@
                 <div class="col-md-12">
                      <br><input type="number" class="form-control" placeholder="Phone Number" value="<?= $query->phone; ?>" name="phone">
                 </div>
-                <div class="col-md-12">
-                     <input type="text" class="form-control" placeholder="Photo filename" value="<?= $query->photo; ?>" name="photo" disabled>
-                </div>
                 <div class="form-footer">
                   <div class="form-group">
                     <div class="col-md-9">

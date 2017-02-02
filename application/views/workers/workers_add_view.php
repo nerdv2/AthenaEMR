@@ -61,10 +61,7 @@
                     </script>
                 </div>
                 <div class="col-md-12">
-                     <textarea name="address" class="form-control">Home Address</textarea>
-                </div>
-                <div class="col-md-12">
-                     <br><input type="text" class="form-control" placeholder="Photo filename" name="photo" disabled>
+                     <textarea name="address" class="form-control">Home Address</textarea><br>
                 </div>
                 <div class="form-footer">
                   <div class="form-group">

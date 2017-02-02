@@ -13,7 +13,7 @@
         }
 
         public function create_workers($worker_id, $name, 
-				$gender, $role, $dob, $address, $photo) {
+				$gender, $role, $dob, $address) {
 		
 		$data = array(
 			'worker_id'   => $worker_id,
@@ -22,7 +22,6 @@
             'role'      => $role,
             'dob'      => $dob,
             'address'      => $address,
-            'photo'      => $photo,
 			'created_at' => date('Y-m-j H:i:s'),
 		);
 		
@@ -58,7 +57,7 @@
         }
 
         public function Update($worker_id, $name, 
-				$gender, $role, $dob, $address, $photo){
+				$gender, $role, $dob, $address){
             
             $data = array(
                 'name'   => $name,
@@ -66,7 +65,6 @@
                 'role'      => $role,
                 'dob'      => $dob,
                 'address'      => $address,
-                'photo'      => $photo,
                 'updated_at' => date('Y-m-j H:i:s'),
 		    );
 

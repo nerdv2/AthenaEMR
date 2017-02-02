@@ -36,20 +36,21 @@
             return $data;
         }
 
-        public function create_user($username, $password, $status, $doctor_id, $worker_id) {
+        public function create_user($username, $password, $status, $doctor_id, $worker_id, $photo) {
 		
             $data = array(
                 'username'   => $username,
                 'password_hash'   => $this->hash_password($password),
                 'status'      => $status,
                 'created_at' => date('Y-m-j H:i:s'),
+                'photo'     => $photo,
             );
             
             return $this->db->insert('user', $data);
             
         }
 
-        public function create_user_doctor($username, $password, $status, $doctor_id) {
+        public function create_user_doctor($username, $password, $status, $doctor_id, $photo) {
 		
             $data = array(
                 'username'   => $username,
@@ -57,13 +58,14 @@
                 'status'      => $status,
                 'doctor_id'      => $doctor_id,
                 'created_at' => date('Y-m-j H:i:s'),
+                'photo'     => $photo,
             );
             
             return $this->db->insert('user', $data);
             
         }
 
-        public function create_user_worker($username, $password, $status, $worker_id) {
+        public function create_user_worker($username, $password, $status, $worker_id, $photo) {
 		
             $data = array(
                 'username'   => $username,
@@ -71,6 +73,7 @@
                 'status'      => $status,
                 'worker_id'      => $worker_id,
                 'created_at' => date('Y-m-j H:i:s'),
+                'photo'     => $photo,
             );
             
             return $this->db->insert('user', $data);
@@ -89,7 +92,7 @@
         }
 
         public function update_user($id_user,
-				 $username, $password, $status, $doctor_id, $worker_id){
+				 $username, $password, $status, $doctor_id, $worker_id, $photo){
             
             $data = array(
                 'username'   => $username,
@@ -98,6 +101,7 @@
                 'doctor_id'      => $doctor_id,
                 'worker_id'      => $worker_id,
                 'updated_at' => date('Y-m-j H:i:s'),
+                'photo'     => $photo,
 	    	);
             
             $this->db->where("id_user", $id_user);
@@ -106,7 +110,7 @@
         }
 
         public function update_user_doctor($id_user,
-				 $username, $password, $status, $doctor_id){
+				 $username, $password, $status, $doctor_id, $photo){
             
             $data = array(
                 'username'   => $username,
@@ -114,6 +118,7 @@
                 'status'      => $status,
                 'doctor_id'      => $doctor_id,
                 'updated_at' => date('Y-m-j H:i:s'),
+                'photo'     => $photo,
 	    	);
             
             $this->db->where("id_user", $id_user);
@@ -122,7 +127,7 @@
         }
 
         public function update_user_worker($id_user,
-				 $username, $password, $status, $worker_id){
+				 $username, $password, $status, $worker_id, $photo){
             
             $data = array(
                 'username'   => $username,
@@ -130,6 +135,7 @@
                 'status'      => $status,
                 'worker_id'      => $worker_id,
                 'updated_at' => date('Y-m-j H:i:s'),
+                'photo'     => $photo,
 	    	);
             
             $this->db->where("id_user", $id_user);

@@ -25,7 +25,7 @@
         }
 
         public function create_doctor($doctor_id, $clinic_id, 
-				$name, $gender, $dob, $address, $phone, $photo) {
+				$name, $gender, $dob, $address, $phone) {
 		
 		$data = array(
 			'doctor_id'   => $doctor_id,
@@ -35,7 +35,6 @@
             'dob'      => $dob,
             'address'      => $address,
             'phone'      => $phone,
-            'photo'      => $photo,
 			'created_at' => date('Y-m-j H:i:s'),
 		);
 		
@@ -71,7 +70,7 @@
         }
 
         public function Update($doctor_id, $clinic_id, 
-				$name, $gender, $dob, $address, $phone, $photo){
+				$name, $gender, $dob, $address, $phone){
             
             $data = array(
                 'doctor_id'   => $doctor_id,
@@ -81,7 +80,6 @@
                 'dob'      => $dob,
                 'address'      => $address,
                 'phone'      => $phone,
-                'photo'      => $photo,
 			    'updated_at' => date('Y-m-j H:i:s'),
 		    );
 

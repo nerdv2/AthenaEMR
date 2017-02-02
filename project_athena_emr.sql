@@ -45,7 +45,6 @@ CREATE TABLE `doctor` (
   `dob` date NOT NULL,
   `address` varchar(255) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `photo` varchar(100) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`doctor_id`),
@@ -55,7 +54,7 @@ CREATE TABLE `doctor` (
 
 /*Data for the table `doctor` */
 
-insert  into `doctor`(`doctor_id`,`clinic_id`,`name`,`gender`,`dob`,`address`,`phone`,`photo`,`created_at`,`updated_at`) values ('DOC-0000','DIV-0000','Drs. Annisa Baharmin','female','1992-11-13','<p>Home Address</p>','','','2017-01-21 19:26:48',NULL),('DOC-0001','DIV-0001','Dr. Sukarman Nugraha','male','1973-02-11','<p>Home Address</p>','','','2017-01-21 19:27:03',NULL);
+insert  into `doctor`(`doctor_id`,`clinic_id`,`name`,`gender`,`dob`,`address`,`phone`,`created_at`,`updated_at`) values ('DOC-0000','DIV-0000','Drs. Annisa Baharmin','female','1992-11-13','<p>Home Address</p>','','2017-01-21 19:26:48',NULL),('DOC-0001','DIV-0001','Dr. Sukarman Nugraha','male','1973-02-11','<p>Home Address</p>','','2017-01-21 19:27:03',NULL);
 
 /*Table structure for table `lab` */
 
@@ -265,12 +264,20 @@ CREATE TABLE `registration` (
   `time` date NOT NULL,
   `entry_no` int(11) DEFAULT NULL,
   `patient_type` tinyint(1) NOT NULL,
-  PRIMARY KEY (`register_id`)
+  PRIMARY KEY (`register_id`),
+  KEY `worker_id` (`worker_id`),
+  KEY `patient_id` (`patient_id`),
+  KEY `clinic_id` (`clinic_id`),
+  KEY `doctor_id` (`doctor_id`),
+  CONSTRAINT `registration_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `registration_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `registration_ibfk_3` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `registration_ibfk_4` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`,`patient_type`) values ('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0,0);
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`,`patient_type`) values ('REG-020217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-02',0,0),('REG-020217-0001',NULL,'USR-000000','DIV-0001','DOC-0001','clinic','2017-02-02',0,0),('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0,0);
 
 /*Table structure for table `user` */
 
@@ -285,6 +292,7 @@ CREATE TABLE `user` (
   `worker_id` varchar(10) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   KEY `worker_id` (`worker_id`),
   KEY `doctor_id` (`doctor_id`),
@@ -294,7 +302,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL),(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,'2017-01-23 08:07:27',NULL),(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,'2017-01-23 08:08:25',NULL),(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,'2017-01-23 08:09:25',NULL),(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,'2017-01-23 08:09:49',NULL),(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,'2017-01-23 08:10:10',NULL),(18,'dianyuliana','$2y$10$tMAsD6oqM1BDVNwyNbclL.5qDIvlaFOWfx.OdcRM8gUAYTbFyfyXu','registration',NULL,'WRK-0000','2017-01-30 23:00:36',NULL),(19,'gemawardian','$2y$10$Ne1D54/sklynTCWMtcaQ7eSBM9F0Nev0nT06PU9FwSNNhTeO/W0WS','payment',NULL,'WRK-0001','2017-01-30 23:06:49',NULL),(20,'iandamien','$2y$10$xLRJLNKbJDfPaw9ANPG2i.NY1xxAxDKJ6WIu1DfHj3yQzHfUq9iGC','pharmacist',NULL,'WRK-0003','2017-01-30 23:09:34',NULL),(21,'brianrobinson','$2y$10$KrniVWCkkZyljs5a/iQx8OxTFXsl1SdqQfk/Hf/ecsWn0Ly4Up8FO','lab',NULL,'WRK-0002','2017-01-30 23:11:52',NULL);
+insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`,`photo`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL,NULL),(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,'2017-01-23 08:07:27',NULL,NULL),(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,'2017-01-23 08:08:25',NULL,NULL),(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,'2017-01-23 08:09:25',NULL,NULL),(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,'2017-01-23 08:09:49',NULL,NULL),(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,'2017-01-23 08:10:10',NULL,NULL),(18,'dianyuliana','$2y$10$tMAsD6oqM1BDVNwyNbclL.5qDIvlaFOWfx.OdcRM8gUAYTbFyfyXu','registration',NULL,'WRK-0000','2017-01-30 23:00:36',NULL,NULL),(19,'gemawardian','$2y$10$Ne1D54/sklynTCWMtcaQ7eSBM9F0Nev0nT06PU9FwSNNhTeO/W0WS','payment',NULL,'WRK-0001','2017-01-30 23:06:49',NULL,NULL),(20,'iandamien','$2y$10$xLRJLNKbJDfPaw9ANPG2i.NY1xxAxDKJ6WIu1DfHj3yQzHfUq9iGC','pharmacist',NULL,'WRK-0003','2017-01-30 23:09:34',NULL,NULL),(21,'brianrobinson','$2y$10$KrniVWCkkZyljs5a/iQx8OxTFXsl1SdqQfk/Hf/ecsWn0Ly4Up8FO','lab',NULL,'WRK-0002','2017-01-30 23:11:52',NULL,NULL);
 
 /*Table structure for table `worker` */
 
@@ -307,7 +315,6 @@ CREATE TABLE `worker` (
   `role` varchar(100) NOT NULL,
   `dob` date NOT NULL,
   `address` varchar(255) NOT NULL,
-  `photo` varchar(100) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`worker_id`)
@@ -315,7 +322,7 @@ CREATE TABLE `worker` (
 
 /*Data for the table `worker` */
 
-insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`photo`,`created_at`,`updated_at`) values ('WRK-0000','Dian Yuliana','female','registration','1997-06-19','<p>Jl. Sukagalih Gg.H.Gozali</p>','','2017-01-21 19:25:42','2017-01-21 19:25:58'),('WRK-0001','Gema Aji Wardian','male','payment','1990-05-22','<p>Home Address</p>','','2017-01-21 19:28:40',NULL),('WRK-0002','Brian Robinson','male','lab','1983-12-22','<p>Home Address</p>','','2017-01-30 17:38:55',NULL),('WRK-0003','Ian Damien','male','pharmacist','1996-07-11','<p>Home Address</p>','','2017-01-30 17:44:58',NULL);
+insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`created_at`,`updated_at`) values ('WRK-0000','Dian Yuliana','female','registration','1997-06-19','<p>Jl. Sukagalih Gg.H.Gozali</p>','2017-01-21 19:25:42','2017-01-21 19:25:58'),('WRK-0001','Gema Aji Wardian','male','payment','1990-05-22','<p>Home Address</p>','2017-01-21 19:28:40',NULL),('WRK-0002','Brian Robinson','male','lab','1983-12-22','<p>Home Address</p>','2017-01-30 17:38:55',NULL),('WRK-0003','Ian Damien','male','pharmacist','1996-07-11','<p>Home Address</p>','2017-01-30 17:44:58',NULL);
 
 /* Trigger structure for table `prescription_detail` */
 

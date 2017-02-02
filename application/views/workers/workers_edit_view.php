@@ -80,10 +80,7 @@
                      <input type="text" class="form-control" placeholder="Date of Birth" value="<?= $query->dob; ?>" name="dob" required>
                 </div>
                 <div class="col-md-12">
-                     <textarea name="address" class="form-control"><?= $query->address; ?></textarea>
-                </div>
-                <div class="col-md-12">
-                     <br><input type="text" class="form-control" placeholder="Photo filename" value="<?= $query->photo; ?>" name="photo" disabled>
+                     <textarea name="address" class="form-control"><?= $query->address; ?></textarea><br>
                 </div>
                 <div class="form-footer">
                   <div class="form-group">

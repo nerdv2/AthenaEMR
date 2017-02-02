@@ -42,6 +42,7 @@ class Users extends CI_Controller {
 			$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
 			$this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|alpha_dash');
 			$this->form_validation->set_rules('worker_id', 'WorkerID', 'trim|alpha_dash');
+            $this->form_validation->set_rules('photo', 'Photo', 'trim');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -59,9 +60,10 @@ class Users extends CI_Controller {
 				$status = $this->input->post('status');
 				$doctor_id = $this->input->post('doctor_id');
 				$worker_id = $this->input->post('worker_id');
+				$photo = $this->input->post('photo');
 
 				if($doctor_id == "" && $worker_id == ""){
-					if ($this->UsersModel->create_user($username, $password, $status, $doctor_id, $worker_id)) {
+					if ($this->UsersModel->create_user($username, $password, $status, $doctor_id, $worker_id, $photo)) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();
@@ -80,7 +82,7 @@ class Users extends CI_Controller {
 								
 					}
 				} else if($doctor_id == "" && $worker_id !== ""){
-					if ($this->UsersModel->create_user_worker($username, $password, $status, $worker_id)) {
+					if ($this->UsersModel->create_user_worker($username, $password, $status, $worker_id, $photo)) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();
@@ -99,7 +101,7 @@ class Users extends CI_Controller {
 								
 					}
 				} else if($doctor_id !== "" && $worker_id == ""){
-					if ($this->UsersModel->create_user_doctor($username, $password, $status, $doctor_id)) {
+					if ($this->UsersModel->create_user_doctor($username, $password, $status, $doctor_id, $photo)) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();
@@ -143,6 +145,7 @@ class Users extends CI_Controller {
 			$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
 			$this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|required|alpha_dash');
 			$this->form_validation->set_rules('worker_id', 'WorkerID', 'trim|alpha_dash');
+			$this->form_validation->set_rules('photo', 'Photo', 'trim');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -162,9 +165,10 @@ class Users extends CI_Controller {
 				$status = $this->input->post('status');
 				$doctor_id = $this->input->post('doctor_id');
 				$worker_id = $this->input->post('worker_id');
+				$photo = $this->input->post('photo');
 
 				if($doctor_id == "" && $worker_id == ""){
-					if ($this->UsersModel->update_user($username, $password, $status, $doctor_id, $worker_id)) {
+					if ($this->UsersModel->update_user($username, $password, $status, $doctor_id, $worker_id, $photo)) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();
@@ -183,7 +187,7 @@ class Users extends CI_Controller {
 								
 					}
 				} else if($doctor_id == "" && $worker_id !== ""){
-					if ($this->UsersModel->update_user_worker($username, $password, $status, $worker_id)) {
+					if ($this->UsersModel->update_user_worker($username, $password, $status, $worker_id, $photo)) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();
@@ -202,7 +206,7 @@ class Users extends CI_Controller {
 								
 					}
 				} else if($doctor_id !== "" && $worker_id == ""){
-					if ($this->UsersModel->update_user_doctor($username, $password, $status, $doctor_id)) {
+					if ($this->UsersModel->update_user_doctor($username, $password, $status, $doctor_id, $photo)) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();

@@ -44,7 +44,6 @@ class Doctor extends CI_Controller {
 			$this->form_validation->set_rules('dob', 'D.O.B', 'trim|required');
 			$this->form_validation->set_rules('address', 'Address', 'trim|required');
 			$this->form_validation->set_rules('phone', 'Phone Number', 'trim|numeric');
-            $this->form_validation->set_rules('photo', 'Photo', 'trim');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -64,10 +63,9 @@ class Doctor extends CI_Controller {
 				$dob = $this->input->post('dob');
 				$address = $this->input->post('address');
 				$phone = $this->input->post('phone');
-				$photo = $this->input->post('photo');
 
 				if ($this->DoctorModel->create_doctor($doctor_id, $clinic_id, 
-				$name, $gender, $dob, $address, $phone, $photo)) {
+				$name, $gender, $dob, $address, $phone)) {
 				
 					// user creation ok
 					$this->DoctorModel->Redirect();
@@ -108,7 +106,6 @@ class Doctor extends CI_Controller {
 			$this->form_validation->set_rules('dob', 'D.O.B', 'trim|required');
 			$this->form_validation->set_rules('address', 'Address', 'trim|required');
 			$this->form_validation->set_rules('phone', 'Phone Number', 'trim|numeric');
-            $this->form_validation->set_rules('photo', 'Photo', 'trim');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -129,10 +126,9 @@ class Doctor extends CI_Controller {
 				$dob = $this->input->post('dob');
 				$address = $this->input->post('address');
 				$phone = $this->input->post('phone');
-				$photo = $this->input->post('photo');
 
 				if ($this->DoctorModel->Update($doctor_id, $clinic_id, 
-				$name, $gender, $dob, $address, $phone, $photo)) {
+				$name, $gender, $dob, $address, $phone)) {
 				
 					// user creation ok
 					$this->DoctorModel->Redirect();

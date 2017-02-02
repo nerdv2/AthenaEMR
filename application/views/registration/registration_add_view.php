@@ -18,7 +18,7 @@
     <?php $worker = $this->RegistrationModel->getWorkerID($_SESSION['worker_id']); ?>
     <?php $patient = $this->RegistrationModel->getPatientID(); ?>
     <?php $clinic = $this->RegistrationModel->getClinicID(); ?>
-    <?php $doctor = $this->RegistrationModel->getDoctorID(); ?>
+    <?php //$doctor = $this->RegistrationModel->getDoctorID(); ?>
   <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -32,11 +32,17 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                      echo "<select class='select2' name='worker_id' id='worker_id'>";
-                      //echo "<option value=''>Select Worker</option>";
-                      foreach ($worker as $list) {
+                     if($_SESSION['status'] == "ADMIN"){
+                        echo "<select class='select2' name='worker_id' id='worker_id'>";
+                        echo "<option value='ADMIN'>ADMINISTRATOR</option>";
+                     } else {
+                        echo "<select class='select2' name='worker_id' id='worker_id'>";
+                        //echo "<option value=''>Select Worker</option>";
+                        foreach ($worker as $list) {
                         echo "<option value='". $list['worker_id'] . "'>" . $list['name'] . "</option>";
                       }
+                     }
+                        
                     ?>
                     </select>
                 </div>
@@ -67,9 +73,7 @@
                     </select>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="category">
-                         <option value="clinic">CLINIC</option>
-                     </select>
+                     <input type="hidden" name="category" value="clinic">
                 </div>
                 <div class="col-md-12">
                      <?php
@@ -82,13 +86,19 @@
                     </select>
                 </div>
                 <div class="col-md-12">
+                     
                      <?php
+                     /*
                       echo "<select class='select2' name='doctor_id' id='doctor_id'>";
                       echo "<option value=''>Select Doctor</option>";
                       foreach ($doctor as $list) {
                         echo "<option value='". $list['doctor_id'] . "'>" . $list['name'] . "</option>";
                       }
+                      */
                     ?>
+
+                    <select class='select2' name='doctor_id' id='doctor_id'>
+                    
                     </select>
                 </div>
                 <div class="form-footer">

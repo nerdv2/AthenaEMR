@@ -7,7 +7,7 @@
 
         public function getData(){
             $this->db->select("*");
-            $this->db->from('registration');
+            $this->db->from('getregistertoday');
             $query = $this->db->get();
             return $query->result();
         }
@@ -52,16 +52,16 @@
             return $data;
         }
 
-        public function getDoctorID(){
-            $data = array();
-            $query = $this->db->get('doctor');
-            if ($query->num_rows() > 0) {
-                foreach ($query->result_array() as $row){
-                        $data[] = $row;
-                    }
+        public function getDoctorID($cid=NULL){
+            $result = $this->db->where('clinic_id', $cid)->get('doctor')->result();
+            $id = array('0');
+            $name = array('Select Doctor');
+            for ($i=0; $i<count($result); $i++)
+            {
+                array_push($id, $result[$i]->doctor_id);
+                array_push($name, $result[$i]->name);
             }
-            $query->free_result();
-            return $data;
+            return array_combine($id, $name);
         }
 
         public function getLabID(){

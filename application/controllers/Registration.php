@@ -52,12 +52,16 @@ class Registration extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('registration/registration_add_view');
-            	$this->load->view('footer');
+            	$this->load->view('registration_footer');
 			
 			} else {
 				// set variables from the form
 				$register_id = $this->input->post('register_id');
-				$worker_id    = $this->input->post('worker_id');
+				if($_SESSION['status'] == "ADMIN"){
+					$worker_id = null;
+				} else {
+					$worker_id    = $this->input->post('worker_id');
+				}
 				$patient_id = $this->input->post('patient_id');
 				$clinic_id = $this->input->post('clinic_id');
 				$doctor_id = $this->input->post('doctor_id');
@@ -79,7 +83,7 @@ class Registration extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('registration/registration_add_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('registration_footer');
 					
 				}
 
@@ -89,6 +93,11 @@ class Registration extends CI_Controller {
             redirect('/');
         }
 	}
+
+	function getDoctor(){
+        $id = $this->input->post('id');
+        echo(json_encode($this->RegistrationModel->getDoctorID($id)));
+    }
 
 
 	public function viewdata($id){
