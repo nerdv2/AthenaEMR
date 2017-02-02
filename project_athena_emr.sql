@@ -206,8 +206,6 @@ CREATE TABLE `payment` (
 
 /*Data for the table `payment` */
 
-insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`,`info`) values ('PAY-210117-0000','REG-210117-0000','WRK-0000','lab',65000,'2017-01-21','new');
-
 /*Table structure for table `prescription` */
 
 DROP TABLE IF EXISTS `prescription`;
@@ -337,6 +335,19 @@ DELIMITER $$
 
 DELIMITER ;
 
+/* Procedure structure for procedure `getAmount` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getAmount` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getAmount`(IN iddata VARCHAR(255))
+BEGIN
+SELECT clinic.`tariff` FROM clinic, registration WHERE clinic.`clinic_id` = registration.`clinic_id`
+ AND registration.`register_id` = iddata;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `getInvoice` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `getInvoice` */;
@@ -423,6 +434,23 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/*Table structure for table `getpaymenttoday` */
+
+DROP TABLE IF EXISTS `getpaymenttoday`;
+
+/*!50001 DROP VIEW IF EXISTS `getpaymenttoday` */;
+/*!50001 DROP TABLE IF EXISTS `getpaymenttoday` */;
+
+/*!50001 CREATE TABLE  `getpaymenttoday`(
+ `payment_id` varchar(15) ,
+ `register_id` varchar(15) ,
+ `worker_id` varchar(10) ,
+ `type` varchar(50) ,
+ `amount` double ,
+ `time` date ,
+ `info` varchar(50) 
+)*/;
+
 /*Table structure for table `getregistertoday` */
 
 DROP TABLE IF EXISTS `getregistertoday`;
@@ -440,6 +468,13 @@ DROP TABLE IF EXISTS `getregistertoday`;
  `time` date ,
  `entry_no` int(11) 
 )*/;
+
+/*View structure for view getpaymenttoday */
+
+/*!50001 DROP TABLE IF EXISTS `getpaymenttoday` */;
+/*!50001 DROP VIEW IF EXISTS `getpaymenttoday` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getpaymenttoday` AS (select `payment`.`payment_id` AS `payment_id`,`payment`.`register_id` AS `register_id`,`payment`.`worker_id` AS `worker_id`,`payment`.`type` AS `type`,`payment`.`amount` AS `amount`,`payment`.`time` AS `time`,`payment`.`info` AS `info` from `payment` where (cast(`payment`.`time` as date) = cast(curdate() as date))) */;
 
 /*View structure for view getregistertoday */
 

@@ -26,7 +26,7 @@
 
         public function getRegisterID(){
             $data = array();
-            $query = $this->db->get('registration');
+            $query = $this->db->get('getregistertoday');
             if ($query->num_rows() > 0) {
                 foreach ($query->result_array() as $row){
                         $data[] = $row;

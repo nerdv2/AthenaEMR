@@ -7,14 +7,14 @@
 
         public function getData(){
             $this->db->select("*");
-            $this->db->from('payment');
+            $this->db->from('getpaymenttoday');
             $query = $this->db->get();
             return $query->result();
         }
 
         public function getRegisterID(){
             $data = array();
-            $query = $this->db->get('registration');
+            $query = $this->db->get('getregistertoday');
             if ($query->num_rows() > 0) {
                 foreach ($query->result_array() as $row){
                         $data[] = $row;
@@ -47,8 +47,11 @@
         }
 
         public function create_payment($payment_id, $register_id, 
-				$worker_id, $type, $amount) {
+				$worker_id, $type) {
 		
+        $amount = $this->getAmount($register_id);
+        
+
         $getnew = $this->check_new_registration($register_id);
         $total = $getnew + $amount;
 
@@ -72,6 +75,16 @@
 		return $this->db->insert('payment', $data);
 
 	    }
+
+        public function getAmount($register_id){
+            $dataquery = "CALL getAmount(?)";
+            $execute = $this->db->query($dataquery,array($register_id));
+            $ret = $execute->row();
+            $execute->next_result();
+            $execute->free_result();
+            $amount = $ret->tariff;
+            return $amount;
+        }
 
         public function check_new_registration($register_id){
             $amount = 0;

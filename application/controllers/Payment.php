@@ -41,7 +41,7 @@ class Payment extends CI_Controller {
 			$this->form_validation->set_rules('register_id', 'RegisterID', 'trim|required|min_length[4]');
 			$this->form_validation->set_rules('worker_id', 'WorkerID', 'trim|required|min_length[4]');
 			$this->form_validation->set_rules('type', 'Type of Payment', 'trim|required');
-			$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric');
+			//$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -58,10 +58,10 @@ class Payment extends CI_Controller {
 				$register_id    = $this->input->post('register_id');
 				$worker_id = $this->input->post('worker_id');
 				$type = $this->input->post('type');
-				$amount = $this->input->post('amount');
+				//$amount = $this->input->post('amount');
 
 				if ($this->PaymentModel->create_payment($payment_id, $register_id, 
-				$worker_id, $type, $amount)) {
+				$worker_id, $type)) {
 					if($this->PaymentModel->update_register($register_id)){
 						// user creation ok
 						$this->PaymentModel->Redirect();

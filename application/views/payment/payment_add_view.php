@@ -55,9 +55,11 @@
                          <option value="medicine">MEDICINE</option>
                      </select>
                 </div>
+                <!--
                 <div class="col-md-12">
                      <input type="number" class="form-control" placeholder="Amount" name="amount" required>
                 </div>
+                -->
                 <div class="form-footer">
                   <div class="form-group">
                     <div class="col-md-9">
