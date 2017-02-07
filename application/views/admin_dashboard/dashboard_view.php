@@ -36,3 +36,27 @@
       </a>
     </div>
 </div>
+<div class="row">
+   <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-header">
+          Entry Data
+        </div>
+        <div class="card-body no-padding table-responsive">
+          <?php
+                $template = array('table_open' => '<table class="table card-table" cellspacing="0" width="100%">');
+                $this->table->set_template($template);
+
+                $this->table->set_heading('Clinic','Entry Number');
+                foreach($query as $row){
+                    $this->table->add_row($row->name, $row->entry_number);
+                }
+                echo $this->table->generate();
+        ?>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div>
+</div>

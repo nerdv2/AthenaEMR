@@ -88,6 +88,7 @@
 				$patient_id, $clinic_id, $doctor_id, $category, $patient_type) {
 		
         $entrynumber = $this->get_entrynumber($clinic_id);
+        $entrynumber++;
 
 		$data = array(
 			'register_id'   => $register_id,

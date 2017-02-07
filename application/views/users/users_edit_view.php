@@ -95,7 +95,7 @@
                      <input type="text" class="form-control" placeholder="Workers ID" value="<?= $query->worker_id; ?>" name="worker_id">
                 </div>
                 <div class="col-md-12">
-                  <input type="text" name="photo" value="<?= $query->photo; ?>" placeholder="Photo filename">
+                  <input type="text" class="form-control" name="photo" value="<?= $query->photo; ?>" placeholder="Photo filename">
                 </div>
                 <div class="form-footer">
                   <div class="form-group">

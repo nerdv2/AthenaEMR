@@ -24,5 +24,12 @@
             $query = $this->db->get();
             return $query->result();
         }
+
+        public function getRegisterEntry(){
+            $this->db->select("*");
+            $this->db->from('getentry');
+            $query = $this->db->get();
+            return $query->result();
+        }
     }
 ?>

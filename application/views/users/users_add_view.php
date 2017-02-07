@@ -64,7 +64,7 @@
                     </select>
                 </div>
                 <div class="col-md-12">
-                  <input type="text" name="photo" placeholder="Photo filename">
+                  <input class="form-control" type="text" name="photo" placeholder="Photo filename">
                 </div>
                 <div class="form-footer">
                   <div class="form-group">

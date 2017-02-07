@@ -36,12 +36,12 @@ class AthenaMain extends CI_Controller {
 
     public function index(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            //$data['query'] = $this->DashModel->getRegisterTotal();
+            $data['query'] = $this->DashModel->getRegisterEntry();
             $this->load->view('header');
             $this->load->view('sidebar/dashboard_active');
             $this->load->view('navbar');
             $this->load->view('floatnav/dashboard_floatbar');
-            $this->load->view('admin_dashboard/dashboard_view');
+            $this->load->view('admin_dashboard/dashboard_view', $data);
             $this->load->view('footer');
         } else {
             $this->login();

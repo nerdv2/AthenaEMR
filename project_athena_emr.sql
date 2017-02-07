@@ -275,7 +275,7 @@ CREATE TABLE `registration` (
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`,`patient_type`) values ('REG-020217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-02',0,0),('REG-020217-0001',NULL,'USR-000000','DIV-0001','DOC-0001','clinic','2017-02-02',0,0),('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0,0);
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`,`patient_type`) values ('REG-020217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-02',0,0),('REG-020217-0001',NULL,'USR-000000','DIV-0001','DOC-0001','clinic','2017-02-02',0,0),('REG-050217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-05',1,0),('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0,0);
 
 /*Table structure for table `user` */
 
@@ -320,7 +320,7 @@ CREATE TABLE `worker` (
 
 /*Data for the table `worker` */
 
-insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`created_at`,`updated_at`) values ('WRK-0000','Dian Yuliana','female','registration','1997-06-19','<p>Jl. Sukagalih Gg.H.Gozali</p>','2017-01-21 19:25:42','2017-01-21 19:25:58'),('WRK-0001','Gema Aji Wardian','male','payment','1990-05-22','<p>Home Address</p>','2017-01-21 19:28:40',NULL),('WRK-0002','Brian Robinson','male','lab','1983-12-22','<p>Home Address</p>','2017-01-30 17:38:55',NULL),('WRK-0003','Ian Damien','male','pharmacist','1996-07-11','<p>Home Address</p>','2017-01-30 17:44:58',NULL);
+insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`created_at`,`updated_at`) values ('WRK-0000','Dian Yuliana','female','registration','1997-06-19','<p>Jl. Sukagalih Gg.H.Gozali</p>','2017-01-21 19:25:42','2017-01-21 19:25:58'),('WRK-0001','Gema Aji Wardian','male','payment','1990-05-22','<p>Home Address</p>','2017-01-21 19:28:40',NULL),('WRK-0002','Brian Robinson','male','lab','1983-12-22','<p>Home Address</p>','2017-01-30 17:38:55',NULL),('WRK-0003','Ian Damien','male','pharmacist','1996-07-11','<p>Home Address</p>','2017-01-30 17:44:58','2017-02-05 11:30:07');
 
 /* Trigger structure for table `prescription_detail` */
 
@@ -434,6 +434,18 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/*Table structure for table `getentry` */
+
+DROP TABLE IF EXISTS `getentry`;
+
+/*!50001 DROP VIEW IF EXISTS `getentry` */;
+/*!50001 DROP TABLE IF EXISTS `getentry` */;
+
+/*!50001 CREATE TABLE  `getentry`(
+ `name` varchar(255) ,
+ `entry_number` bigint(21) 
+)*/;
+
 /*Table structure for table `getpaymenttoday` */
 
 DROP TABLE IF EXISTS `getpaymenttoday`;
@@ -468,6 +480,13 @@ DROP TABLE IF EXISTS `getregistertoday`;
  `time` date ,
  `entry_no` int(11) 
 )*/;
+
+/*View structure for view getentry */
+
+/*!50001 DROP TABLE IF EXISTS `getentry` */;
+/*!50001 DROP VIEW IF EXISTS `getentry` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getentry` AS (select `clinic`.`name` AS `name`,count(0) AS `entry_number` from (`registration` join `clinic`) where ((cast(`registration`.`time` as date) = cast(curdate() as date)) and (`clinic`.`clinic_id` = `registration`.`clinic_id`)) group by `registration`.`clinic_id`) */;
 
 /*View structure for view getpaymenttoday */
 
