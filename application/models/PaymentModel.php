@@ -46,6 +46,14 @@
             return $execute;
         }
 
+        public function get_entrynumber($clinic_id){
+            $this->db->where('clinic_id',$clinic_id);
+            $this->db->from('getpaymenttoday');
+            $result = $this->db->count_all_results();
+
+            return $result;
+        }
+
         public function create_payment($payment_id, $register_id, 
 				$worker_id, $type) {
 		
@@ -54,6 +62,11 @@
 
         $getnew = $this->check_new_registration($register_id);
         $total = $getnew + $amount;
+
+        $clinic_id = $this->getClinicRegistration($register_id);
+
+        $entrynumber = $this->get_entrynumber($clinic_id);
+        $entrynumber++;
 
         $info = "";
         if($getnew > 0){
@@ -70,11 +83,23 @@
             'amount'      => $total,
 			'time' => date('Y-m-j H:i:s'),
             'info' => $info,
+            'entry_no'    => $entrynumber,
 		);
 		
 		return $this->db->insert('payment', $data);
 
 	    }
+
+        public function getClinicRegistration($register_id){
+            $this->db->select('*');
+            $this->db->from('registration');
+            $this->db->where('register_id', $register_id);
+
+            $query = $this->db->get();
+            $ret = $query->row();
+            $type = $ret->clinic_id;
+            return $type;
+        }
 
         public function getAmount($register_id){
             $dataquery = "CALL getAmount(?)";

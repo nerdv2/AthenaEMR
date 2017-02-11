@@ -15,6 +15,7 @@ class Patient extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('PatientModel');
+		$this->load->model('EMRModel');
 	}
 	/*
 	public function index()
@@ -153,6 +154,7 @@ class Patient extends CI_Controller {
 	public function viewdata($id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			$data['query'] = $this->PatientModel->Read_specific($id)->row();
+			$data['emr'] = $this->EMRModel->getPatientEMR($id);
 			$this->load->view('header');
 			$this->load->view('sidebar/management_active');
 			$this->load->view('navbar');

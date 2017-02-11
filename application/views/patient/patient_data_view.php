@@ -21,6 +21,9 @@
             <li role="tab1" class="active">
               <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Profile</a>
             </li>
+            <li role="tab2">
+              <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Records</a>
+            </li>
           </ul>
         </div>
         <div class="card-body no-padding tab-content">
@@ -36,7 +39,7 @@
                   </div>
                 </div>
                 <div class="section">
-                  <div class="section-title"><i class="icon fa fa-book" aria-hidden="true"></i> Doctor Bio</div>
+                  <div class="section-title"><i class="icon fa fa-book" aria-hidden="true"></i> Patient Bio</div>
                   <div class="section-body __indent">
                   Name : <?= $query->name; ?><br>
                   Date of Birth : <?= $query->dob; ?><br>
@@ -56,6 +59,19 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="tab2">
+              <?php
+                $template = array('table_open' => '<table class="table card-table" cellspacing="0" width="100%">');
+                $this->table->set_template($template);
+
+                $this->table->set_heading('Time','Complaint','');
+                foreach($emr as $row){
+                    $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>";
+                    $this->table->add_row($row->time, $row->complaint, $edit);
+                }
+                echo $this->table->generate();
+        ?>
           </div>
         </div>
       </div>

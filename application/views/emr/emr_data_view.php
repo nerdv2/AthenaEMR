@@ -2,7 +2,6 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body app-heading">
-          <img class="profile-img" src="../assets/images/profile.png">
           <div class="app-title">
             <div class="title"><span class="highlight"><?= $query->record_id; ?></span></div>
             <div class="description">

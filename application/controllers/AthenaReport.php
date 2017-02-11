@@ -84,7 +84,7 @@ class AthenaReport extends CI_Controller {
     }
 
     public function get_entry($id){
-        $data['query'] = $this->RegistrationModel->Read_specific($id)->row();
+        $data['query'] = $this->PaymentModel->Read_specific($id)->row();
         $this->load->view('header');
         $this->load->view('sidebar/management_active');
         $this->load->view('navbar');

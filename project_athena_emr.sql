@@ -197,6 +197,7 @@ CREATE TABLE `payment` (
   `amount` double NOT NULL,
   `time` date NOT NULL,
   `info` varchar(50) DEFAULT NULL,
+  `entry_no` int(11) DEFAULT NULL,
   PRIMARY KEY (`payment_id`),
   KEY `worker_id` (`worker_id`),
   KEY `payment_ibfk_1` (`register_id`),
@@ -205,6 +206,8 @@ CREATE TABLE `payment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `payment` */
+
+insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`,`info`,`entry_no`) values ('PAY-110217-0000','REG-110217-0000','WRK-0001','clinic',50000,'2017-02-11','',1);
 
 /*Table structure for table `prescription` */
 
@@ -260,7 +263,6 @@ CREATE TABLE `registration` (
   `doctor_id` varchar(10) DEFAULT NULL,
   `category` varchar(100) NOT NULL,
   `time` date NOT NULL,
-  `entry_no` int(11) DEFAULT NULL,
   `patient_type` tinyint(1) NOT NULL,
   PRIMARY KEY (`register_id`),
   KEY `worker_id` (`worker_id`),
@@ -275,7 +277,7 @@ CREATE TABLE `registration` (
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`entry_no`,`patient_type`) values ('REG-020217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-02',0,0),('REG-020217-0001',NULL,'USR-000000','DIV-0001','DOC-0001','clinic','2017-02-02',0,0),('REG-050217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-05',1,0),('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0,0);
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-020217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-02',0),('REG-020217-0001',NULL,'USR-000000','DIV-0001','DOC-0001','clinic','2017-02-02',0),('REG-050217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-05',0),('REG-110217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-11',0),('REG-110217-0001',NULL,'USR-000000','DIV-0001','DOC-0001','clinic','2017-02-11',0),('REG-110217-0002',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-11',0),('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0);
 
 /*Table structure for table `user` */
 
@@ -392,6 +394,19 @@ AND DATE_FORMAT(registration.time, "%m-%Y") >= startdate AND DATE_FORMAT(registr
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `getPrescription` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getPrescription` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPrescription`(In iddata VARCHAR(255))
+BEGIN
+	SELECT * from prescription, prescription_detail where prescription.`prescription_id` = prescription_detail.`prescription_id`
+	and prescription.`prescription_id` = iddata;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `getRecordMonth` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `getRecordMonth` */;
@@ -457,10 +472,12 @@ DROP TABLE IF EXISTS `getpaymenttoday`;
  `payment_id` varchar(15) ,
  `register_id` varchar(15) ,
  `worker_id` varchar(10) ,
+ `clinic_id` varchar(8) ,
  `type` varchar(50) ,
  `amount` double ,
  `time` date ,
- `info` varchar(50) 
+ `info` varchar(50) ,
+ `entry_no` int(11) 
 )*/;
 
 /*Table structure for table `getregistertoday` */
@@ -477,8 +494,7 @@ DROP TABLE IF EXISTS `getregistertoday`;
  `clinic_id` varchar(8) ,
  `doctor_id` varchar(10) ,
  `category` varchar(100) ,
- `time` date ,
- `entry_no` int(11) 
+ `time` date 
 )*/;
 
 /*View structure for view getentry */
@@ -486,21 +502,21 @@ DROP TABLE IF EXISTS `getregistertoday`;
 /*!50001 DROP TABLE IF EXISTS `getentry` */;
 /*!50001 DROP VIEW IF EXISTS `getentry` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getentry` AS (select `clinic`.`name` AS `name`,count(0) AS `entry_number` from (`registration` join `clinic`) where ((cast(`registration`.`time` as date) = cast(curdate() as date)) and (`clinic`.`clinic_id` = `registration`.`clinic_id`)) group by `registration`.`clinic_id`) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getentry` AS (select `clinic`.`name` AS `name`,count(0) AS `entry_number` from (`getpaymenttoday` join `clinic`) where ((cast(`getpaymenttoday`.`time` as date) = cast(curdate() as date)) and (`clinic`.`clinic_id` = `getpaymenttoday`.`clinic_id`)) group by `getpaymenttoday`.`clinic_id`) */;
 
 /*View structure for view getpaymenttoday */
 
 /*!50001 DROP TABLE IF EXISTS `getpaymenttoday` */;
 /*!50001 DROP VIEW IF EXISTS `getpaymenttoday` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getpaymenttoday` AS (select `payment`.`payment_id` AS `payment_id`,`payment`.`register_id` AS `register_id`,`payment`.`worker_id` AS `worker_id`,`payment`.`type` AS `type`,`payment`.`amount` AS `amount`,`payment`.`time` AS `time`,`payment`.`info` AS `info` from `payment` where (cast(`payment`.`time` as date) = cast(curdate() as date))) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getpaymenttoday` AS (select `payment`.`payment_id` AS `payment_id`,`payment`.`register_id` AS `register_id`,`payment`.`worker_id` AS `worker_id`,`registration`.`clinic_id` AS `clinic_id`,`payment`.`type` AS `type`,`payment`.`amount` AS `amount`,`payment`.`time` AS `time`,`payment`.`info` AS `info`,`payment`.`entry_no` AS `entry_no` from (`payment` join `registration`) where ((`registration`.`register_id` = `payment`.`register_id`) and (cast(`payment`.`time` as date) = cast(curdate() as date)))) */;
 
 /*View structure for view getregistertoday */
 
 /*!50001 DROP TABLE IF EXISTS `getregistertoday` */;
 /*!50001 DROP VIEW IF EXISTS `getregistertoday` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getregistertoday` AS (select `registration`.`register_id` AS `register_id`,`registration`.`worker_id` AS `worker_id`,`registration`.`patient_id` AS `patient_id`,`registration`.`clinic_id` AS `clinic_id`,`registration`.`doctor_id` AS `doctor_id`,`registration`.`category` AS `category`,`registration`.`time` AS `time`,`registration`.`entry_no` AS `entry_no` from `registration` where (cast(`registration`.`time` as date) = cast(curdate() as date))) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getregistertoday` AS (select `registration`.`register_id` AS `register_id`,`registration`.`worker_id` AS `worker_id`,`registration`.`patient_id` AS `patient_id`,`registration`.`clinic_id` AS `clinic_id`,`registration`.`doctor_id` AS `doctor_id`,`registration`.`category` AS `category`,`registration`.`time` AS `time` from `registration` where (cast(`registration`.`time` as date) = cast(curdate() as date))) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

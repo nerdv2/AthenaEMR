@@ -2,7 +2,6 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body app-heading">
-          <img class="profile-img" src="../assets/images/profile.png">
           <div class="app-title">
             <div class="title"><span class="highlight"><?= $query->prescription_id; ?></span></div>
             <div class="description">
@@ -31,7 +30,6 @@
                   <div class="section-title"><i class="icon fa fa-user" aria-hidden="true"></i> Prescription Data</div>
                   <div class="section-body __indent">
                   Prescription ID : <?= $query->prescription_id; ?><br>
-                  Register ID : <?= $query->register_id; ?><br>
                   Worker ID : <?= $query->worker_id; ?><br>
                   Time of Entry : <?= $query->time; ?><br>
                   Description : <?= $query->description; ?><br>
