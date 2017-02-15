@@ -1,3 +1,6 @@
+<?php
+if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+?>
 <a href="<?php echo base_url("index.php/patient/adddata"); ?>">
 <div class="btn-floating" id="help-actions">
   <div class="btn-bg"></div>
@@ -7,3 +10,6 @@
   </button>
 </div>
 </a>
+<?php
+}
+?>

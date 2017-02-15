@@ -298,11 +298,11 @@ CREATE TABLE `user` (
   KEY `doctor_id` (`doctor_id`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`,`photo`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL,NULL),(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,'2017-01-23 08:07:27',NULL,NULL),(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,'2017-01-23 08:08:25',NULL,NULL),(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,'2017-01-23 08:09:25',NULL,NULL),(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,'2017-01-23 08:09:49',NULL,NULL),(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,'2017-01-23 08:10:10',NULL,NULL),(18,'dianyuliana','$2y$10$tMAsD6oqM1BDVNwyNbclL.5qDIvlaFOWfx.OdcRM8gUAYTbFyfyXu','registration',NULL,'WRK-0000','2017-01-30 23:00:36',NULL,NULL),(19,'gemawardian','$2y$10$Ne1D54/sklynTCWMtcaQ7eSBM9F0Nev0nT06PU9FwSNNhTeO/W0WS','payment',NULL,'WRK-0001','2017-01-30 23:06:49',NULL,NULL),(20,'iandamien','$2y$10$xLRJLNKbJDfPaw9ANPG2i.NY1xxAxDKJ6WIu1DfHj3yQzHfUq9iGC','pharmacist',NULL,'WRK-0003','2017-01-30 23:09:34',NULL,NULL),(21,'brianrobinson','$2y$10$KrniVWCkkZyljs5a/iQx8OxTFXsl1SdqQfk/Hf/ecsWn0Ly4Up8FO','lab',NULL,'WRK-0002','2017-01-30 23:11:52',NULL,NULL);
+insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`,`photo`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL,NULL),(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,'2017-01-23 08:07:27',NULL,NULL),(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,'2017-01-23 08:08:25',NULL,NULL),(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,'2017-01-23 08:09:25',NULL,NULL),(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,'2017-01-23 08:09:49',NULL,NULL),(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,'2017-01-23 08:10:10',NULL,NULL),(18,'dianyuliana','$2y$10$tMAsD6oqM1BDVNwyNbclL.5qDIvlaFOWfx.OdcRM8gUAYTbFyfyXu','registration',NULL,'WRK-0000','2017-01-30 23:00:36',NULL,NULL),(19,'gemawardian','$2y$10$Ne1D54/sklynTCWMtcaQ7eSBM9F0Nev0nT06PU9FwSNNhTeO/W0WS','payment',NULL,'WRK-0001','2017-01-30 23:06:49',NULL,NULL),(20,'iandamien','$2y$10$xLRJLNKbJDfPaw9ANPG2i.NY1xxAxDKJ6WIu1DfHj3yQzHfUq9iGC','pharmacist',NULL,'WRK-0003','2017-01-30 23:09:34',NULL,NULL),(21,'brianrobinson','$2y$10$KrniVWCkkZyljs5a/iQx8OxTFXsl1SdqQfk/Hf/ecsWn0Ly4Up8FO','lab',NULL,'WRK-0002','2017-01-30 23:11:52',NULL,NULL),(22,'annisabaharmin','$2y$10$aSZYNOO3mfTywbg.dV3NZeULhJYHSb4McY6PA2DSY5u45OnuuNeIi','doctor','DOC-0000',NULL,'2017-02-11 23:09:05',NULL,'');
 
 /*Table structure for table `worker` */
 
@@ -375,6 +375,19 @@ BEGIN
 	SELECT lab_result.*,patient.`patient_id` , patient.`name`  FROM lab_result, worker, medical_record, patient
 	WHERE medical_record.`result_id` = lab_result.`result_id` AND lab_result.`worker_id` = worker.`worker_id`
 	AND patient.`patient_id` = medical_record.`patient_id` AND lab_result.`result_id` = iddata;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getPatientLab` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getPatientLab` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPatientLab`(IN iddata VARCHAR(255))
+BEGIN
+	SELECT lab_result.* FROM lab_result, medical_record WHERE lab_result.`result_id` = medical_record.`result_id` 
+AND medical_record.`patient_id` = iddata;
     END */$$
 DELIMITER ;
 

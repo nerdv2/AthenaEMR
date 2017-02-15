@@ -86,7 +86,7 @@
             ?>
             <li class="section"><i class="fa fa-stethoscope" aria-hidden="true"></i> Records Management</li>
             <?php
-                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+                if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION" or $_SESSION['status'] == "DOCTOR"){
             ?>
             <li><a href="<?php echo base_url('index.php/athenaMain/patient_view'); ?>">Patient Data</a></li>
             <?php

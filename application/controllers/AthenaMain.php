@@ -122,7 +122,7 @@ class AthenaMain extends CI_Controller {
 
     public function patient_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION" or $_SESSION['status'] == "DOCTOR"){
                 $data['query'] = $this->PatientModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -196,7 +196,7 @@ class AthenaMain extends CI_Controller {
     public function emr_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "DOCTOR"){
-                $data['query'] = $this->EMRModel->getData();
+                $data['query'] = $this->EMRModel->getDataSpecific($_SESSION['doctor_id']);
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
                 $this->load->view('navbar');

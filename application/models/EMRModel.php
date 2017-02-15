@@ -12,6 +12,14 @@
             return $query->result();
         }
 
+        public function getDataSpecific($id){
+            $this->db->select("*");
+            $this->db->where('doctor_id', $id);
+            $this->db->from('medical_record');
+            $query = $this->db->get();
+            return $query->result();
+        }
+
         public function getPatientEMR($id){
             $this->db->select("*");
             $this->db->where('patient_id', $id);

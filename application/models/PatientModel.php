@@ -12,6 +12,12 @@
             return $query->result();
         }
 
+        public function getPatientLab($id){
+            $dataquery = "CALL getPatientLab(?)";
+            $execute = $this->db->query($dataquery,array($id));
+            return $execute->result();
+        }
+
         public function create_patient($patient_id, $name, 
 				$dob, $gender, $address, $phone) {
 		
