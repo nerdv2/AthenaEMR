@@ -24,6 +24,18 @@
             return $data;
         }
 
+        public function getPrescriptionID(){
+            $data = array();
+            $query = $this->db->get('prescription');
+            if ($query->num_rows() > 0) {
+                foreach ($query->result_array() as $row){
+                        $data[] = $row;
+                    }
+            }
+            $query->free_result();
+            return $data;
+        }
+
         public function getWorkerID($iddata){
             $data = array();
             $this->db->select("*");
@@ -54,39 +66,57 @@
             return $result;
         }
 
+        public function create_payment_medicine($payment_id, $prescription_id, 
+                                                    $worker_id, $type) {
+            $amount = $this->getPrescriptionAmount($prescription_id);
+            $register_id = $this->getPrescriptionRegistration($prescription_id);
+
+            $data = array(
+                'payment_id'   => $payment_id,
+                'register_id'   => $register_id,
+                'worker_id'      => $worker_id,
+                'type'      => "medicine",
+                'amount'      => $amount,
+                'time' => date('Y-m-j H:i:s'),
+            );
+            
+            return $this->db->insert('payment', $data);
+
+        }
+
         public function create_payment($payment_id, $register_id, 
 				$worker_id, $type) {
 		
-        $amount = $this->getAmount($register_id);
-        
+            $amount = $this->getAmount($register_id);
+            
 
-        $getnew = $this->check_new_registration($register_id);
-        $total = $getnew + $amount;
+            $getnew = $this->check_new_registration($register_id);
+            $total = $getnew + $amount;
 
-        $clinic_id = $this->getClinicRegistration($register_id);
+            $clinic_id = $this->getClinicRegistration($register_id);
 
-        $entrynumber = $this->get_entrynumber($clinic_id);
-        $entrynumber++;
+            $entrynumber = $this->get_entrynumber($clinic_id);
+            $entrynumber++;
 
-        $info = "";
-        if($getnew > 0){
-            $info = "new";
-        } else if($getnew <= 0){
             $info = "";
-        }
+            if($getnew > 0){
+                $info = "new";
+            } else if($getnew <= 0){
+                $info = "";
+            }
 
-		$data = array(
-			'payment_id'   => $payment_id,
-			'register_id'   => $register_id,
-			'worker_id'      => $worker_id,
-            'type'      => $type,
-            'amount'      => $total,
-			'time' => date('Y-m-j H:i:s'),
-            'info' => $info,
-            'entry_no'    => $entrynumber,
-		);
-		
-		return $this->db->insert('payment', $data);
+            $data = array(
+                'payment_id'   => $payment_id,
+                'register_id'   => $register_id,
+                'worker_id'      => $worker_id,
+                'type'      => $type,
+                'amount'      => $total,
+                'time' => date('Y-m-j H:i:s'),
+                'info' => $info,
+                'entry_no'    => $entrynumber,
+            );
+            
+            return $this->db->insert('payment', $data);
 
 	    }
 
@@ -109,6 +139,26 @@
             $execute->free_result();
             $amount = $ret->tariff;
             return $amount;
+        }
+
+        public function getPrescriptionAmount($register_id){
+            $dataquery = "CALL getPrescriptionRegistration(?)";
+            $execute = $this->db->query($dataquery,array($register_id));
+            $ret = $execute->row();
+            $execute->next_result();
+            $execute->free_result();
+            $amount = $ret->total_price;
+            return $amount;
+        }
+
+        public function getPrescriptionRegistration($register_id){
+            $dataquery = "CALL getPrescriptionRegistration(?)";
+            $execute = $this->db->query($dataquery,array($register_id));
+            $ret = $execute->row();
+            $execute->next_result();
+            $execute->free_result();
+            $register = $ret->register_id;
+            return $register;
         }
 
         public function check_new_registration($register_id){

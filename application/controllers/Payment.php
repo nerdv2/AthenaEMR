@@ -77,7 +77,7 @@ class Payment extends CI_Controller {
 
 			// set validation rules
 			$this->form_validation->set_rules('payment_id', 'PaymentID', 'trim|required|alpha_dash|is_unique[payment.payment_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
-			$this->form_validation->set_rules('prescription_id', 'RegisterID', 'trim|required|min_length[4]');
+			$this->form_validation->set_rules('prescription_id', 'PrescriptionID', 'trim|required|min_length[4]');
 			$this->form_validation->set_rules('worker_id', 'WorkerID', 'trim|required|min_length[4]');
 			$this->form_validation->set_rules('type', 'Type of Payment', 'trim|required');
 			//$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric');
