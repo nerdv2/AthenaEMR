@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.7.15-log : Database - project_athena_emr
+SQLyog Ultimate v12.09 (32 bit)
+MySQL - 10.1.21-MariaDB : Database - project_athena_emr
 *********************************************************************
 */
 
@@ -89,8 +89,6 @@ CREATE TABLE `lab_result` (
 
 /*Data for the table `lab_result` */
 
-insert  into `lab_result`(`result_id`,`worker_id`,`result_data`,`time`) values ('RES-300117-0000','WRK-0002','<table style=\"width: 950px;\">\r\n<tbody>\r\n<tr class=\"heading\" style=\"height: 14px;\">\r\n<td style=\"width: 200px; height: 14px;\">Test Name</td>\r\n<td style=\"width: 200px; height: 14px;\">Result</td>\r\n<td style=\"width: 50px; height: 14px;\">Flag</td>\r\n<td style=\"width: 100px; height: 14px;\">Unit</td>\r\n<td style=\"width: 200px; height: 14px;\">Ref. Value</td>\r\n<td style=\"width: 200px; height: 14px;\">Method</td>\r\n</tr>\r\n<tr style=\"height: 15px;\">\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;Hemoglobin</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;812</td>\r\n<td style=\"width: 50px; height: 15px;\">&nbsp;</td>\r\n<td style=\"width: 100px; height: 15px;\">&nbsp;ms/G</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;1002</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>','2017-01-30');
-
 /*Table structure for table `medical_record` */
 
 DROP TABLE IF EXISTS `medical_record`;
@@ -125,7 +123,7 @@ CREATE TABLE `medical_record` (
 
 /*Data for the table `medical_record` */
 
-insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-230117-0000','DOC-0000','REG-210117-0000','USR-000000','2017-01-23','LAB-0000','RES-300117-0000','PSC-300117-0000','<p>Complaints</p>','<p>Symptoms</p>','<p>Diagnosis</p>','<p>Handling</p>');
+insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-210217-0000','DOC-0001','REG-210217-0000','USR-000000','2017-02-21',NULL,NULL,'PSC-210217-0000','<p>Headaches</p>','<p>Fever</p>','<p>Fever</p>','<p>Medicine</p>');
 
 /*Table structure for table `medicine` */
 
@@ -147,7 +145,7 @@ CREATE TABLE `medicine` (
 
 /*Data for the table `medicine` */
 
-insert  into `medicine`(`medicine_id`,`type_id`,`name`,`description`,`price`,`amount`,`created_at`,`updated_at`) values ('MED-0000','TYP-0000','Abrosive','<p>Description</p>',90000,98,'2017-01-30 17:45:38',NULL),('MED-0001','TYP-0000','Avioux','<p>Description</p>',10000,15,'2017-01-30 17:52:54',NULL);
+insert  into `medicine`(`medicine_id`,`type_id`,`name`,`description`,`price`,`amount`,`created_at`,`updated_at`) values ('MED-0000','TYP-0000','Abrosive','<p>Description</p>',90000,94,'2017-01-30 17:45:38',NULL),('MED-0001','TYP-0000','Avioux','<p>Description</p>',10000,11,'2017-01-30 17:52:54',NULL);
 
 /*Table structure for table `medicine_type` */
 
@@ -183,7 +181,7 @@ CREATE TABLE `patient` (
 
 /*Data for the table `patient` */
 
-insert  into `patient`(`patient_id`,`name`,`dob`,`gender`,`address`,`phone`,`created_at`,`updated_at`) values ('USR-000000','Dana Abraham','1997-06-19','female','<p>Home Address</p>','','2017-01-21 19:29:09',NULL);
+insert  into `patient`(`patient_id`,`name`,`dob`,`gender`,`address`,`phone`,`created_at`,`updated_at`) values ('USR-000000','Dana Abraham','1997-06-19','female','<p>Home Address</p>','','2017-01-21 19:29:09',NULL),('USR-000001','Jack Nicholson','1992-06-08','male','<p>Bandung, Indonesia</p>','','2017-02-20 11:38:54',NULL);
 
 /*Table structure for table `payment` */
 
@@ -207,7 +205,7 @@ CREATE TABLE `payment` (
 
 /*Data for the table `payment` */
 
-insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`,`info`,`entry_no`) values ('PAY-110217-0000','REG-110217-0000','WRK-0001','clinic',50000,'2017-02-11','',1);
+insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`,`info`,`entry_no`) values ('PAY-210217-0000','REG-210217-0000','WRK-0001','clinic',75000,'2017-02-21','',1),('PAY-210217-0001','REG-210217-0000','WRK-0001','clinic',75000,'2017-02-21','',2);
 
 /*Table structure for table `prescription` */
 
@@ -228,7 +226,7 @@ CREATE TABLE `prescription` (
 
 /*Data for the table `prescription` */
 
-insert  into `prescription`(`prescription_id`,`record_id`,`worker_id`,`time`,`description`) values ('PSC-300117-0000','REC-230117-0000','WRK-0003','2017-01-30','<p>Info</p>');
+insert  into `prescription`(`prescription_id`,`record_id`,`worker_id`,`time`,`description`) values ('PSC-210217-0000','REC-210217-0000','WRK-0003','2017-02-21','<p>Info</p>');
 
 /*Table structure for table `prescription_detail` */
 
@@ -249,7 +247,7 @@ CREATE TABLE `prescription_detail` (
 
 /*Data for the table `prescription_detail` */
 
-insert  into `prescription_detail`(`prescription_id`,`medicine_id`,`dosage`,`amount`,`total`,`usage`) values ('PSC-300117-0000','MED-0000','450 gram per day.',2,2,'<p>Usage Info</p>');
+insert  into `prescription_detail`(`prescription_id`,`medicine_id`,`dosage`,`amount`,`total`,`usage`) values ('PSC-210217-0000','MED-0000','1',1,1,'<p>Usage Info 1</p>'),('PSC-210217-0000','MED-0001','2',2,2,'<p>Usage Info 2</p>');
 
 /*Table structure for table `registration` */
 
@@ -277,7 +275,7 @@ CREATE TABLE `registration` (
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-020217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-02',0),('REG-020217-0001',NULL,'USR-000000','DIV-0001','DOC-0001','clinic','2017-02-02',0),('REG-050217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-05',0),('REG-110217-0000',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-11',0),('REG-110217-0001',NULL,'USR-000000','DIV-0001','DOC-0001','clinic','2017-02-11',0),('REG-110217-0002',NULL,'USR-000000','DIV-0000','DOC-0000','clinic','2017-02-11',0),('REG-210117-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-01-21',0);
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-210217-0000','WRK-0000','USR-000000','DIV-0001','DOC-0001','clinic','2017-02-21',0);
 
 /*Table structure for table `user` */
 
@@ -298,11 +296,11 @@ CREATE TABLE `user` (
   KEY `doctor_id` (`doctor_id`),
   CONSTRAINT `user_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `user_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`,`photo`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL,NULL),(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,'2017-01-23 08:07:27',NULL,NULL),(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,'2017-01-23 08:08:25',NULL,NULL),(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,'2017-01-23 08:09:25',NULL,NULL),(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,'2017-01-23 08:09:49',NULL,NULL),(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,'2017-01-23 08:10:10',NULL,NULL),(18,'dianyuliana','$2y$10$tMAsD6oqM1BDVNwyNbclL.5qDIvlaFOWfx.OdcRM8gUAYTbFyfyXu','registration',NULL,'WRK-0000','2017-01-30 23:00:36',NULL,NULL),(19,'gemawardian','$2y$10$Ne1D54/sklynTCWMtcaQ7eSBM9F0Nev0nT06PU9FwSNNhTeO/W0WS','payment',NULL,'WRK-0001','2017-01-30 23:06:49',NULL,NULL),(20,'iandamien','$2y$10$xLRJLNKbJDfPaw9ANPG2i.NY1xxAxDKJ6WIu1DfHj3yQzHfUq9iGC','pharmacist',NULL,'WRK-0003','2017-01-30 23:09:34',NULL,NULL),(21,'brianrobinson','$2y$10$KrniVWCkkZyljs5a/iQx8OxTFXsl1SdqQfk/Hf/ecsWn0Ly4Up8FO','lab',NULL,'WRK-0002','2017-01-30 23:11:52',NULL,NULL),(22,'annisabaharmin','$2y$10$aSZYNOO3mfTywbg.dV3NZeULhJYHSb4McY6PA2DSY5u45OnuuNeIi','doctor','DOC-0000',NULL,'2017-02-11 23:09:05',NULL,'');
+insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`,`photo`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL,NULL),(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,'2017-01-23 08:07:27',NULL,NULL),(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,'2017-01-23 08:08:25',NULL,NULL),(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,'2017-01-23 08:09:25',NULL,NULL),(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,'2017-01-23 08:09:49',NULL,NULL),(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,'2017-01-23 08:10:10',NULL,NULL),(18,'dianyuliana','$2y$10$tMAsD6oqM1BDVNwyNbclL.5qDIvlaFOWfx.OdcRM8gUAYTbFyfyXu','registration',NULL,'WRK-0000','2017-01-30 23:00:36',NULL,NULL),(19,'gemawardian','$2y$10$Ne1D54/sklynTCWMtcaQ7eSBM9F0Nev0nT06PU9FwSNNhTeO/W0WS','payment',NULL,'WRK-0001','2017-01-30 23:06:49',NULL,NULL),(20,'iandamien','$2y$10$xLRJLNKbJDfPaw9ANPG2i.NY1xxAxDKJ6WIu1DfHj3yQzHfUq9iGC','pharmacist',NULL,'WRK-0003','2017-01-30 23:09:34',NULL,NULL),(21,'brianrobinson','$2y$10$KrniVWCkkZyljs5a/iQx8OxTFXsl1SdqQfk/Hf/ecsWn0Ly4Up8FO','lab',NULL,'WRK-0002','2017-01-30 23:11:52',NULL,NULL),(22,'annisabaharmin','$2y$10$aSZYNOO3mfTywbg.dV3NZeULhJYHSb4McY6PA2DSY5u45OnuuNeIi','doctor','DOC-0000',NULL,'2017-02-11 23:09:05',NULL,''),(23,'sukarmannugraha','$2y$10$OgsvcIIdqtJjKIb7ETf28uMzIYfmbONirqARs4PiFC325WWYm6jR2','doctor','DOC-0001',NULL,'2017-02-17 20:54:48',NULL,'');
 
 /*Table structure for table `worker` */
 
@@ -404,6 +402,19 @@ SELECT registration.`time` AS "Date", patient.`name` AS "Name", doctor.`name` AS
 WHERE registration.`patient_id` = patient.`patient_id` AND doctor.`doctor_id` = registration.`doctor_id`
 AND registration.`doctor_id` = iddata2
 AND DATE_FORMAT(registration.time, "%m-%Y") >= startdate AND DATE_FORMAT(registration.time, "%m-%Y") <= enddate GROUP BY patient.`name`;
+    END */$$
+DELIMITER ;
+
+/* Procedure structure for procedure `getPatientPrescription` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getPatientPrescription` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPatientPrescription`(In iddata VARCHAR(255))
+BEGIN
+	SELECT prescription.* FROM prescription, medical_record WHERE prescription.`prescription_id` = medical_record.`prescription_id`
+AND medical_record.`patient_id` = iddata;
     END */$$
 DELIMITER ;
 
