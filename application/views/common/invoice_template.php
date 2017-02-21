@@ -116,7 +116,7 @@
                             
                             <td>
                                 <?= $query->patient_id; ?><br>
-                                <?= $query->patient_name; ?><br>
+                                <?= $query->name; ?><br>
 
                             </td>
                         </tr>

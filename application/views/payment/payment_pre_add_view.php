@@ -20,36 +20,17 @@
   <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          Payment Data
+          Payment Type
         </div>
         <div class="card-body">
             <div class="row">
               <?= form_open() ?>
                 <div class="col-md-12">
-                     <input type="text" value="<?= $data; ?>" class="form-control" placeholder="PaymentID" name="payment_id" readonly required>
-                </div>
-                <div class="col-md-12">
-                     <?php
-                      echo "<select class='select2' name='register_id' id='register_id'>";
-                      echo "<option value=''>Select Registration</option>";
-                      foreach ($register as $list) {
-                        echo "<option value='". $list['register_id'] . "'>" . $list['register_id'] . "</option>";
-                      }
-                    ?>
-                    </select>
-                </div>
-                <div class="col-md-12">
-                     <?php
-                      echo "<select class='select2' name='worker_id' id='worker_id'>";
-                      //echo "<option value=''>Select Worker</option>";
-                      foreach ($worker as $list) {
-                        echo "<option value='". $list['worker_id'] . "'>" . $list['name'] . "</option>";
-                      }
-                    ?>
-                    </select>
-                </div>
-                <div class="col-md-12">
-                     <input type="text" value="clinic" class="form-control" placeholder="Type of Payment" name="type" readonly required>
+                     <select class="select2" name="type">
+                         <option value="clinic">CLINIC</option>
+                         <option value="lab">LAB</option>
+                         <option value="medicine">MEDICINE</option>
+                     </select>
                 </div>
                 <!--
                 <div class="col-md-12">
