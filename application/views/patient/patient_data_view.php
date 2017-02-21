@@ -27,6 +27,9 @@
             <li role="tab3">
               <a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Labs</a>
             </li>
+            <li role="tab4">
+              <a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab">Prescriptions</a>
+            </li>
           </ul>
         </div>
         <div class="card-body no-padding tab-content">
@@ -85,6 +88,19 @@
                 foreach($lab as $row){
                     $edit = "<a href='".site_url()."/labresult/viewdata/".$row->result_id."' title='".$row->result_id."'>View</a>";
                     $this->table->add_row($row->time, $row->result_id, $edit);
+                }
+                echo $this->table->generate();
+              ?>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="tab4">
+              <?php
+                $template = array('table_open' => '<table class="table card-table" cellspacing="0" width="100%">');
+                $this->table->set_template($template);
+
+                $this->table->set_heading('Time','Prescription ID','');
+                foreach($prescription as $row){
+                    $edit = "<a href='".site_url()."/prescription/viewdata/".$row->prescription_id."' title='".$row->prescription_id."'>View</a>";
+                    $this->table->add_row($row->time, $row->prescription_id, $edit);
                 }
                 echo $this->table->generate();
               ?>

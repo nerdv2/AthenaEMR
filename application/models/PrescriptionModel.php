@@ -80,6 +80,26 @@
             
             return $this->db->insert('prescription_detail', $data2);
         }
+
+        public function create_prescription_detail_batch($prescription_id, $medicine_id, $dosage, $amount, $total, $usage){
+            $count = count($medicine_id);
+
+            $databatch = array();
+            for($i=0; $i<$count; $i++) {
+
+                $databatch[$i] = array(
+                    'prescription_id'   => $prescription_id,
+                    'medicine_id'   => $medicine_id[$i],
+                    'dosage'      => $dosage[$i],
+                    'amount'      => $amount[$i],
+                    'total'      => $total[$i],
+                    'usage'      => $usage[$i],
+                );
+
+            }
+            
+            return $this->db->insert_batch('prescription_detail', $databatch);
+        }
         
         public function update_medicalrecord($record_id, $prescription_id){
             $data = array(

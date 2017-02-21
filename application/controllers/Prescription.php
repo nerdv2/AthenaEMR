@@ -28,6 +28,142 @@ class Prescription extends CI_Controller {
 
     }
 
+	public function pre_adddata(){
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+			$data = new stdClass();
+
+			$this->form_validation->set_rules('prescription_id', 'PrescriptionID', 'trim|required|alpha_dash|min_length[8]|is_unique[prescription.prescription_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
+			$this->form_validation->set_rules('record_id', 'RecordID', 'trim|required|min_length[4]');
+			$this->form_validation->set_rules('worker_id', 'WorkerID', 'trim|required|min_length[4]');
+			$this->form_validation->set_rules('description', 'Info', 'trim');
+			$this->form_validation->set_rules('medicine_total', 'Medicine Total', 'required');
+
+			if($this->form_validation->run() === false){
+				// validation not ok, send validation errors to the view
+				$this->load->view('header');
+            	$this->load->view('sidebar/management_active');
+            	$this->load->view('navbar');
+            	$this->load->view('prescription/prescription_pre_add_view');
+            	$this->load->view('footer');
+			} else {
+				$prescription_id = $this->input->post('prescription_id');
+				$record_id    = $this->input->post('record_id');
+				$worker_id = $this->input->post('worker_id');
+				$description = $this->input->post('description');
+				$medicine_total = $this->input->post('medicine_total');
+
+				$this->add_newdata($prescription_id, $record_id, $worker_id, $description, $medicine_total);
+			}
+		} else {
+			redirect('/');
+		}
+	}
+
+	public function add_newdata($prescription_id, $record_id, $worker_id, $description, $medicine_total){
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+			
+	
+			$this->form_validation->set_rules('prescription_id', 'PrescriptionID', 'trim|required|alpha_dash|min_length[8]|is_unique[prescription.prescription_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
+			$this->form_validation->set_rules('record_id', 'RecordID', 'trim|required|min_length[4]');
+			$this->form_validation->set_rules('worker_id', 'WorkerID', 'trim|required|min_length[4]');
+			$this->form_validation->set_rules('description', 'Info', 'trim');
+
+			if ($this->form_validation->run() === false) {
+
+				$data['prescription_id'] = $prescription_id;
+				$data['record_id'] = $record_id;
+				$data['worker_id'] = $worker_id;
+				$data['description'] = $description;
+				$data['medicine_total'] = $medicine_total;
+				// validation not ok, send validation errors to the view
+				$this->load->view('header');
+            	$this->load->view('sidebar/management_active');
+            	$this->load->view('navbar');
+            	$this->load->view('prescription/prescription_add_view', $data);
+            	$this->load->view('footer');
+			} else {
+				$data['prescription_id'] = $prescription_id;
+				$data['record_id'] = $record_id;
+				$data['worker_id'] = $worker_id;
+				$data['description'] = $description;
+				$data['medicine_total'] = $medicine_total;
+				// validation not ok, send validation errors to the view
+				$this->load->view('header');
+            	$this->load->view('sidebar/management_active');
+            	$this->load->view('navbar');
+            	$this->load->view('prescription/prescription_add_view', $data);
+            	$this->load->view('footer');
+			}
+		} else {
+			redirect('/');
+		}
+	}
+
+	public function process_adddata(){
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+				$prescription_id = $this->input->post('prescription_id');
+				$record_id    = $this->input->post('record_id');
+				$worker_id = $this->input->post('worker_id');
+				$description = $this->input->post('description');
+				$medicine_id = $this->input->post('medicine_id');
+                $dosage = $this->input->post('dosage');
+                $amount = $this->input->post('amount');
+                $total = $this->input->post('total');
+                $usage = $this->input->post('usage');
+
+				if ($this->PrescriptionModel->create_prescription($prescription_id, $record_id, 
+				$worker_id, $description)) {
+				
+					
+					if($this->PrescriptionModel->create_prescription_detail_batch($prescription_id, $medicine_id, $dosage, $amount, $total, $usage)){
+						
+						if($this->PrescriptionModel->update_medicalrecord($record_id, $prescription_id)){
+							// user creation ok
+							$this->PrescriptionModel->Redirect();
+						} else {
+						// user creation failed, this should never happen
+						$data->error = 'There was a problem creating your new account. Please try again.';
+						
+						// send error to the view
+						$this->load->view('header');
+						$this->load->view('sidebar/management_active');
+						$this->load->view('navbar');
+						$this->load->view('prescription/prescription_add_view',$data);
+						$this->load->view('footer');
+						}
+						
+					} else {
+						// user creation failed, this should never happen
+					$data->error = 'There was a problem creating your new account. Please try again.';
+					
+					// send error to the view
+					$this->load->view('header');
+            		$this->load->view('sidebar/management_active');
+            		$this->load->view('navbar');
+            		$this->load->view('prescription/prescription_add_view',$data);
+            		$this->load->view('footer');
+					}
+
+					
+					
+				} else {
+				
+					// user creation failed, this should never happen
+					$data->error = 'There was a problem creating your new account. Please try again.';
+					
+					// send error to the view
+					$this->load->view('header');
+            		$this->load->view('sidebar/management_active');
+            		$this->load->view('navbar');
+            		$this->load->view('prescription/prescription_add_view',$data);
+            		$this->load->view('footer');
+					
+				}
+		} else {
+			redirect('/');
+		}
+	}
+
 
 	public function adddata()
 	{

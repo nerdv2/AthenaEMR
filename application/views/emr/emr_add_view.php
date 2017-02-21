@@ -15,7 +15,7 @@
 			</div>
 		<?php endif; ?>
     <?php $data = $this->EMRModel->generate_id(); ?>
-    <?php $register = $this->EMRModel->getRegisterID(); ?>
+    <?php $register = $this->EMRModel->getRegisterID($_SESSION['doctor_id']); ?>
   <div class="col-md-12">
       <div class="card">
         <div class="card-header">

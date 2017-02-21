@@ -156,6 +156,7 @@ class Patient extends CI_Controller {
 			$data['query'] = $this->PatientModel->Read_specific($id)->row();
 			$data['emr'] = $this->EMRModel->getPatientEMR($id);
 			$data['lab'] = $this->PatientModel->getPatientLab($id);
+			$data['prescription'] = $this->PatientModel->getPatientPrescription($id);
 			$this->load->view('header');
 			$this->load->view('sidebar/management_active');
 			$this->load->view('navbar');

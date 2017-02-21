@@ -40,9 +40,12 @@
             return $data;
         }
 
-        public function getRegisterID(){
+        public function getRegisterID($id){
             $data = array();
-            $query = $this->db->get('getregistertoday');
+            $this->db->select("*");
+            $this->db->where('doctor_id', $id);
+            $this->db->from('getregistertoday');
+            $query = $this->db->get();
             if ($query->num_rows() > 0) {
                 foreach ($query->result_array() as $row){
                         $data[] = $row;

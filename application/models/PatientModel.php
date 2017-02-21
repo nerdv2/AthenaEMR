@@ -15,7 +15,19 @@
         public function getPatientLab($id){
             $dataquery = "CALL getPatientLab(?)";
             $execute = $this->db->query($dataquery,array($id));
-            return $execute->result();
+            $resultdata = $execute->result();
+            $execute->next_result();
+            $execute->free_result();
+            return $resultdata;
+        }
+
+        public function getPatientPrescription($id){
+            $dataquery = "CALL getPatientPrescription(?)";
+            $execute = $this->db->query($dataquery,array($id));
+            $resultdata = $execute->result();
+            $execute->next_result();
+            $execute->free_result();
+            return $resultdata;
         }
 
         public function create_patient($patient_id, $name, 

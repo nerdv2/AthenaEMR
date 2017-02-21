@@ -52,6 +52,18 @@
             return $data;
         }
 
+        public function getDoctorReportID(){
+            $data = array();
+            $query = $this->db->get('doctor');
+            if ($query->num_rows() > 0) {
+                foreach ($query->result_array() as $row){
+                        $data[] = $row;
+                    }
+            }
+            $query->free_result();
+            return $data;
+        }
+
         public function getDoctorID($cid=NULL){
             $result = $this->db->where('clinic_id', $cid)->get('doctor')->result();
             $id = array('0');
