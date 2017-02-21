@@ -20,6 +20,7 @@ class AthenaReport extends CI_Controller {
         $this->load->library('pdf');
         $this->load->library("PHPExcel");
         $this->load->model('UsersModel');
+        $this->load->model('DoctorModel');
 	    $this->load->model('PaymentModel');
         $this->load->model('PatientModel');
         $this->load->model('LabResultModel');
@@ -51,6 +52,7 @@ class AthenaReport extends CI_Controller {
 
     public function export_visitmonth($start, $end, $doctor_id){
         $data['query'] = $this->RegistrationModel->getvisit_month($start, $end, $doctor_id);
+        $data['doctor'] = $this->DoctorModel->Read_doctorname($doctor_id);
         $this->pdf->load_view('common/visit_template', $data);
         $this->pdf->Output();
     }

@@ -69,6 +69,15 @@
             return $this->db->get();
         }
 
+        public function Read_doctorname($NIS){
+            $this->db->select('*');
+            $this->db->from('doctor');
+            $this->db->where('doctor_id', $NIS);
+            $query = $this->db->get();
+            $ret = $query->row();
+            return $ret->name;
+        }
+
         public function Update($doctor_id, $clinic_id, 
 				$name, $gender, $dob, $address, $phone){
             

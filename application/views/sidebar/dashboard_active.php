@@ -174,7 +174,7 @@
         }
   ?>
   </ul>
-  </div>
+  
 </aside>
 
 <script type="text/ng-template" id="sidebar-dropdown.tpl.html">

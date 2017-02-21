@@ -134,7 +134,10 @@
         public function getvisit_month($start, $end, $doctor_id){
             $dataquery = "CALL getPatientMonth(?, ?, ?)";
             $execute = $this->db->query($dataquery,array($start, $end, $doctor_id));
-            return $execute->result();
+            $ret = $execute->result();
+            $execute->next_result();
+            $execute->free_result();
+            return $ret;
         }
 
         public function generate_id(){

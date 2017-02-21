@@ -114,7 +114,7 @@
                             </td>
                             
                             <td>
-                                    <?= $query->doctor_id; ?>
+                                    <?= $doctor; ?>
 
                             </td>
                         </tr>
@@ -150,9 +150,9 @@
                         'table_close'           => '</table>'
                 );
                 $this->table->set_template($template);
-                $this->table->set_heading('Date of Visit','Doctor Name','Patient Name');
+                $this->table->set_heading('Date of Visit','Patient Name');
                 foreach($query as $row){
-                    $this->table->add_row($row->Date, $row->doctor_name, $row->Name);
+                    $this->table->add_row($row->Date, $row->Name);
                 }
                 echo $this->table->generate();
         ?>
