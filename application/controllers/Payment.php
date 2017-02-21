@@ -43,15 +43,15 @@ class Payment extends CI_Controller {
 
 				switch($type) {
 					case "clinic":
-						$this->adddata();
+						redirect('/payment/adddata');
 					break;
 
 					case "lab":
-						$this->addlabdata();
+						redirect('/payment/addlabdata');
 					break;
 
 					case "medicine":
-						$this->addmedicinedata();
+						redirect('/payment/addmedicinedata');
 					break;
 
 					default:
@@ -113,7 +113,7 @@ class Payment extends CI_Controller {
 					$this->load->view('header');
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
-            		$this->load->view('payment/payment_add_view',$data);
+            		$this->load->view('payment/payment_medicine_add_view',$data);
             		$this->load->view('footer');
 					
 				}
@@ -134,7 +134,7 @@ class Payment extends CI_Controller {
 
 			// set validation rules
 			$this->form_validation->set_rules('payment_id', 'PaymentID', 'trim|required|alpha_dash|is_unique[payment.payment_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
-			$this->form_validation->set_rules('result_id', 'RegisterID', 'trim|required|min_length[4]');
+			$this->form_validation->set_rules('result_id', 'ResultID', 'trim|required|min_length[4]');
 			$this->form_validation->set_rules('worker_id', 'WorkerID', 'trim|required|min_length[4]');
 			$this->form_validation->set_rules('type', 'Type of Payment', 'trim|required');
 			//$this->form_validation->set_rules('amount', 'Amount', 'trim|required|numeric');
@@ -145,23 +145,20 @@ class Payment extends CI_Controller {
 				$this->load->view('header');
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
-            	$this->load->view('payment/payment_add_view');
+            	$this->load->view('payment/payment_lab_add_view');
             	$this->load->view('footer');
 			
 			} else {
 				// set variables from the form
 				$payment_id = $this->input->post('payment_id');
-				$register_id    = $this->input->post('register_id');
+				$result_id    = $this->input->post('result_id');
 				$worker_id = $this->input->post('worker_id');
 				$type = $this->input->post('type');
 				//$amount = $this->input->post('amount');
 
-				if ($this->PaymentModel->create_payment($payment_id, $register_id, 
+				if ($this->PaymentModel->create_lab_payment($payment_id, $result_id, 
 				$worker_id, $type)) {
-					if($this->PaymentModel->update_register($register_id)){
-						// user creation ok
-						$this->PaymentModel->Redirect();
-					}
+					$this->PaymentModel->Redirect();
 					
 					
 				} else {
@@ -173,7 +170,7 @@ class Payment extends CI_Controller {
 					$this->load->view('header');
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
-            		$this->load->view('payment/payment_add_view',$data);
+            		$this->load->view('payment/payment_lab_add_view',$data);
             		$this->load->view('footer');
 					
 				}

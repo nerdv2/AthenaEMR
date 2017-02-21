@@ -36,6 +36,18 @@
             return $data;
         }
 
+        public function getResultID(){
+            $data = array();
+            $query = $this->db->get('lab_result');
+            if ($query->num_rows() > 0) {
+                foreach ($query->result_array() as $row){
+                        $data[] = $row;
+                    }
+            }
+            $query->free_result();
+            return $data;
+        }
+
         public function getWorkerID($iddata){
             $data = array();
             $this->db->select("*");
@@ -60,7 +72,7 @@
 
         public function get_entrynumber($clinic_id){
             $this->db->where('clinic_id',$clinic_id);
-            $this->db->from('getpaymenttoday');
+            $this->db->from('showentrydata');
             $result = $this->db->count_all_results();
 
             return $result;
@@ -82,6 +94,23 @@
             
             return $this->db->insert('payment', $data);
 
+        }
+
+        public function create_lab_payment($payment_id, $result_id, 
+				$worker_id, $type) {
+            $amount = $this->getLabAmount($result_id);
+            $register_id = $this->getLabRegistration($result_id);
+
+            $data = array(
+                'payment_id'   => $payment_id,
+                'register_id'   => $register_id,
+                'worker_id'      => $worker_id,
+                'type'      => "lab",
+                'amount'      => $amount,
+                'time' => date('Y-m-j H:i:s'),
+            );
+            
+            return $this->db->insert('payment', $data);
         }
 
         public function create_payment($payment_id, $register_id, 
@@ -159,6 +188,32 @@
             $execute->free_result();
             $register = $ret->register_id;
             return $register;
+        }
+
+        public function getLabAmount($result_id){
+            $amount = 0;
+            $this->db->select('*');
+            $this->db->from('getlabprice');
+            $this->db->where('result_id', $result_id);
+
+            $query = $this->db->get();
+            $ret = $query->row();
+            $type = $ret->tariff;
+            
+            return $type;
+        }
+
+        public function getLabRegistration($result_id){
+            $amount = 0;
+            $this->db->select('*');
+            $this->db->from('getlabprice');
+            $this->db->where('result_id', $result_id);
+
+            $query = $this->db->get();
+            $ret = $query->row();
+            $type = $ret->register_id;
+            
+            return $type;
         }
 
         public function check_new_registration($register_id){

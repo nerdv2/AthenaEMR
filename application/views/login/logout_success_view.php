@@ -6,9 +6,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>Demo: Cantina Negrar preloader deconstruction</title>
-	<meta name="description" content="Learn how to recreate the preloader from Cantina Negrar. Tutorial for a passionate front-end web developers by Petr Tichy.">
-
+	<title>AthenaEMR</title>
 	<!--iOS -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 

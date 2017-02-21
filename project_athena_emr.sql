@@ -1,6 +1,6 @@
 /*
-SQLyog Ultimate v12.09 (32 bit)
-MySQL - 10.1.21-MariaDB : Database - project_athena_emr
+SQLyog Ultimate v12.09 (64 bit)
+MySQL - 5.7.15-log : Database - project_athena_emr
 *********************************************************************
 */
 
@@ -71,7 +71,7 @@ CREATE TABLE `lab` (
 
 /*Data for the table `lab` */
 
-insert  into `lab`(`lab_id`,`name`,`tariff`,`created_at`,`updated_at`) values ('LAB-0000','Blood Testing',50000,'2017-01-30 17:39:23',NULL);
+insert  into `lab`(`lab_id`,`name`,`tariff`,`created_at`,`updated_at`) values ('LAB-0000','Blood Testing',50000,'2017-01-30 17:39:23',NULL),('LAB-0001','CRT Test',500000,'2017-02-21 20:42:49',NULL);
 
 /*Table structure for table `lab_result` */
 
@@ -88,6 +88,8 @@ CREATE TABLE `lab_result` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `lab_result` */
+
+insert  into `lab_result`(`result_id`,`worker_id`,`result_data`,`time`) values ('RES-210217-0000','WRK-0002','<table style=\"width: 950px;\">\r\n<tbody>\r\n<tr class=\"heading\" style=\"height: 14px;\">\r\n<td style=\"width: 200px; height: 14px;\">Test Name</td>\r\n<td style=\"width: 200px; height: 14px;\">Result</td>\r\n<td style=\"width: 50px; height: 14px;\">Flag</td>\r\n<td style=\"width: 100px; height: 14px;\">Unit</td>\r\n<td style=\"width: 200px; height: 14px;\">Ref. Value</td>\r\n<td style=\"width: 200px; height: 14px;\">Method</td>\r\n</tr>\r\n<tr style=\"height: 15px;\">\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;Abrovix Test</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;negative</td>\r\n<td style=\"width: 50px; height: 15px;\">&nbsp;*</td>\r\n<td style=\"width: 100px; height: 15px;\">&nbsp;32/sd</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;51</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;Blood Test</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>','2017-02-21'),('RES-210217-0001','WRK-0002','<table style=\"width: 950px;\">\r\n<tbody>\r\n<tr class=\"heading\" style=\"height: 14px;\">\r\n<td style=\"width: 200px; height: 14px;\">Test Name</td>\r\n<td style=\"width: 200px; height: 14px;\">Result</td>\r\n<td style=\"width: 50px; height: 14px;\">Flag</td>\r\n<td style=\"width: 100px; height: 14px;\">Unit</td>\r\n<td style=\"width: 200px; height: 14px;\">Ref. Value</td>\r\n<td style=\"width: 200px; height: 14px;\">Method</td>\r\n</tr>\r\n<tr style=\"height: 15px;\">\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;CRT Test</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;aV</td>\r\n<td style=\"width: 50px; height: 15px;\">&nbsp;*</td>\r\n<td style=\"width: 100px; height: 15px;\">&nbsp;32</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;50</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;XX</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>','2017-02-21');
 
 /*Table structure for table `medical_record` */
 
@@ -123,7 +125,7 @@ CREATE TABLE `medical_record` (
 
 /*Data for the table `medical_record` */
 
-insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-210217-0000','DOC-0001','REG-210217-0000','USR-000000','2017-02-21',NULL,NULL,'PSC-210217-0000','<p>Headaches</p>','<p>Fever</p>','<p>Fever</p>','<p>Medicine</p>');
+insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-210217-0000','DOC-0001','REG-210217-0000','USR-000000','2017-02-21','LAB-0000','RES-210217-0000','PSC-210217-0000','<p>Headaches</p>','<p>Fever</p>','<p>Fever</p>','<p>Medicine</p>'),('REC-210217-0001','DOC-0000','REG-210217-0001','USR-000001','2017-02-21','LAB-0001','RES-210217-0001',NULL,'<p>Vomiting, extreme headaches</p>','<p>Cold Fever</p>','<p>Cold Fever</p>','<p>Medicine</p>');
 
 /*Table structure for table `medicine` */
 
@@ -205,7 +207,7 @@ CREATE TABLE `payment` (
 
 /*Data for the table `payment` */
 
-insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`,`info`,`entry_no`) values ('PAY-210217-0000','REG-210217-0000','WRK-0001','clinic',75000,'2017-02-21','',1),('PAY-210217-0001','REG-210217-0000','WRK-0001','clinic',75000,'2017-02-21','',2);
+insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`,`info`,`entry_no`) values ('PAY-210217-0000','REG-210217-0000','WRK-0001','clinic',75000,'2017-02-21','',1),('PAY-210217-0001','REG-210217-0000','WRK-0001','medicine',110000,'2017-02-21',NULL,NULL),('PAY-210217-0002','REG-210217-0000','WRK-0001','clinic',75000,'2017-02-21','',2),('PAY-210217-0003','REG-210217-0001','WRK-0001','clinic',50000,'2017-02-21','',1);
 
 /*Table structure for table `prescription` */
 
@@ -275,7 +277,7 @@ CREATE TABLE `registration` (
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-210217-0000','WRK-0000','USR-000000','DIV-0001','DOC-0001','clinic','2017-02-21',0);
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-210217-0000','WRK-0000','USR-000000','DIV-0001','DOC-0001','clinic','2017-02-21',0),('REG-210217-0001','WRK-0000','USR-000001','DIV-0000','DOC-0000','clinic','2017-02-21',0);
 
 /*Table structure for table `user` */
 
@@ -431,6 +433,22 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/* Procedure structure for procedure `getPrescriptionRegistration` */
+
+/*!50003 DROP PROCEDURE IF EXISTS  `getPrescriptionRegistration` */;
+
+DELIMITER $$
+
+/*!50003 CREATE DEFINER=`root`@`localhost` PROCEDURE `getPrescriptionRegistration`(IN iddata VARCHAR(255))
+BEGIN
+	SELECT registration.register_id, SUM(getprescriptionprice.`price_total`) AS "total_price" FROM registration, medical_record, prescription, getprescriptionprice
+WHERE prescription.`prescription_id` = medical_record.`prescription_id`
+AND medical_record.`register_id` = registration.`register_id`
+AND prescription.`prescription_id` = getprescriptionprice.`prescription_id`
+AND prescription.`prescription_id` = iddata;
+    END */$$
+DELIMITER ;
+
 /* Procedure structure for procedure `getRecordMonth` */
 
 /*!50003 DROP PROCEDURE IF EXISTS  `getRecordMonth` */;
@@ -485,6 +503,19 @@ DROP TABLE IF EXISTS `getentry`;
  `entry_number` bigint(21) 
 )*/;
 
+/*Table structure for table `getlabprice` */
+
+DROP TABLE IF EXISTS `getlabprice`;
+
+/*!50001 DROP VIEW IF EXISTS `getlabprice` */;
+/*!50001 DROP TABLE IF EXISTS `getlabprice` */;
+
+/*!50001 CREATE TABLE  `getlabprice`(
+ `register_id` varchar(15) ,
+ `result_id` varchar(25) ,
+ `tariff` double 
+)*/;
+
 /*Table structure for table `getpaymenttoday` */
 
 DROP TABLE IF EXISTS `getpaymenttoday`;
@@ -504,6 +535,21 @@ DROP TABLE IF EXISTS `getpaymenttoday`;
  `entry_no` int(11) 
 )*/;
 
+/*Table structure for table `getprescriptionprice` */
+
+DROP TABLE IF EXISTS `getprescriptionprice`;
+
+/*!50001 DROP VIEW IF EXISTS `getprescriptionprice` */;
+/*!50001 DROP TABLE IF EXISTS `getprescriptionprice` */;
+
+/*!50001 CREATE TABLE  `getprescriptionprice`(
+ `prescription_id` varchar(18) ,
+ `medicine_id` varchar(10) ,
+ `total` int(11) ,
+ `price` double ,
+ `price_total` double 
+)*/;
+
 /*Table structure for table `getregistertoday` */
 
 DROP TABLE IF EXISTS `getregistertoday`;
@@ -521,12 +567,38 @@ DROP TABLE IF EXISTS `getregistertoday`;
  `time` date 
 )*/;
 
+/*Table structure for table `showentrydata` */
+
+DROP TABLE IF EXISTS `showentrydata`;
+
+/*!50001 DROP VIEW IF EXISTS `showentrydata` */;
+/*!50001 DROP TABLE IF EXISTS `showentrydata` */;
+
+/*!50001 CREATE TABLE  `showentrydata`(
+ `payment_id` varchar(15) ,
+ `register_id` varchar(15) ,
+ `worker_id` varchar(10) ,
+ `clinic_id` varchar(8) ,
+ `type` varchar(50) ,
+ `amount` double ,
+ `time` date ,
+ `info` varchar(50) ,
+ `entry_no` int(11) 
+)*/;
+
 /*View structure for view getentry */
 
 /*!50001 DROP TABLE IF EXISTS `getentry` */;
 /*!50001 DROP VIEW IF EXISTS `getentry` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getentry` AS (select `clinic`.`name` AS `name`,count(0) AS `entry_number` from (`getpaymenttoday` join `clinic`) where ((cast(`getpaymenttoday`.`time` as date) = cast(curdate() as date)) and (`clinic`.`clinic_id` = `getpaymenttoday`.`clinic_id`)) group by `getpaymenttoday`.`clinic_id`) */;
+
+/*View structure for view getlabprice */
+
+/*!50001 DROP TABLE IF EXISTS `getlabprice` */;
+/*!50001 DROP VIEW IF EXISTS `getlabprice` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getlabprice` AS (select `registration`.`register_id` AS `register_id`,`lab_result`.`result_id` AS `result_id`,`lab`.`tariff` AS `tariff` from (((`lab` join `lab_result`) join `medical_record`) join `registration`) where ((`medical_record`.`result_id` = `lab_result`.`result_id`) and (`medical_record`.`lab_id` = `lab`.`lab_id`) and (`registration`.`register_id` = `medical_record`.`register_id`))) */;
 
 /*View structure for view getpaymenttoday */
 
@@ -535,12 +607,26 @@ DROP TABLE IF EXISTS `getregistertoday`;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getpaymenttoday` AS (select `payment`.`payment_id` AS `payment_id`,`payment`.`register_id` AS `register_id`,`payment`.`worker_id` AS `worker_id`,`registration`.`clinic_id` AS `clinic_id`,`payment`.`type` AS `type`,`payment`.`amount` AS `amount`,`payment`.`time` AS `time`,`payment`.`info` AS `info`,`payment`.`entry_no` AS `entry_no` from (`payment` join `registration`) where ((`registration`.`register_id` = `payment`.`register_id`) and (cast(`payment`.`time` as date) = cast(curdate() as date)))) */;
 
+/*View structure for view getprescriptionprice */
+
+/*!50001 DROP TABLE IF EXISTS `getprescriptionprice` */;
+/*!50001 DROP VIEW IF EXISTS `getprescriptionprice` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getprescriptionprice` AS (select `prescription_detail`.`prescription_id` AS `prescription_id`,`prescription_detail`.`medicine_id` AS `medicine_id`,`prescription_detail`.`total` AS `total`,`medicine`.`price` AS `price`,(`prescription_detail`.`total` * `medicine`.`price`) AS `price_total` from (`prescription_detail` join `medicine`) where (`medicine`.`medicine_id` = `prescription_detail`.`medicine_id`)) */;
+
 /*View structure for view getregistertoday */
 
 /*!50001 DROP TABLE IF EXISTS `getregistertoday` */;
 /*!50001 DROP VIEW IF EXISTS `getregistertoday` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getregistertoday` AS (select `registration`.`register_id` AS `register_id`,`registration`.`worker_id` AS `worker_id`,`registration`.`patient_id` AS `patient_id`,`registration`.`clinic_id` AS `clinic_id`,`registration`.`doctor_id` AS `doctor_id`,`registration`.`category` AS `category`,`registration`.`time` AS `time` from `registration` where (cast(`registration`.`time` as date) = cast(curdate() as date))) */;
+
+/*View structure for view showentrydata */
+
+/*!50001 DROP TABLE IF EXISTS `showentrydata` */;
+/*!50001 DROP VIEW IF EXISTS `showentrydata` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `showentrydata` AS (select `payment`.`payment_id` AS `payment_id`,`payment`.`register_id` AS `register_id`,`payment`.`worker_id` AS `worker_id`,`registration`.`clinic_id` AS `clinic_id`,`payment`.`type` AS `type`,`payment`.`amount` AS `amount`,`payment`.`time` AS `time`,`payment`.`info` AS `info`,`payment`.`entry_no` AS `entry_no` from (`payment` join `registration`) where ((`registration`.`register_id` = `payment`.`register_id`) and (cast(`payment`.`time` as date) = cast(curdate() as date)) and (`payment`.`entry_no` is not null))) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
