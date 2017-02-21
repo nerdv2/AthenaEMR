@@ -26,4 +26,18 @@ class Pdf extends MPDF
 		$html = $this->ci()->load->view($view, $data, TRUE);
 		$this->WriteHtml($html);
 	}
+
+	public function load_view_landscape($view, $data = array())
+	{
+		$this->AddPage('L', // L - landscape, P - portrait
+            '', '', '', '',
+            10, // margin_left
+            10, // margin right
+            4, // margin top
+            10, // margin bottom
+            2, // margin header
+            4); // margin footer
+		$html = $this->ci()->load->view($view, $data, TRUE);
+		$this->WriteHtml($html);
+	}
 }

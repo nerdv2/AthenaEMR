@@ -13,7 +13,7 @@
                 $cell_add = array('data' => '<a href="'.site_url().'/medicine/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
                 $this->table->set_heading('Medicine ID','Type Medicine ID','Medicine Name',
-                'Price','Unit','Created At','Updated At','');
+                'Price','Created At','Updated At','');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                     $edit = "<a href='".site_url()."/medicine/viewdata/".$row->medicine_id."' title='".$row->name."'>View</a>
@@ -25,8 +25,7 @@
                     $edit = "<a href='".site_url()."/medicine/viewdata/".$row->medicine_id."' title='".$row->name."'>View</a>"; 
                   }
                     
-                    $this->table->add_row($row->medicine_id, $row->type_id,$row->name,$row->price,
-                    $row->amount, $row->created_at, $row->updated_at,$edit);
+                    $this->table->add_row($row->medicine_id, $row->type_id,$row->name,$row->price, $row->created_at, $row->updated_at,$edit);
                 }
                 echo $this->table->generate();
         ?>

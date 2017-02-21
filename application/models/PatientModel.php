@@ -12,6 +12,15 @@
             return $query->result();
         }
 
+        public function getDoctorPatientData($id){
+            $this->db->select("*");
+            $this->db->where("doctor_id", $id);
+            $this->db->from('getpatientdoctor');
+            $this->db->group_by("name");
+            $query = $this->db->get();
+            return $query->result();
+        }
+
         public function getPatientLab($id){
             $dataquery = "CALL getPatientLab(?)";
             $execute = $this->db->query($dataquery,array($id));
@@ -19,6 +28,15 @@
             $execute->next_result();
             $execute->free_result();
             return $resultdata;
+        }
+
+        public function Read_patientname($patient_id){
+            $this->db->select('*');
+            $this->db->from('patient');
+            $this->db->where('patient_id', $patient_id);
+            $query = $this->db->get();
+            $ret = $query->row();
+            return $ret->name;
         }
 
         public function getPatientPrescription($id){

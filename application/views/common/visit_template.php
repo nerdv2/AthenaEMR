@@ -144,7 +144,7 @@
 
                         'row_alt_start'         => '<tr>',
                         'row_alt_end'           => '</tr>',
-                        'cell_alt_start'        => '<td>',
+                        'cell_alt_start'        => '<td align="center" valign="center">',
                         'cell_alt_end'          => '</td>',
 
                         'table_close'           => '</table>'

@@ -122,8 +122,16 @@ class AthenaMain extends CI_Controller {
 
     public function patient_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION" or $_SESSION['status'] == "DOCTOR"){
+            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
                 $data['query'] = $this->PatientModel->getData();
+                $this->load->view('header');
+                $this->load->view('sidebar/management_active');
+                $this->load->view('navbar');
+                $this->load->view('floatnav/patient_floatbar');
+                $this->load->view('patient/patient_view', $data);
+                $this->load->view('table_footer');
+            } elseif($_SESSION['status'] == "DOCTOR") {
+                $data['query'] = $this->PatientModel->getDoctorPatientData($_SESSION['doctor_id']);
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
                 $this->load->view('navbar');

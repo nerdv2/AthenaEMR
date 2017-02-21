@@ -12,6 +12,22 @@
             return $query->result();
         }
 
+        public function getMedicineInfo($id){
+            $this->db->select("*");
+            $this->db->from('getprescriptionprice');
+            $this->db->where('prescription_id', $id);
+            $query = $this->db->get();
+            return $query->result();
+        }
+
+        public function getMedicineUsage($id){
+            $this->db->select("*");
+            $this->db->from('prescription_detail');
+            $this->db->where('prescription_id', $id);
+            $query = $this->db->get();
+            return $query->result();
+        }
+
         public function getRecordID(){
             $data = array();
             $query = $this->db->get('medical_record');
@@ -138,7 +154,10 @@
         public function Read_specific($NIS){
             $dataquery = "CALL getPrescription(?)";
             $execute = $this->db->query($dataquery,array($NIS));
-            return $execute;
+            $ret = $execute->row();
+            $execute->next_result();
+            $execute->free_result();
+            return $ret;
         }
 
         public function Update($prescription_id, $record_id, 

@@ -59,8 +59,10 @@ class AthenaReport extends CI_Controller {
 
     public function export_medicalrecord($start, $end, $patient_id){
         $data['query'] = $this->EMRModel->getrecord_report($patient_id, $start, $end);
+        $data['patientid'] = $patient_id;
+        $data['patientname'] = $this->PatientModel->Read_patientname($patient_id);
         //$this->load->view('common/medical_record_template', $data);
-        $this->pdf->load_view('common/medical_record_template', $data);
+        $this->pdf->load_view_landscape('common/medical_record_template', $data);
         $this->pdf->Output();
     }
 

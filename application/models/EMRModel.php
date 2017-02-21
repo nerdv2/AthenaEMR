@@ -15,7 +15,7 @@
         public function getDataSpecific($id){
             $this->db->select("*");
             $this->db->where('doctor_id', $id);
-            $this->db->from('medical_record');
+            $this->db->from('getmedicalrecord_today');
             $query = $this->db->get();
             return $query->result();
         }
@@ -172,7 +172,10 @@
         public function getrecord_report($patient_id, $start, $end){
             $dataquery = "CALL getRecordMonth(?, ?, ?)";
             $execute = $this->db->query($dataquery,array($patient_id, $start, $end));
-            return $execute->result();
+            $ret = $execute->result();
+            $execute->next_result();
+            $execute->free_result();
+            return $ret;
         }
 
         public function Update($record_id, $doctor_id, 

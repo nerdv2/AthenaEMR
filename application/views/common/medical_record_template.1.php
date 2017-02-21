@@ -114,9 +114,7 @@
                             </td>
                             
                             <td>
-                            
-                                <?php echo $patientid; ?><br>
-                                <?php echo $patientname; ?>
+                                
 
                             </td>
                         </tr>
@@ -126,11 +124,49 @@
 
         </table>
         <?php foreach($query as $row): ?>
-            
-            <?php echo $row->time; ?> \ <?php echo $row->record_id; ?> \ <?php echo $row->doctor_name; ?><br>
             <table border='1'>
             <tr>
-                <td width="20%">Complaint: </td>
+                <td>Record ID: </td>
+                <td><?php echo $row->record_id; ?></td>
+            </tr>
+            <tr>
+                <td>Doctor ID: </td>
+                <td><?php echo $row->doctor_id; ?></td>
+            </tr>
+            <tr>
+                <td>Doctor Name: </td>
+                <td><?php echo $row->doctor_name; ?></td>
+            </tr>
+            <tr>
+                <td>Register ID: </td>
+                <td><?php echo $row->register_id; ?></td>
+            </tr>
+            <tr>
+                <td>Patient ID: </td>
+                <td><?php echo $row->patient_id; ?></td>
+            </tr>
+            <tr>
+                <td>Patient Name: </td>
+                <td><?php echo $row->patient_name; ?></td>
+            </tr>
+            <tr>
+                <td>Time: </td>
+                <td><?php echo $row->time; ?></td>
+            </tr>
+            <tr>
+                <td>Lab ID: </td>
+                <td><?php echo $row->lab_id; ?></td>
+            </tr>
+            <tr>
+                <td>Result ID: </td>
+                <td><?php echo $row->result_id; ?></td>
+            </tr>
+            <tr>
+                <td>Prescription ID: </td>
+                <td><?php echo $row->prescription_id; ?></td>
+            </tr>
+            <tr>
+                <td>Complaint: </td>
                 <td><?php echo $row->complaint; ?></td>
             </tr>
             <tr>

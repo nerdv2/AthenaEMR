@@ -18,7 +18,13 @@
         <div class="card-header">
           <ul class="nav nav-tabs">
             <li role="tab1" class="active">
-              <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Prescription</a>
+              <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab">Info</a>
+            </li>
+            <li role="tab2">
+              <a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab">Medicine</a>
+            </li>
+            <li role="tab3">
+              <a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab">Usage</a>
             </li>
           </ul>
         </div>
@@ -27,7 +33,7 @@
             <div class="row">
               <div class="col-md-12 col-sm-12">
                 <div class="section">
-                  <div class="section-title"><i class="icon fa fa-user" aria-hidden="true"></i> Prescription Data</div>
+                  <div class="section-title"><i class="icon fa fa-user" aria-hidden="true"></i> Prescription Info</div>
                   <div class="section-body __indent">
                   Prescription ID : <?= $query->prescription_id; ?><br>
                   Worker ID : <?= $query->worker_id; ?><br>
@@ -35,18 +41,32 @@
                   Description : <?= $query->description; ?><br>
                   </div>
                 </div>
-                <div class="section">
-                  <div class="section-title"><i class="icon fa fa-book" aria-hidden="true"></i> Prescription Info</div>
-                  <div class="section-body __indent">
-                  Medicine ID : <?= $query->medicine_id; ?><br>
-                  Dosage : <?= $query->dosage; ?><br>
-                  Amount : <?= $query->amount; ?><br>
-                  Total Amount : <?= $query->total; ?><br>
-                  Usage Info : <?= $query->usage; ?><br>
-                  </div>
-                </div>
               </div>
             </div>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="tab2">
+            <?php
+                $template = array('table_open' => '<table class="table card-table" cellspacing="0" width="100%">');
+                $this->table->set_template($template);
+
+                $this->table->set_heading('MedicineID','Name', 'Total');
+                foreach($medicine as $row){
+                    $this->table->add_row($row->medicine_id, $row->medicine_name, $row->total);
+                }
+                echo $this->table->generate();
+              ?>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="tab3">
+            <?php
+                $template = array('table_open' => '<table class="table card-table" cellspacing="0" width="100%">');
+                $this->table->set_template($template);
+
+                $this->table->set_heading('MedicineID','Usage');
+                foreach($usage as $row){
+                    $this->table->add_row($row->medicine_id, $row->usage);
+                }
+                echo $this->table->generate();
+              ?>
           </div>
         </div>
       </div>

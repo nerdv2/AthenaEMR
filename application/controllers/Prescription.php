@@ -341,7 +341,9 @@ class Prescription extends CI_Controller {
 
 	public function viewdata($id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-			$data['query'] = $this->PrescriptionModel->Read_specific($id)->row();
+			$data['query'] = $this->PrescriptionModel->Read_specific($id);
+			$data['medicine'] = $this->PrescriptionModel->getMedicineInfo($id);
+			$data['usage'] = $this->PrescriptionModel->getMedicineUsage($id);
 			$this->load->view('header');
 			$this->load->view('sidebar/management_active');
 			$this->load->view('navbar');
