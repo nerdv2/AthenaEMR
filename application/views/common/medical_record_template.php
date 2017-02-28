@@ -146,6 +146,18 @@
                 <td><?php echo $row->handling; ?></td>
             </tr>
             </table>
+            <?php 
+                if($row->prescription_id === null && $row->lab_id === null){
+                    
+                } elseif($row->prescription_id === null) {
+                    echo $row->lab_id . " \ " . $row->result_id;
+                } else {
+                    ?>
+                    <?php echo $row->prescription_id; ?> \  <?php echo $row->lab_id; ?> \ <?php echo $row->result_id; ?>
+                    <?php
+                }
+            ?>
+            
             <br><br>
             <?php endforeach; ?>
     </div>
