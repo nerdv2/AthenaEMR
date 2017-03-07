@@ -20,7 +20,7 @@
   <div class="col-md-12">
       <div class="card">
         <div class="card-header">
-          Payment Data
+          Payment Data - Clinic
         </div>
         <div class="card-body">
             <div class="row">

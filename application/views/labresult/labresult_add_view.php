@@ -27,7 +27,7 @@
             <div class="row">
               <?= form_open() ?>
                 <div class="col-md-12">
-                     <input type="text" value=<?= $data; ?> class="form-control" placeholder="LabResultID" name="result_id" required>
+                     <input type="text" value=<?= $data; ?> class="form-control" placeholder="LabResultID" name="result_id" readonly>
                 </div>
                 <div class="col-md-12">
                      <?php
@@ -54,7 +54,7 @@
                       echo "<select class='select2' name='lab_id' id='lab_id'>";
                       echo "<option value=''>Select Lab</option>";
                       foreach ($lab as $list) {
-                        echo "<option value='". $list['lab_id'] . "'>" . $list['lab_id'] . "</option>";
+                        echo "<option value='". $list['lab_id'] . "'>" . $list['name'] . "</option>";
                       }
                     ?>
                     </select>
