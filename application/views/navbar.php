@@ -14,7 +14,7 @@
         </li>
         <li>
           <button type="button" class="navbar-toggle">
-            <img class="profile-img" src="<?php echo base_url("assets/image/profile.jpg"); ?>">
+            <img class="profile-img" src="<?php echo base_url("assets/images/profile.png"); ?>">
           </button>
         </li>
       </ul>
