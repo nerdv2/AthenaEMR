@@ -17,11 +17,8 @@
 
   <link rel="stylesheet" type="text/css" href="<?php echo base_url("assets/css/bootstrap-datetimepicker.css"); ?>">
 
-  <script type="text/javascript" src="<?php echo base_url("assets/js/jquery-3.2.1.js"); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url("assets/js/jquery.min.js"); ?>"></script>
   <script src="<?php echo base_url("assets/js/tinymce/tinymce.min.js"); ?>" type="text/javascript"></script>
-  <script>tinymce.init({ selector:'textarea', 
-                         plugins:'table'
-                        });
-  </script>
+  <script>tinymce.init({ selector:'textarea', plugins:'table' });</script>
 
 </head>

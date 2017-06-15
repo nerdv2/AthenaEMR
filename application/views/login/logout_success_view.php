@@ -75,7 +75,7 @@
 	</div>
 	<!-- /Demo content -->
 
-	<script src="<?php echo base_url("assets/js/jquery-1.9.1.min.js"); ?>"></script>
+	<script src="<?php echo base_url("assets/js/jquery.min.js"); ?>"></script>
 	<script src="<?php echo base_url("assets/js/main_preload.js"); ?>"></script>
 
 </body>
