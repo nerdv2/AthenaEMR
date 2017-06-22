@@ -47,6 +47,8 @@ class Patient extends CI_Controller {
 			$this->form_validation->set_rules('state', 'State', 'trim');
 			$this->form_validation->set_rules('country', 'Country', 'trim|required');
 			$this->form_validation->set_rules('postal_code', 'Postal Code', 'trim|numeric');
+			$this->form_validation->set_rules('mother_name', 'Mother Name', 'trim');
+			$this->form_validation->set_rules('emergency_contact', 'Emergency Contact', 'trim|numeric');
 			$this->form_validation->set_rules('home_phone', 'Home Phone', 'trim|numeric');
 			$this->form_validation->set_rules('work_phone', 'Work Phone', 'trim|numeric');
 			$this->form_validation->set_rules('mobile_phone', 'Mobile Phone', 'trim|numeric');
@@ -77,6 +79,8 @@ class Patient extends CI_Controller {
 				$state = $this->input->post('state');
 				$country = $this->input->post('country');
 				$postal_code = $this->input->post('postal_code');
+				$mother_name = $this->input->post('mother_name');
+				$emergency_contact = $this->input->post('emergency_contact');
 				$home_phone = $this->input->post('home_phone');
 				$work_phone = $this->input->post('work_phone');
 				$mobile_phone = $this->input->post('mobile_phone');
@@ -89,8 +93,8 @@ class Patient extends CI_Controller {
 
 				if ($this->PatientModel->create_patient($patient_id, $name, 
 					$dob, $gender, $address, $city, $state, $country, $postal_code, 
-					$home_phone, $work_phone, $mobile_phone, $email, $marital_status,
-					$religion, $language, $race, $ethnicity)) {
+					$mother_name, $emergency_contact, $home_phone, $work_phone, 
+					$mobile_phone, $email, $marital_status, $religion, $language, $race, $ethnicity)) {
 				
 					// user creation ok
 					$this->PatientModel->Redirect();
@@ -133,6 +137,8 @@ class Patient extends CI_Controller {
 			$this->form_validation->set_rules('state', 'State', 'trim');
 			$this->form_validation->set_rules('country', 'Country', 'trim|required');
 			$this->form_validation->set_rules('postal_code', 'Postal Code', 'trim|numeric');
+			$this->form_validation->set_rules('mother_name', 'Mother Name', 'trim');
+			$this->form_validation->set_rules('emergency_contact', 'Emergency Contact', 'trim|numeric');
 			$this->form_validation->set_rules('home_phone', 'Home Phone', 'trim|numeric');
 			$this->form_validation->set_rules('work_phone', 'Work Phone', 'trim|numeric');
 			$this->form_validation->set_rules('mobile_phone', 'Mobile Phone', 'trim|numeric');
@@ -164,6 +170,8 @@ class Patient extends CI_Controller {
 				$state = $this->input->post('state');
 				$country = $this->input->post('country');
 				$postal_code = $this->input->post('postal_code');
+				$emergency_contact = $this->input->post('emergency_contact');
+				$mother_name = $this->input->post('mother_name');
 				$home_phone = $this->input->post('home_phone');
 				$work_phone = $this->input->post('work_phone');
 				$mobile_phone = $this->input->post('mobile_phone');
@@ -176,8 +184,8 @@ class Patient extends CI_Controller {
 
 				if ($this->PatientModel->Update($patient_id, $name, 
 					$dob, $gender, $address, $city, $state, $country, $postal_code, 
-					$home_phone, $work_phone, $mobile_phone, $email, $marital_status,
-					$religion, $language, $race, $ethnicity)) {
+					$mother_name, $emergency_contact, $home_phone, $work_phone, 
+					$mobile_phone, $email, $marital_status, $religion, $language, $race, $ethnicity)) {
 				
 					// user creation ok
 					$this->PatientModel->Redirect();

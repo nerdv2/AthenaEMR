@@ -177,6 +177,8 @@ CREATE TABLE `patient` (
 
 /*Data for the table `patient` */
 
+insert  into `patient`(`patient_id`,`name`,`dob`,`gender`,`created_at`,`updated_at`) values ('USR-000000','Gema Wardian','1999-07-14','male','2017-06-22 16:39:23','2017-06-22 18:53:53');
+
 /*Table structure for table `patient_contact` */
 
 DROP TABLE IF EXISTS `patient_contact`;
@@ -188,6 +190,8 @@ CREATE TABLE `patient_contact` (
   `state` varchar(100) DEFAULT NULL,
   `country` varchar(100) DEFAULT NULL,
   `postal_code` int(11) DEFAULT NULL,
+  `mother_name` varchar(100) DEFAULT NULL,
+  `emergency_contact` varchar(20) DEFAULT NULL,
   `home_phone` varchar(20) DEFAULT NULL,
   `work_phone` varchar(20) DEFAULT NULL,
   `mobile_phone` varchar(20) DEFAULT NULL,
@@ -198,6 +202,8 @@ CREATE TABLE `patient_contact` (
 
 /*Data for the table `patient_contact` */
 
+insert  into `patient_contact`(`patient_id`,`address`,`city`,`state`,`country`,`postal_code`,`mother_name`,`emergency_contact`,`home_phone`,`work_phone`,`mobile_phone`,`email`) values ('USR-000000','<p>Jl. Sukagalih Gg.H.Gozali No.74</p>','Bandung','West Java','US',40162,'','89685896213','089685896232','089123125621','089685812351','gema_wardian@hotmail.com');
+
 /*Table structure for table `patient_detail` */
 
 DROP TABLE IF EXISTS `patient_detail`;
@@ -205,8 +211,8 @@ DROP TABLE IF EXISTS `patient_detail`;
 CREATE TABLE `patient_detail` (
   `patient_id` varchar(15) DEFAULT NULL,
   `marital_status` smallint(6) DEFAULT NULL,
-  `religion` smallint(6) DEFAULT NULL,
-  `language` varchar(20) DEFAULT NULL,
+  `religion` varchar(50) DEFAULT NULL,
+  `language` varchar(5) DEFAULT NULL,
   `race` smallint(6) DEFAULT NULL,
   `ethnicity` smallint(6) DEFAULT NULL,
   KEY `patient_id` (`patient_id`),
@@ -214,6 +220,8 @@ CREATE TABLE `patient_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `patient_detail` */
+
+insert  into `patient_detail`(`patient_id`,`marital_status`,`religion`,`language`,`race`,`ethnicity`) values ('USR-000000',1,'Undisclosed','EN',2,2);
 
 /*Table structure for table `payment` */
 
@@ -300,6 +308,8 @@ CREATE TABLE `registration` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `registration` */
+
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-220617-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-06-22',0);
 
 /*Table structure for table `user` */
 
@@ -638,6 +648,7 @@ DROP TABLE IF EXISTS `getregistertoday`;
  `register_id` varchar(15) ,
  `worker_id` varchar(10) ,
  `patient_id` varchar(15) ,
+ `patient_name` varchar(100) ,
  `clinic_id` varchar(8) ,
  `doctor_id` varchar(10) ,
  `category` varchar(100) ,
@@ -710,7 +721,7 @@ DROP TABLE IF EXISTS `showentrydata`;
 /*!50001 DROP TABLE IF EXISTS `getregistertoday` */;
 /*!50001 DROP VIEW IF EXISTS `getregistertoday` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getregistertoday` AS (select `registration`.`register_id` AS `register_id`,`registration`.`worker_id` AS `worker_id`,`registration`.`patient_id` AS `patient_id`,`registration`.`clinic_id` AS `clinic_id`,`registration`.`doctor_id` AS `doctor_id`,`registration`.`category` AS `category`,`registration`.`time` AS `time` from `registration` where (cast(`registration`.`time` as date) = cast(curdate() as date))) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getregistertoday` AS (select `registration`.`register_id` AS `register_id`,`registration`.`worker_id` AS `worker_id`,`registration`.`patient_id` AS `patient_id`,`patient`.`name` AS `patient_name`,`registration`.`clinic_id` AS `clinic_id`,`registration`.`doctor_id` AS `doctor_id`,`registration`.`category` AS `category`,`registration`.`time` AS `time` from (`registration` join `patient`) where ((cast(`registration`.`time` as date) = cast(curdate() as date)) and (`patient`.`patient_id` = `registration`.`patient_id`))) */;
 
 /*View structure for view showentrydata */
 

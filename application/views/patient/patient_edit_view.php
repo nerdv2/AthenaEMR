@@ -155,6 +155,18 @@
                             <div class="section-title">Patient Contact</div>
                             <div class="section-body">
                                 <div class="form-group">
+                                    <label class="col-md-3 control-label">Mother's Name</label>
+                                    <div class="col-md-9">
+                                        <input type='text' class="form-control" value="<?= $query->mother_name; ?>" name="mother_name" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Emergency Contact</label>
+                                    <div class="col-md-9">
+                                        <input type='number' class="form-control" value="<?= $query->emergency_contact; ?>" name="emergency_contact" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-3 control-label">Home Phone</label>
                                     <div class="col-md-9">
                                         <input type='number' class="form-control" value="<?= $query->home_phone; ?>" name="home_phone" placeholder="" />

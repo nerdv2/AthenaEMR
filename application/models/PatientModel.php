@@ -50,8 +50,8 @@
 
         public function create_patient($patient_id, $name, 
 					$dob, $gender, $address, $city, $state, $country, $postal_code, 
-					$home_phone, $work_phone, $mobile_phone, $email, $marital_status,
-					$religion, $language, $race, $ethnicity) {
+					$mother_name, $emergency_contact, $home_phone, $work_phone, 
+					$mobile_phone, $email, $marital_status, $religion, $language, $race, $ethnicity) {
 		
 		$data = array(
 			'patient_id'   => $patient_id,
@@ -71,6 +71,8 @@
                 'state' => $state,
                 'country' => $country,
                 'postal_code' => $postal_code,
+                'mother_name' => $mother_name,
+                'emergency_contact' => $emergency_contact,
                 'home_phone' => $home_phone,
                 'work_phone' => $work_phone,
                 'mobile_phone' => $mobile_phone,
@@ -132,8 +134,8 @@
 
         public function Update($patient_id, $name, 
 					$dob, $gender, $address, $city, $state, $country, $postal_code, 
-					$home_phone, $work_phone, $mobile_phone, $email, $marital_status,
-					$religion, $language, $race, $ethnicity){
+					$mother_name, $emergency_contact, $home_phone, $work_phone, 
+					$mobile_phone, $email, $marital_status, $religion, $language, $race, $ethnicity){
 
             $data = array(
                 'patient_id'   => $patient_id,
@@ -154,6 +156,8 @@
                     'state' => $state,
                     'country' => $country,
                     'postal_code' => $postal_code,
+                    'mother_name' => $mother_name,
+                    'emergency_contact' => $emergency_contact,
                     'home_phone' => $home_phone,
                     'work_phone' => $work_phone,
                     'mobile_phone' => $mobile_phone,

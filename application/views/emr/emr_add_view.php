@@ -32,7 +32,7 @@
                       echo "<select class='select2' name='register_id' id='register_id'>";
                       echo "<option value=''>Select Registration</option>";
                       foreach ($register as $list) {
-                        echo "<option value='". $list['register_id'] . "'>" . $list['register_id'] . "</option>";
+                        echo "<option value='". $list['register_id'] . "'>" . $list['register_id'] . " - " . $list['patient_name'] . "</option>";
                       }
                     ?>
                     </select>

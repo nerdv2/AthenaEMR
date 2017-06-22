@@ -144,6 +144,18 @@
                             <div class="section-title">Patient Contact</div>
                             <div class="section-body">
                                 <div class="form-group">
+                                    <label class="col-md-3 control-label">Mother's Name</label>
+                                    <div class="col-md-9">
+                                        <input type='text' class="form-control"  name="mother_name" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">Emergency Contact</label>
+                                    <div class="col-md-9">
+                                        <input type='number' class="form-control"  name="emergency_contact" placeholder="" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-md-3 control-label">Home Phone</label>
                                     <div class="col-md-9">
                                         <input type='number' class="form-control"  name="home_phone" placeholder="" />
@@ -190,7 +202,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Religion</label>
                                     <div class="col-md-9">
-                                        <input type='text' class="form-control"  name="religion" placeholder="" />
+                                        <input type='text' class="form-control" value="Undisclosed"  name="religion" placeholder="" />
                                     </div>
                                 </div>
                                 <div class="form-group">
