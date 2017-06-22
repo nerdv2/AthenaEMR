@@ -44,7 +44,7 @@ class Prescription extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('prescription/prescription_pre_add_view');
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			} else {
 				$prescription_id = $this->input->post('prescription_id');
 				$record_id    = $this->input->post('record_id');
@@ -80,7 +80,7 @@ class Prescription extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('prescription/prescription_add_view', $data);
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			} else {
 				$data['prescription_id'] = $prescription_id;
 				$data['record_id'] = $record_id;
@@ -92,7 +92,7 @@ class Prescription extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('prescription/prescription_add_view', $data);
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			}
 		} else {
 			redirect('/');
@@ -129,7 +129,7 @@ class Prescription extends CI_Controller {
 						$this->load->view('sidebar/management_active');
 						$this->load->view('navbar');
 						$this->load->view('prescription/prescription_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 						}
 						
 					} else {
@@ -141,7 +141,7 @@ class Prescription extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('prescription/prescription_add_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					}
 
 					
@@ -156,7 +156,7 @@ class Prescription extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('prescription/prescription_add_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 		} else {
@@ -190,7 +190,7 @@ class Prescription extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('prescription/prescription_add_view');
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -222,7 +222,7 @@ class Prescription extends CI_Controller {
 						$this->load->view('sidebar/management_active');
 						$this->load->view('navbar');
 						$this->load->view('prescription/prescription_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 						}
 						
 					} else {
@@ -234,7 +234,7 @@ class Prescription extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('prescription/prescription_add_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					}
 
 					
@@ -249,7 +249,7 @@ class Prescription extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('prescription/prescription_add_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 
@@ -286,7 +286,7 @@ class Prescription extends CI_Controller {
     			$this->load->view('sidebar/management_active');
         		$this->load->view('navbar');
 				$this->load->view('prescription/prescription_edit_view',$data);
-				$this->load->view('footer');
+				$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -315,7 +315,7 @@ class Prescription extends CI_Controller {
 						$this->load->view('sidebar/management_active');
 						$this->load->view('navbar');
 						$this->load->view('prescription/prescription_edit_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 					}
 					
 				} else {
@@ -328,7 +328,7 @@ class Prescription extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('prescription/prescription_edit_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 
@@ -348,7 +348,7 @@ class Prescription extends CI_Controller {
 			$this->load->view('sidebar/management_active');
 			$this->load->view('navbar');
 			$this->load->view('prescription/prescription_data_view', $data);
-			$this->load->view('footer');
+			$this->load->view('footer/footer');
 		} else {
             redirect('/');
         }

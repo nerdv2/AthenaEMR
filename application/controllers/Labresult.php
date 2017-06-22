@@ -50,7 +50,7 @@ class Labresult extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('labresult/labresult_add_view');
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -74,7 +74,7 @@ class Labresult extends CI_Controller {
 						$this->load->view('sidebar/management_active');
 						$this->load->view('navbar');
 						$this->load->view('labresult/labresult_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 					}
 										
 				} else {
@@ -87,7 +87,7 @@ class Labresult extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('labresult/labresult_add_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 
@@ -118,7 +118,7 @@ class Labresult extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('labresult/labresult_edit_view',$data);
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -142,7 +142,7 @@ class Labresult extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('labresult/labresult_edit_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 
@@ -160,7 +160,7 @@ class Labresult extends CI_Controller {
 			$this->load->view('sidebar/management_active');
 			$this->load->view('navbar');
 			$this->load->view('labresult/labresult_data_view', $data);
-			$this->load->view('footer');
+			$this->load->view('footer/footer');
 		} else {
             redirect('/');
         }

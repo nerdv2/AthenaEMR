@@ -47,7 +47,7 @@ class Clinic extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('clinic/clinic_add_view');
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -72,7 +72,7 @@ class Clinic extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('clinic/clinic_add_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 
@@ -100,7 +100,7 @@ class Clinic extends CI_Controller {
     			$this->load->view('sidebar/management_active');
         		$this->load->view('navbar');
 				$this->load->view('clinic/clinic_edit_view',$data);
-				$this->load->view('footer');
+				$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -124,7 +124,7 @@ class Clinic extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('clinic/clinic_edit_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 
@@ -142,7 +142,7 @@ class Clinic extends CI_Controller {
 			$this->load->view('sidebar/users_active');
 			$this->load->view('navbar');
 			$this->load->view('clinic/clinic_data_view', $data);
-			$this->load->view('footer');
+			$this->load->view('footer/footer');
 		} else {
             redirect('/');
         }

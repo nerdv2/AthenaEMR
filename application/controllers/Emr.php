@@ -64,7 +64,7 @@ class Emr extends CI_Controller {
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('emr/emr_add_view');
-            	$this->load->view('emr_footer');
+            	$this->load->view('footer/emr_footer');
 			
 			} else {
 				// set variables from the form
@@ -111,7 +111,7 @@ class Emr extends CI_Controller {
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('emr/emr_add_view',$data);
-            		$this->load->view('emr_footer');
+            		$this->load->view('footer/emr_footer');
 					
 				}
 
@@ -129,7 +129,7 @@ class Emr extends CI_Controller {
 			$this->load->view('sidebar/management_active');
 			$this->load->view('navbar');
 			$this->load->view('emr/emr_data_view', $data);
-			$this->load->view('footer');
+			$this->load->view('footer/footer');
 		} else {
             redirect('/');
         }

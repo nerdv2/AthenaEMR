@@ -84,7 +84,7 @@ class AthenaReport extends CI_Controller {
         $this->load->view('sidebar/management_active');
         $this->load->view('navbar');
         $this->load->view('common/card_template', $data);
-        $this->load->view('qrcode_footer');
+        $this->load->view('footer/qrcode_footer');
     }
 
     public function get_entry($id){
@@ -93,7 +93,7 @@ class AthenaReport extends CI_Controller {
         $this->load->view('sidebar/management_active');
         $this->load->view('navbar');
         $this->load->view('common/entry_template', $data);
-        $this->load->view('entry_footer');
+        $this->load->view('footer/entry_footer');
     }
 
     public function registration_view()
@@ -113,7 +113,7 @@ class AthenaReport extends CI_Controller {
             	$this->load->view('sidebar/report_active');
             	$this->load->view('navbar');
             	$this->load->view('report/registration_month_view',$data);
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -134,7 +134,7 @@ class AthenaReport extends CI_Controller {
                     $this->load->view('sidebar/report_active');
                     $this->load->view('navbar');
                     $this->load->view('report/registration_month_view',$data);
-                    $this->load->view('footer');
+                    $this->load->view('footer/footer');
 					
 				}
 
@@ -162,7 +162,7 @@ class AthenaReport extends CI_Controller {
             	$this->load->view('sidebar/report_active');
             	$this->load->view('navbar');
             	$this->load->view('report/patient_visit_month',$data);
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -184,7 +184,7 @@ class AthenaReport extends CI_Controller {
                     $this->load->view('sidebar/report_active');
                     $this->load->view('navbar');
                     $this->load->view('report/patient_visit_month',$data);
-                    $this->load->view('footer');
+                    $this->load->view('footer/footer');
 					
 				}
 
@@ -212,7 +212,7 @@ class AthenaReport extends CI_Controller {
             	$this->load->view('sidebar/report_active');
             	$this->load->view('navbar');
             	$this->load->view('report/patient_record_month');
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -234,7 +234,7 @@ class AthenaReport extends CI_Controller {
                     $this->load->view('sidebar/report_active');
                     $this->load->view('navbar');
                     $this->load->view('report/patient_record_month');
-                    $this->load->view('footer');
+                    $this->load->view('footer/footer');
 					
 				}
 

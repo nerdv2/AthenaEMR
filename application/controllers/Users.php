@@ -51,7 +51,7 @@ class Users extends CI_Controller {
             	$this->load->view('sidebar/users_active');
             	$this->load->view('navbar');
             	$this->load->view('users/users_add_view');
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -78,7 +78,7 @@ class Users extends CI_Controller {
 						$this->load->view('sidebar/users_active');
 						$this->load->view('navbar');
 						$this->load->view('users/users_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 								
 					}
 				} else if($doctor_id == "" && $worker_id !== ""){
@@ -97,7 +97,7 @@ class Users extends CI_Controller {
 						$this->load->view('sidebar/users_active');
 						$this->load->view('navbar');
 						$this->load->view('users/users_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 								
 					}
 				} else if($doctor_id !== "" && $worker_id == ""){
@@ -116,7 +116,7 @@ class Users extends CI_Controller {
 						$this->load->view('sidebar/users_active');
 						$this->load->view('navbar');
 						$this->load->view('users/users_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 								
 					}
 				}
@@ -155,7 +155,7 @@ class Users extends CI_Controller {
     			$this->load->view('sidebar/users_active');
         		$this->load->view('navbar');
 				$this->load->view('users/users_edit_view',$data);
-				$this->load->view('footer');
+				$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -183,7 +183,7 @@ class Users extends CI_Controller {
 						$this->load->view('sidebar/users_active');
 						$this->load->view('navbar');
 						$this->load->view('users/users_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 								
 					}
 				} else if($doctor_id == "" && $worker_id !== ""){
@@ -202,7 +202,7 @@ class Users extends CI_Controller {
 						$this->load->view('sidebar/users_active');
 						$this->load->view('navbar');
 						$this->load->view('users/users_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 								
 					}
 				} else if($doctor_id !== "" && $worker_id == ""){
@@ -221,7 +221,7 @@ class Users extends CI_Controller {
 						$this->load->view('sidebar/users_active');
 						$this->load->view('navbar');
 						$this->load->view('users/users_add_view',$data);
-						$this->load->view('footer');
+						$this->load->view('footer/footer');
 								
 					}
 				}

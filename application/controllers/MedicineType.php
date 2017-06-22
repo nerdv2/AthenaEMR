@@ -46,7 +46,7 @@ public function adddata()
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
             	$this->load->view('medicine_type/medicine_type_add_view');
-            	$this->load->view('footer');
+            	$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -68,7 +68,7 @@ public function adddata()
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('medicine_type/medicine_type_add_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 
@@ -97,7 +97,7 @@ public function adddata()
     			$this->load->view('sidebar/management_active');
         		$this->load->view('navbar');
 				$this->load->view('medicine_type/medicine_type_edit_view',$data);
-				$this->load->view('footer');
+				$this->load->view('footer/footer');
 			
 			} else {
 				// set variables from the form
@@ -119,7 +119,7 @@ public function adddata()
             		$this->load->view('sidebar/management_active');
             		$this->load->view('navbar');
             		$this->load->view('medicine_type/medicine_type_edit_view',$data);
-            		$this->load->view('footer');
+            		$this->load->view('footer/footer');
 					
 				}
 
@@ -137,7 +137,7 @@ public function adddata()
 			$this->load->view('sidebar/users_active');
 			$this->load->view('navbar');
 			$this->load->view('medicine_type/medicine_type_data_view', $data);
-			$this->load->view('footer');
+			$this->load->view('footer/footer');
 		} else {
             redirect('/');
         }

@@ -42,7 +42,7 @@ class AthenaMain extends CI_Controller {
             $this->load->view('navbar');
             $this->load->view('floatnav/dashboard_floatbar');
             $this->load->view('admin_dashboard/dashboard_view', $data);
-            $this->load->view('footer');
+            $this->load->view('footer/footer');
         } else {
             $this->login();
         }
@@ -57,7 +57,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/users_floatbar');
                 $this->load->view('users/users_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -75,7 +75,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/workers_floatbar');
                 $this->load->view('workers/workers_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -93,7 +93,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/lab_floatbar');
                 $this->load->view('lab/lab_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -111,7 +111,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/doctor_floatbar');
                 $this->load->view('doctor/doctor_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -129,7 +129,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/patient_floatbar');
                 $this->load->view('patient/patient_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } elseif($_SESSION['status'] == "DOCTOR") {
                 $data['query'] = $this->PatientModel->getDoctorPatientData($_SESSION['doctor_id']);
                 $this->load->view('header');
@@ -137,7 +137,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/patient_floatbar');
                 $this->load->view('patient/patient_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -156,7 +156,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/clinic_floatbar');
                 $this->load->view('clinic/clinic_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -174,7 +174,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/payment_floatbar');
                 $this->load->view('payment/payment_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -192,7 +192,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/registration_floatbar');
                 $this->load->view('registration/registration_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -210,7 +210,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/emr_floatbar');
                 $this->load->view('emr/emr_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -228,7 +228,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/medicine_floatbar');
                 $this->load->view('medicine/medicine_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -246,7 +246,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/medicine_type_floatbar');
                 $this->load->view('medicine_type/medicine_type_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -264,7 +264,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/labresult_floatbar');
                 $this->load->view('labresult/labresult_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
@@ -282,7 +282,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('navbar');
                 $this->load->view('floatnav/prescription_floatbar');
                 $this->load->view('prescription/prescription_view', $data);
-                $this->load->view('table_footer');
+                $this->load->view('footer/table_footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
