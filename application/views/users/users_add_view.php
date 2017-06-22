@@ -28,10 +28,10 @@
                      <input type="text" class="form-control" placeholder="Username" name="username" required>
                 </div>
                 <div class="col-md-12">
-                     <input type="password" class="form-control" placeholder="Password" name="password" required>
+                     <input type="password" class="form-control" autocomplete="off" placeholder="Password" name="password" required>
                 </div>
                 <div class="col-md-12">
-                     <input type="password" class="form-control" placeholder="Confirm Password" name="password_confirm" required>
+                     <input type="password" class="form-control" autocomplete="off" placeholder="Confirm Password" name="password_confirm" required>
                 </div>
                 <div class="col-md-12">
                      <select class="select2" name="status">
