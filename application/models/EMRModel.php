@@ -119,8 +119,11 @@
             return $ret->patient_id;
         }
 
-        public function create_emr($record_id, $doctor_id, 
-				$register_id, $patient_id, $complaint, $symptoms,$diagnosis,$handling) {
+        public function create_emr($record_id, $doctor_id, $register_id, $patient_id, 
+				$additional_notes, $complaint, $symptoms, $diagnosis, $handling, 
+				$weight, $height, $blood_pressure_systolic, $blood_pressure_diastolic, $pulse, 
+				$respiration, $temperature, $temperature_location, $oxygen_saturation, $head_circumference, 
+				$waist_circumference, $bmi) {
 		
 		$data = array(
 			'record_id'   => $record_id,
@@ -132,9 +135,33 @@
             'symptoms'      => $symptoms,
             'diagnosis'    => $diagnosis,
             'handling'    => $handling,
+            'additional_notes' => $additional_notes,
+            'created_at' => date('Y-m-j H:i:s'),
 		);
+
+        $run = $this->db->insert('medical_record', $data);
+
+        if ($run) {
+            $data2 = array(
+                'record_id'   => $record_id,
+                'weight'   => $weight,
+                'height'      => $height,
+                'blood_pressure_systolic'      => $blood_pressure_systolic,
+                'blood_pressure_diastolic' => $blood_pressure_diastolic,
+                'pulse'      => $pulse,
+                'respiration'      => $respiration,
+                'temperature'    => $temperature,
+                'temperature_location'    => $temperature_location,
+                'oxygen_saturation' => $oxygen_saturation,
+                'head_circumference' => $head_circumference,
+                'waist_circumference' => $waist_circumference,
+                'bmi' => $bmi,
+            );
+
+            $run2 = $this->db->insert('medical_record_vitals', $data2);
+        }
 		
-		return $this->db->insert('medical_record', $data);
+		return $run2;
 		
 	    }
         
@@ -177,35 +204,6 @@
             $execute->free_result();
             return $ret;
         }
-
-        public function Update($record_id, $doctor_id, 
-				$register_id, $patient_id, $lab_id, $result_id, $prescription_id, $complaint, $symptoms,$diagnosis,$handling){
-            
-                $data = array(
-                'record_id'   => $record_id,
-                'doctor_id'   => $doctor_id,
-                'register_id'      => $register_id,
-                'patient_id'      => $patient_id,
-                'time' => date('Y-m-j H:i:s'),
-                'lab_id'      => $lab_id,
-                'result_id'      => $result_id,
-                'prescription_id'      => $prescription_id,
-                'complaint'      => $complaint,
-                'symptoms'      => $symptoms,
-                'diagnosis'    => $diagnosis,
-                'handling'    => $handling,
-            );
-
-            $this->db->where("record_id", $record_id);
-            $this->db->update("medical_record",$data);
-            $this->Redirect();
-        }
-
-        public function Delete($data){
-		    $this->db->where($data);
-		    $this->db->delete('medical_record');
-	    }
-        
         
     }
 ?>

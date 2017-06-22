@@ -15,11 +15,7 @@
                 $this->table->set_heading('RecordID','DoctorID','RegisterID','Time of Admission','');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
-                     $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>
-                      <br>
-                      <a href='".site_url()."/emr/editdata/".$row->record_id."' title='".$row->register_id."'>Edit</a>
-                      <br>
-                      <a href='".site_url()."/emr/deletedata/".$row->record_id."' title='".$row->register_id."' onclick='return confirmDelete();'>Delete</a>"; 
+                     $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
                   } else {
                     $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
                   }
@@ -27,7 +23,7 @@
                     $this->table->add_row($row->record_id, $row->doctor_id, $row->register_id, $row->time ,$edit);
                 }
                 echo $this->table->generate();
-        ?>
+          ?>
         </div>
       </div>
     </div>

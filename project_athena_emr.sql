@@ -106,6 +106,8 @@ CREATE TABLE `medical_record` (
   `symptoms` text NOT NULL,
   `diagnosis` text NOT NULL,
   `handling` text,
+  `additional_notes` text,
+  `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`record_id`),
   KEY `doctor_id` (`doctor_id`),
   KEY `register_id` (`register_id`),
@@ -122,6 +124,30 @@ CREATE TABLE `medical_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medical_record` */
+
+/*Table structure for table `medical_record_vitals` */
+
+DROP TABLE IF EXISTS `medical_record_vitals`;
+
+CREATE TABLE `medical_record_vitals` (
+  `record_id` varchar(20) DEFAULT NULL,
+  `weight` int(11) DEFAULT NULL,
+  `height` int(11) DEFAULT NULL,
+  `blood_pressure_systolic` int(11) DEFAULT NULL,
+  `blood_pressure_diastolic` int(11) DEFAULT NULL,
+  `pulse` int(11) DEFAULT NULL,
+  `respiration` int(11) DEFAULT NULL,
+  `temperature` int(11) DEFAULT NULL,
+  `temperature_location` int(11) DEFAULT NULL,
+  `oxygen_saturation` int(11) DEFAULT NULL,
+  `head_circumference` int(11) DEFAULT NULL,
+  `waist_circumference` int(11) DEFAULT NULL,
+  `bmi` int(11) DEFAULT NULL,
+  KEY `record_id` (`record_id`),
+  CONSTRAINT `medical_record_vitals_ibfk_1` FOREIGN KEY (`record_id`) REFERENCES `medical_record` (`record_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `medical_record_vitals` */
 
 /*Table structure for table `medicine` */
 
