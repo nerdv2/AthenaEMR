@@ -49,19 +49,51 @@
         }
 
         public function create_patient($patient_id, $name, 
-				$dob, $gender, $address, $phone) {
+					$dob, $gender, $address, $city, $state, $country, $postal_code, 
+					$home_phone, $work_phone, $mobile_phone, $email, $marital_status,
+					$religion, $language, $race, $ethnicity) {
 		
 		$data = array(
 			'patient_id'   => $patient_id,
 			'name'   => $name,
 			'dob'      => $dob,
             'gender'      => $gender,
-            'address'      => $address,
-            'phone'      => $phone,
 			'created_at' => date('Y-m-j H:i:s'),
 		);
-		
-		return $this->db->insert('patient', $data);
+
+        $run = $this->db->insert('patient', $data);
+
+        if ($run) {
+            $data2 = array(
+                'patient_id' => $patient_id,
+                'address' => $address,
+                'city' => $city,
+                'state' => $state,
+                'country' => $country,
+                'postal_code' => $postal_code,
+                'home_phone' => $home_phone,
+                'work_phone' => $work_phone,
+                'mobile_phone' => $mobile_phone,
+                'email' => $email,
+            );
+
+            $run2 = $this->db->insert('patient_contact', $data2);
+
+            if ($run2) {
+                $data3 = array(
+                    'patient_id' => $patient_id,
+                    'marital_status' => $marital_status,
+                    'religion' => $religion,
+                    'language' => $language,
+                    'race' => $race,
+                    'ethnicity' => $ethnicity,
+                );
+
+                $run3 = $this->db->insert('patient_detail', $data3);
+            }
+        }
+        
+		return $run3;
 		
 	    }
 

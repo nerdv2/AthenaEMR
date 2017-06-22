@@ -89,8 +89,6 @@ CREATE TABLE `lab_result` (
 
 /*Data for the table `lab_result` */
 
-insert  into `lab_result`(`result_id`,`worker_id`,`result_data`,`time`) values ('RES-210217-0000','WRK-0002','<table style=\"width: 950px;\">\r\n<tbody>\r\n<tr class=\"heading\" style=\"height: 14px;\">\r\n<td style=\"width: 200px; height: 14px;\">Test Name</td>\r\n<td style=\"width: 200px; height: 14px;\">Result</td>\r\n<td style=\"width: 50px; height: 14px;\">Flag</td>\r\n<td style=\"width: 100px; height: 14px;\">Unit</td>\r\n<td style=\"width: 200px; height: 14px;\">Ref. Value</td>\r\n<td style=\"width: 200px; height: 14px;\">Method</td>\r\n</tr>\r\n<tr style=\"height: 15px;\">\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;Abrovix Test</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;negative</td>\r\n<td style=\"width: 50px; height: 15px;\">&nbsp;*</td>\r\n<td style=\"width: 100px; height: 15px;\">&nbsp;32/sd</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;51</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;Blood Test</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>','2017-02-21'),('RES-210217-0001','WRK-0002','<table style=\"width: 950px;\">\r\n<tbody>\r\n<tr class=\"heading\" style=\"height: 14px;\">\r\n<td style=\"width: 200px; height: 14px;\">Test Name</td>\r\n<td style=\"width: 200px; height: 14px;\">Result</td>\r\n<td style=\"width: 50px; height: 14px;\">Flag</td>\r\n<td style=\"width: 100px; height: 14px;\">Unit</td>\r\n<td style=\"width: 200px; height: 14px;\">Ref. Value</td>\r\n<td style=\"width: 200px; height: 14px;\">Method</td>\r\n</tr>\r\n<tr style=\"height: 15px;\">\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;CRT Test</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;aV</td>\r\n<td style=\"width: 50px; height: 15px;\">&nbsp;*</td>\r\n<td style=\"width: 100px; height: 15px;\">&nbsp;32</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;50</td>\r\n<td style=\"width: 200px; height: 15px;\">&nbsp;XX</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>&nbsp;</p>','2017-02-21');
-
 /*Table structure for table `medical_record` */
 
 DROP TABLE IF EXISTS `medical_record`;
@@ -124,8 +122,6 @@ CREATE TABLE `medical_record` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medical_record` */
-
-insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`) values ('REC-210217-0000','DOC-0001','REG-210217-0000','USR-000000','2017-02-21','LAB-0000','RES-210217-0000','PSC-210217-0000','<p>Headaches</p>','<p>Fever</p>','<p>Fever</p>','<p>Medicine</p>'),('REC-210217-0001','DOC-0000','REG-210217-0001','USR-000001','2017-02-21','LAB-0001','RES-210217-0001',NULL,'<p>Vomiting, extreme headaches</p>','<p>Cold Fever</p>','<p>Cold Fever</p>','<p>Medicine</p>'),('REC-210217-0002','DOC-0000','REG-210217-0002','USR-000000','2017-02-21',NULL,NULL,NULL,'<p>Complaints</p>','<p>Symptoms</p>','<p>Diagnosis</p>','<p>Handling</p>');
 
 /*Table structure for table `medicine` */
 
@@ -174,8 +170,6 @@ CREATE TABLE `patient` (
   `name` varchar(100) NOT NULL,
   `dob` date NOT NULL,
   `gender` varchar(10) NOT NULL,
-  `address` varchar(255) NOT NULL,
-  `phone` varchar(20) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`patient_id`)
@@ -183,7 +177,43 @@ CREATE TABLE `patient` (
 
 /*Data for the table `patient` */
 
-insert  into `patient`(`patient_id`,`name`,`dob`,`gender`,`address`,`phone`,`created_at`,`updated_at`) values ('USR-000000','Dana Abraham','1997-06-19','female','<p>Home Address</p>','','2017-01-21 19:29:09',NULL),('USR-000001','Jack Nicholson','1992-06-08','male','<p>Bandung, Indonesia</p>','','2017-02-20 11:38:54',NULL);
+/*Table structure for table `patient_contact` */
+
+DROP TABLE IF EXISTS `patient_contact`;
+
+CREATE TABLE `patient_contact` (
+  `patient_id` varchar(15) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `postal_code` int(11) DEFAULT NULL,
+  `home_phone` varchar(20) DEFAULT NULL,
+  `work_phone` varchar(20) DEFAULT NULL,
+  `mobile_phone` varchar(20) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  KEY `patient_id` (`patient_id`),
+  CONSTRAINT `patient_contact_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `patient_contact` */
+
+/*Table structure for table `patient_detail` */
+
+DROP TABLE IF EXISTS `patient_detail`;
+
+CREATE TABLE `patient_detail` (
+  `patient_id` varchar(15) DEFAULT NULL,
+  `marital_status` smallint(6) DEFAULT NULL,
+  `religion` smallint(6) DEFAULT NULL,
+  `language` varchar(20) DEFAULT NULL,
+  `race` smallint(6) DEFAULT NULL,
+  `ethnicity` smallint(6) DEFAULT NULL,
+  KEY `patient_id` (`patient_id`),
+  CONSTRAINT `patient_detail_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+/*Data for the table `patient_detail` */
 
 /*Table structure for table `payment` */
 
@@ -207,8 +237,6 @@ CREATE TABLE `payment` (
 
 /*Data for the table `payment` */
 
-insert  into `payment`(`payment_id`,`register_id`,`worker_id`,`type`,`amount`,`time`,`info`,`entry_no`) values ('PAY-210217-0000','REG-210217-0000','WRK-0001','clinic',75000,'2017-02-21','',1),('PAY-210217-0001','REG-210217-0000','WRK-0001','medicine',110000,'2017-02-21',NULL,NULL),('PAY-210217-0002','REG-210217-0000','WRK-0001','clinic',75000,'2017-02-21','',2),('PAY-210217-0003','REG-210217-0001','WRK-0001','clinic',50000,'2017-02-21','',1),('PAY-210217-0004','REG-210217-0001','WRK-0001','lab',500000,'2017-02-21',NULL,NULL),('PAY-210217-0005','REG-210217-0002','WRK-0001','clinic',50000,'2017-02-21','',2);
-
 /*Table structure for table `prescription` */
 
 DROP TABLE IF EXISTS `prescription`;
@@ -228,8 +256,6 @@ CREATE TABLE `prescription` (
 
 /*Data for the table `prescription` */
 
-insert  into `prescription`(`prescription_id`,`record_id`,`worker_id`,`time`,`description`) values ('PSC-210217-0000','REC-210217-0000','WRK-0003','2017-02-21','<p>Info</p>');
-
 /*Table structure for table `prescription_detail` */
 
 DROP TABLE IF EXISTS `prescription_detail`;
@@ -248,8 +274,6 @@ CREATE TABLE `prescription_detail` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `prescription_detail` */
-
-insert  into `prescription_detail`(`prescription_id`,`medicine_id`,`dosage`,`amount`,`total`,`usage`) values ('PSC-210217-0000','MED-0000','1',1,1,'<p>Usage Info 1</p>'),('PSC-210217-0000','MED-0001','2',2,2,'<p>Usage Info 2</p>');
 
 /*Table structure for table `registration` */
 
@@ -276,8 +300,6 @@ CREATE TABLE `registration` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `registration` */
-
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-210217-0000','WRK-0000','USR-000000','DIV-0001','DOC-0001','clinic','2017-02-21',0),('REG-210217-0001','WRK-0000','USR-000001','DIV-0000','DOC-0000','clinic','2017-02-21',0),('REG-210217-0002','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-02-21',0),('REG-210217-0003','WRK-0000','USR-000001','DIV-0000','DOC-0000','clinic','2017-02-21',0);
 
 /*Table structure for table `user` */
 
@@ -565,8 +587,6 @@ DROP TABLE IF EXISTS `getpatientdoctor`;
  `name` varchar(100) ,
  `dob` date ,
  `gender` varchar(10) ,
- `address` varchar(255) ,
- `phone` varchar(20) ,
  `created_at` datetime ,
  `updated_at` datetime ,
  `doctor_id` varchar(10) 
@@ -669,7 +689,7 @@ DROP TABLE IF EXISTS `showentrydata`;
 /*!50001 DROP TABLE IF EXISTS `getpatientdoctor` */;
 /*!50001 DROP VIEW IF EXISTS `getpatientdoctor` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getpatientdoctor` AS (select `patient`.`patient_id` AS `patient_id`,`patient`.`name` AS `name`,`patient`.`dob` AS `dob`,`patient`.`gender` AS `gender`,`patient`.`address` AS `address`,`patient`.`phone` AS `phone`,`patient`.`created_at` AS `created_at`,`patient`.`updated_at` AS `updated_at`,`registration`.`doctor_id` AS `doctor_id` from (`patient` join `registration`) where (`patient`.`patient_id` = `registration`.`patient_id`)) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getpatientdoctor` AS (select `patient`.`patient_id` AS `patient_id`,`patient`.`name` AS `name`,`patient`.`dob` AS `dob`,`patient`.`gender` AS `gender`,`patient`.`created_at` AS `created_at`,`patient`.`updated_at` AS `updated_at`,`registration`.`doctor_id` AS `doctor_id` from (`patient` join `registration`) where (`patient`.`patient_id` = `registration`.`patient_id`)) */;
 
 /*View structure for view getpaymenttoday */
 
