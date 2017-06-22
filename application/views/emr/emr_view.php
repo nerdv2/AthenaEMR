@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/emr/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('RecordID','DoctorID','RegisterID','Time of Admission','');
+                $this->table->set_heading('RecordID','Doctor','Patient','Time of Admission','');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                      $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
@@ -20,7 +20,7 @@
                     $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
                   }
                    
-                    $this->table->add_row($row->record_id, $row->doctor_id, $row->register_id, $row->time ,$edit);
+                    $this->table->add_row($row->record_id, $row->doctor_name, $row->patient_name, $row->time ,$edit);
                 }
                 echo $this->table->generate();
           ?>

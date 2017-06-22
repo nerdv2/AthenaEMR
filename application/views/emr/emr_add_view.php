@@ -80,7 +80,7 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Additional Notes</label>
                                     <div class="col-md-9">
-                                        <textarea name="additional_notes" class="form-control"></textarea>
+                                        <textarea name="additional_notes" class="form-control" id="textarea-gui"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -93,25 +93,25 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Complaints*</label>
                                     <div class="col-md-9">
-                                        <textarea name="complaint" class="form-control"></textarea><br>
+                                        <textarea name="complaint" class="form-control" id="textarea-gui2"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Symptoms*</label>
                                     <div class="col-md-9">
-                                        <textarea name="symptoms" class="form-control"></textarea><br>
+                                        <textarea name="symptoms" class="form-control" id="textarea-gui3"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Diagnosis*</label>
                                     <div class="col-md-9">
-                                        <textarea name="diagnosis" class="form-control"></textarea><br>
+                                        <textarea name="diagnosis" class="form-control" id="textarea-gui4"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Handling*</label>
                                     <div class="col-md-9">
-                                        <textarea name="handling" class="form-control"></textarea><br>
+                                        <textarea name="handling" class="form-control" id="textarea-gui5"></textarea>
                                     </div>
                                 </div>
                             </div>

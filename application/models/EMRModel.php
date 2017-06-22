@@ -189,10 +189,10 @@
             $this->db->insert('medical_record', $data);
         }
 
-        public function Read_specific($NIS){
+        public function Read_specific($record_id){
             $this->db->select('*');
-            $this->db->from('medical_record');
-            $this->db->where('record_id', $NIS);
+            $this->db->from('getemrcompleteview');
+            $this->db->where('record_id', $record_id);
             return $this->db->get();
         }
 
@@ -204,6 +204,6 @@
             $execute->free_result();
             return $ret;
         }
-        
+
     }
 ?>
