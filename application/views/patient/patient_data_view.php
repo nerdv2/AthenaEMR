@@ -2,7 +2,7 @@
     <div class="col-lg-12">
       <div class="card">
         <div class="card-body app-heading">
-          <img class="profile-img" src="../assets/images/profile.png">
+          <img class="profile-img" src="">
           <div class="app-title">
             <div class="title"><span class="highlight"><?= $query->name; ?></span></div>
             <div class="description">
@@ -60,7 +60,14 @@
                     }
                 ?><br>
                   Address : <?= $query->address; ?><br>
-                  Phone : <?= $query->phone; ?><br>
+                  City : <?= $query->city; ?><br>
+                  State : <?= $query->state; ?><br>
+                  Country : <?= $query->country; ?><br>
+                  Postal Code : <?= $query->postal_code; ?><br>
+                  Home Phone : <?= $query->home_phone; ?><br>
+                  Work Phone : <?= $query->work_phone; ?><br>
+                  Mobile Phone : <?= $query->mobile_phone; ?><br>
+                  Email : <?= $query->email; ?><br>
                   </div>
                 </div>
               </div>
