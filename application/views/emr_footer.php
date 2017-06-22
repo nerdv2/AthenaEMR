@@ -24,7 +24,7 @@
         ],
         autogrow: true
     });
-    $('#textarea-gui-table').trumbowyg({
+    $('#textarea-gui2').trumbowyg({
         btns: [
             ['formatting'],
             'btnGrp-semantic',
@@ -32,8 +32,43 @@
             'btnGrp-justify',
             'btnGrp-lists',
             ['horizontalRule'],
-            ['removeformat'],
-            'table'
+            ['removeformat']
+        ],
+        autogrow: true
+    });
+    $('#textarea-gui3').trumbowyg({
+        btns: [
+            ['formatting'],
+            'btnGrp-semantic',
+            ['superscript', 'subscript'],
+            'btnGrp-justify',
+            'btnGrp-lists',
+            ['horizontalRule'],
+            ['removeformat']
+        ],
+        autogrow: true
+    });
+    $('#textarea-gui4').trumbowyg({
+        btns: [
+            ['formatting'],
+            'btnGrp-semantic',
+            ['superscript', 'subscript'],
+            'btnGrp-justify',
+            'btnGrp-lists',
+            ['horizontalRule'],
+            ['removeformat']
+        ],
+        autogrow: true
+    });
+    $('#textarea-gui5').trumbowyg({
+        btns: [
+            ['formatting'],
+            'btnGrp-semantic',
+            ['superscript', 'subscript'],
+            'btnGrp-justify',
+            'btnGrp-lists',
+            ['horizontalRule'],
+            ['removeformat']
         ],
         autogrow: true
     });

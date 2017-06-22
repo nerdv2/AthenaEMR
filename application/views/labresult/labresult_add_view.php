@@ -60,7 +60,7 @@
                     </select>
                 </div>
                 <div class="col-md-12">
-                     <textarea name="result_data" class="form-control">
+                     <textarea name="result_data" class="form-control" id="textarea-tinymce">
                      <table style="width: 950px;">
                        <tbody>
                         <tr class="heading" style="height: 14px;">

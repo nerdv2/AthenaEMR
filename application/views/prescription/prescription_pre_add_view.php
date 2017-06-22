@@ -50,7 +50,7 @@
                     </select>
                 </div>
                 <div class="col-md-12">
-                     <textarea name="description" class="form-control" required>Info</textarea><br>
+                     <textarea name="description" class="form-control" id="textarea-gui" required>Info</textarea><br>
                 </div>
                 <div class="col-md-12">
                   <hr>

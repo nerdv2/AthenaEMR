@@ -33,7 +33,7 @@
                      <input type="text" value="<?= $worker_id; ?>" class="form-control" placeholder="WorkerID" name="worker_id" readonly>
                 </div>
                 <div class="col-md-12">
-                     <textarea name="description" class="form-control" readonly><?= $description; ?></textarea><br>
+                     <textarea name="description" class="form-control" id="textarea-gui" readonly><?= $description; ?></textarea><br>
                 </div>
                 <?php
                     for($x = 0; $x < $medicine_total; $x++){
@@ -63,7 +63,7 @@
                             <input type="number" class="form-control" placeholder="Total Amount" name="total[<?= $x; ?>]" required>
                         </div>
                         <div class="col-md-12">
-                            <textarea name="usage[<?= $x; ?>]" class="form-control" required>Usage Info</textarea><br>
+                            <textarea name="usage[<?= $x; ?>]" class="form-control" id="textarea-gui" required>Usage Info</textarea><br>
                         </div>
                         <div class="col-md-12">
                           <hr>
