@@ -129,7 +129,19 @@ class Patient extends CI_Controller {
 			$this->form_validation->set_rules('dob', 'D.O.B', 'trim|required');
 			$this->form_validation->set_rules('gender', 'Gender', 'trim|required');
 			$this->form_validation->set_rules('address', 'Address', 'trim|required');
-			$this->form_validation->set_rules('phones', 'Phone', 'trim');
+			$this->form_validation->set_rules('city', 'City', 'trim|required');
+			$this->form_validation->set_rules('state', 'State', 'trim');
+			$this->form_validation->set_rules('country', 'Country', 'trim|required');
+			$this->form_validation->set_rules('postal_code', 'Postal Code', 'trim|numeric');
+			$this->form_validation->set_rules('home_phone', 'Home Phone', 'trim|numeric');
+			$this->form_validation->set_rules('work_phone', 'Work Phone', 'trim|numeric');
+			$this->form_validation->set_rules('mobile_phone', 'Mobile Phone', 'trim|numeric');
+			$this->form_validation->set_rules('email', 'Email', 'trim|valid_email');
+			$this->form_validation->set_rules('marital_status', 'Marital Status', 'trim');
+			$this->form_validation->set_rules('religion', 'Religion', 'trim|alpha_dash');
+			$this->form_validation->set_rules('language', 'Language', 'trim');
+			$this->form_validation->set_rules('race', 'Race', 'trim');
+			$this->form_validation->set_rules('ethnicity', 'Ethnicity', 'trim');
 
 			if ($this->form_validation->run() === false) {
 			
@@ -148,10 +160,24 @@ class Patient extends CI_Controller {
 				$dob = $this->input->post('dob');
 				$gender = $this->input->post('gender');
 				$address = $this->input->post('address');
-				$phone = $this->input->post('phone');
+				$city = $this->input->post('city');
+				$state = $this->input->post('state');
+				$country = $this->input->post('country');
+				$postal_code = $this->input->post('postal_code');
+				$home_phone = $this->input->post('home_phone');
+				$work_phone = $this->input->post('work_phone');
+				$mobile_phone = $this->input->post('mobile_phone');
+				$email = $this->input->post('email');
+				$marital_status = $this->input->post('marital_status');
+				$religion = $this->input->post('religion');
+				$language = $this->input->post('language');
+				$race = $this->input->post('race');
+				$ethnicity = $this->input->post('ethnicity');
 
 				if ($this->PatientModel->Update($patient_id, $name, 
-				$dob, $gender, $address, $phone)) {
+					$dob, $gender, $address, $city, $state, $country, $postal_code, 
+					$home_phone, $work_phone, $mobile_phone, $email, $marital_status,
+					$religion, $language, $race, $ethnicity)) {
 				
 					// user creation ok
 					$this->PatientModel->Redirect();

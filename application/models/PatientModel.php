@@ -121,36 +121,81 @@
             $this->db->insert('patient', $data);
         }
 
-        public function Read_specific($NIS){
+        public function Read_specific($patient_id){
             $this->db->select('*');
             $this->db->from('patient');
-            $this->db->where('patient_id', $NIS);
+            $this->db->join('patient_detail', 'patient_detail.patient_id = patient.patient_id');
+            $this->db->join('patient_contact', 'patient_contact.patient_id = patient.patient_id');
+            $this->db->where('patient.patient_id', $patient_id);
             return $this->db->get();
         }
 
         public function Update($patient_id, $name, 
-				$dob, $gender, $address, $phone){
-            
+					$dob, $gender, $address, $city, $state, $country, $postal_code, 
+					$home_phone, $work_phone, $mobile_phone, $email, $marital_status,
+					$religion, $language, $race, $ethnicity){
+
             $data = array(
                 'patient_id'   => $patient_id,
-			    'name'   => $name,
-			    'dob'      => $dob,
+                'name'   => $name,
+                'dob'      => $dob,
                 'gender'      => $gender,
-                'address'      => $address,
-                'phone'      => $phone,
                 'updated_at' => date('Y-m-j H:i:s'),
-		    );
+            );
 
             $this->db->where("patient_id", $patient_id);
-            $this->db->update("patient",$data);
+            $run = $this->db->update("patient", $data);
+
+            if ($run) {
+                $data2 = array(
+                    'patient_id' => $patient_id,
+                    'address' => $address,
+                    'city' => $city,
+                    'state' => $state,
+                    'country' => $country,
+                    'postal_code' => $postal_code,
+                    'home_phone' => $home_phone,
+                    'work_phone' => $work_phone,
+                    'mobile_phone' => $mobile_phone,
+                    'email' => $email,
+                );
+
+                $this->db->where("patient_id", $patient_id);
+                $run2 = $this->db->update("patient_contact", $data2);
+
+                if ($run2) {
+                    $data3 = array(
+                        'patient_id' => $patient_id,
+                        'marital_status' => $marital_status,
+                        'religion' => $religion,
+                        'language' => $language,
+                        'race' => $race,
+                        'ethnicity' => $ethnicity,
+                    );
+
+                    $this->db->where("patient_id", $patient_id);
+                    $run3 = $this->db->update("patient_detail", $data3);
+                }
+            }
+
             $this->Redirect();
         }
 
         public function Delete($data){
 		    $this->db->where($data);
-		    $this->db->delete('patient');
+		    $run = $this->db->delete('patient_detail');
+
+            if ($run) {
+                $this->db->where($data);
+                $run2 = $this->db->delete('patient_contact');
+
+                if ($run2) {
+                    $this->db->where($data);
+                    $this->db->delete('patient');
+                } 
+            }
 	    }
-        
-        
+
+
     }
 ?>
