@@ -16,6 +16,36 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`project_athena_emr` /*!40100 DEFAULT CH
 
 USE `project_athena_emr`;
 
+/*Table structure for table `app_settings` */
+
+DROP TABLE IF EXISTS `app_settings`;
+
+CREATE TABLE `app_settings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `preset_name` varchar(20) DEFAULT NULL,
+  `worker_id_prefix` varchar(3) DEFAULT NULL,
+  `doctor_id_prefix` varchar(3) DEFAULT NULL,
+  `register_id_prefix` varchar(3) DEFAULT NULL,
+  `clinic_id_prefix` varchar(3) DEFAULT NULL,
+  `payment_id_prefix` varchar(3) DEFAULT NULL,
+  `patient_id_prefix` varchar(3) DEFAULT NULL,
+  `record_id_prefix` varchar(3) DEFAULT NULL,
+  `lab_id_prefix` varchar(3) DEFAULT NULL,
+  `result_id_prefix` varchar(3) DEFAULT NULL,
+  `prescription_id_prefix` varchar(3) DEFAULT NULL,
+  `medicine_id_prefix` varchar(3) DEFAULT NULL,
+  `medicine_type_prefix` varchar(3) DEFAULT NULL,
+  `hospital_name` varchar(100) DEFAULT NULL,
+  `hospital_address` varchar(100) DEFAULT NULL,
+  `hospital_phone` varchar(25) DEFAULT NULL,
+  `hospital_email` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+/*Data for the table `app_settings` */
+
+insert  into `app_settings`(`id`,`preset_name`,`worker_id_prefix`,`doctor_id_prefix`,`register_id_prefix`,`clinic_id_prefix`,`payment_id_prefix`,`patient_id_prefix`,`record_id_prefix`,`lab_id_prefix`,`result_id_prefix`,`prescription_id_prefix`,`medicine_id_prefix`,`medicine_type_prefix`,`hospital_name`,`hospital_address`,`hospital_phone`,`hospital_email`) values (1,NULL,'WRK','DOC','REG','DIV','PAY','USR','REC','LAB','RES','PSC','MED','TYP',NULL,NULL,NULL,NULL);
+
 /*Table structure for table `clinic` */
 
 DROP TABLE IF EXISTS `clinic`;
@@ -125,6 +155,8 @@ CREATE TABLE `medical_record` (
 
 /*Data for the table `medical_record` */
 
+insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`,`additional_notes`,`created_at`) values ('REC-220617-0000','DOC-0000','REG-220617-0000','USR-000000','2017-06-22',NULL,NULL,NULL,'<p>Headaches</p>','<p>Fever</p>','<p>Fever</p>','<p>Medicine</p>','<p>Additional Stuff</p>','2017-06-22 22:30:10'),('REC-230617-0000','DOC-0000','REG-230617-0000','USR-000000','2017-06-23',NULL,NULL,NULL,'<p>Test Complaints</p>','<p>Test Symptoms</p>','<p>Test <strong>Diagnosis</strong></p>','<p>Test Handling</p>','Notes','2017-06-23 00:12:18');
+
 /*Table structure for table `medical_record_vitals` */
 
 DROP TABLE IF EXISTS `medical_record_vitals`;
@@ -148,6 +180,8 @@ CREATE TABLE `medical_record_vitals` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medical_record_vitals` */
+
+insert  into `medical_record_vitals`(`record_id`,`weight`,`height`,`blood_pressure_systolic`,`blood_pressure_diastolic`,`pulse`,`respiration`,`temperature`,`temperature_location`,`oxygen_saturation`,`head_circumference`,`waist_circumference`,`bmi`) values ('REC-220617-0000',52,180,65,80,60,35,42,2,80,50,30,21),('REC-230617-0000',0,0,0,0,0,0,0,0,0,0,0,0);
 
 /*Table structure for table `medicine` */
 
@@ -335,7 +369,7 @@ CREATE TABLE `registration` (
 
 /*Data for the table `registration` */
 
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-220617-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-06-22',0);
+insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-220617-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-06-22',0),('REG-230617-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-06-23',0);
 
 /*Table structure for table `user` */
 
@@ -564,6 +598,44 @@ BEGIN
     END */$$
 DELIMITER ;
 
+/*Table structure for table `getemrcompleteview` */
+
+DROP TABLE IF EXISTS `getemrcompleteview`;
+
+/*!50001 DROP VIEW IF EXISTS `getemrcompleteview` */;
+/*!50001 DROP TABLE IF EXISTS `getemrcompleteview` */;
+
+/*!50001 CREATE TABLE  `getemrcompleteview`(
+ `record_id` varchar(20) ,
+ `doctor_id` varchar(10) ,
+ `register_id` varchar(15) ,
+ `patient_id` varchar(15) ,
+ `time` date ,
+ `lab_id` varchar(18) ,
+ `result_id` varchar(25) ,
+ `prescription_id` varchar(18) ,
+ `complaint` text ,
+ `symptoms` text ,
+ `diagnosis` text ,
+ `handling` text ,
+ `additional_notes` text ,
+ `created_at` datetime ,
+ `weight` int(11) ,
+ `height` int(11) ,
+ `blood_pressure_systolic` int(11) ,
+ `blood_pressure_diastolic` int(11) ,
+ `pulse` int(11) ,
+ `respiration` int(11) ,
+ `temperature` int(11) ,
+ `temperature_location` int(11) ,
+ `oxygen_saturation` int(11) ,
+ `head_circumference` int(11) ,
+ `waist_circumference` int(11) ,
+ `bmi` int(11) ,
+ `patient_name` varchar(100) ,
+ `doctor_name` varchar(100) 
+)*/;
+
 /*Table structure for table `getentry` */
 
 DROP TABLE IF EXISTS `getentry`;
@@ -602,13 +674,8 @@ DROP TABLE IF EXISTS `getmedicalrecord_today`;
  `register_id` varchar(15) ,
  `patient_id` varchar(15) ,
  `time` date ,
- `lab_id` varchar(18) ,
- `result_id` varchar(25) ,
- `prescription_id` varchar(18) ,
- `complaint` text ,
- `symptoms` text ,
- `diagnosis` text ,
- `handling` text 
+ `patient_name` varchar(100) ,
+ `doctor_name` varchar(100) 
 )*/;
 
 /*Table structure for table `getpatientdoctor` */
@@ -700,6 +767,13 @@ DROP TABLE IF EXISTS `showentrydata`;
  `entry_no` int(11) 
 )*/;
 
+/*View structure for view getemrcompleteview */
+
+/*!50001 DROP TABLE IF EXISTS `getemrcompleteview` */;
+/*!50001 DROP VIEW IF EXISTS `getemrcompleteview` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getemrcompleteview` AS (select `medical_record`.`record_id` AS `record_id`,`medical_record`.`doctor_id` AS `doctor_id`,`medical_record`.`register_id` AS `register_id`,`medical_record`.`patient_id` AS `patient_id`,`medical_record`.`time` AS `time`,`medical_record`.`lab_id` AS `lab_id`,`medical_record`.`result_id` AS `result_id`,`medical_record`.`prescription_id` AS `prescription_id`,`medical_record`.`complaint` AS `complaint`,`medical_record`.`symptoms` AS `symptoms`,`medical_record`.`diagnosis` AS `diagnosis`,`medical_record`.`handling` AS `handling`,`medical_record`.`additional_notes` AS `additional_notes`,`medical_record`.`created_at` AS `created_at`,`medical_record_vitals`.`weight` AS `weight`,`medical_record_vitals`.`height` AS `height`,`medical_record_vitals`.`blood_pressure_systolic` AS `blood_pressure_systolic`,`medical_record_vitals`.`blood_pressure_diastolic` AS `blood_pressure_diastolic`,`medical_record_vitals`.`pulse` AS `pulse`,`medical_record_vitals`.`respiration` AS `respiration`,`medical_record_vitals`.`temperature` AS `temperature`,`medical_record_vitals`.`temperature_location` AS `temperature_location`,`medical_record_vitals`.`oxygen_saturation` AS `oxygen_saturation`,`medical_record_vitals`.`head_circumference` AS `head_circumference`,`medical_record_vitals`.`waist_circumference` AS `waist_circumference`,`medical_record_vitals`.`bmi` AS `bmi`,`patient`.`name` AS `patient_name`,`doctor`.`name` AS `doctor_name` from (((`medical_record` join `medical_record_vitals`) join `patient`) join `doctor`) where ((`medical_record`.`record_id` = `medical_record_vitals`.`record_id`) and (`doctor`.`doctor_id` = `medical_record`.`doctor_id`) and (`patient`.`patient_id` = `medical_record`.`patient_id`))) */;
+
 /*View structure for view getentry */
 
 /*!50001 DROP TABLE IF EXISTS `getentry` */;
@@ -719,7 +793,7 @@ DROP TABLE IF EXISTS `showentrydata`;
 /*!50001 DROP TABLE IF EXISTS `getmedicalrecord_today` */;
 /*!50001 DROP VIEW IF EXISTS `getmedicalrecord_today` */;
 
-/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getmedicalrecord_today` AS (select `medical_record`.`record_id` AS `record_id`,`medical_record`.`doctor_id` AS `doctor_id`,`medical_record`.`register_id` AS `register_id`,`medical_record`.`patient_id` AS `patient_id`,`medical_record`.`time` AS `time`,`medical_record`.`lab_id` AS `lab_id`,`medical_record`.`result_id` AS `result_id`,`medical_record`.`prescription_id` AS `prescription_id`,`medical_record`.`complaint` AS `complaint`,`medical_record`.`symptoms` AS `symptoms`,`medical_record`.`diagnosis` AS `diagnosis`,`medical_record`.`handling` AS `handling` from (`medical_record` join `registration`) where ((`medical_record`.`register_id` = `registration`.`register_id`) and (cast(`medical_record`.`time` as date) = cast(curdate() as date)))) */;
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `getmedicalrecord_today` AS (select `medical_record`.`record_id` AS `record_id`,`medical_record`.`doctor_id` AS `doctor_id`,`medical_record`.`register_id` AS `register_id`,`medical_record`.`patient_id` AS `patient_id`,`medical_record`.`time` AS `time`,`patient`.`name` AS `patient_name`,`doctor`.`name` AS `doctor_name` from (((`medical_record` join `registration`) join `patient`) join `doctor`) where ((`medical_record`.`register_id` = `registration`.`register_id`) and (`medical_record`.`patient_id` = `patient`.`patient_id`) and (`doctor`.`doctor_id` = `medical_record`.`doctor_id`) and (cast(`medical_record`.`time` as date) = cast(curdate() as date)))) */;
 
 /*View structure for view getpatientdoctor */
 

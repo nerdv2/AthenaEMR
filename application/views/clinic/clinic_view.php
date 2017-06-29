@@ -3,7 +3,7 @@
   <div class="col-xs-12">
       <div class="card">
         <div class="card-header">
-          Lab Data
+          Clinic Data
         </div>
         <div class="card-body no-padding">
           <?php

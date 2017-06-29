@@ -42,11 +42,17 @@
                   Change Password
                 </a>
               </li>
+              <?php
+                if($_SESSION['status'] == "ADMIN"){
+              ?>
               <li>
-                <a href="#">
+                <a href="<?= base_url('index.php/athenaMain/settings'); ?>">
                   Setting
                 </a>
               </li>
+              <?php
+                }
+              ?>
               <li>
                 <a href="<?php echo base_url("index.php/athenaMain/logout"); ?>">
                   Logout

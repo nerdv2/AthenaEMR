@@ -15,12 +15,12 @@
         public function create_lab($lab_id, $name, 
 				$tariff) {
 		
-		$data = array(
-			'lab_id'   => $lab_id,
-			'name'   => $name,
-			'tariff'      => $tariff,
-			'created_at' => date('Y-m-j H:i:s'),
-		);
+            $data = array(
+                'lab_id'   => $lab_id,
+                'name'   => $name,
+                'tariff'      => $tariff,
+                'created_at' => date('Y-m-j H:i:s'),
+            );
 		
 		return $this->db->insert('lab', $data);
 		
@@ -55,14 +55,13 @@
 
         public function Update($lab_id, $name, 
 				$tariff){
-            
-           
-		$data = array(
-			'lab_id'   => $lab_id,
-			'name'   => $name,
-			'tariff'      => $tariff,
-			'updated_at' => date('Y-m-j H:i:s'),
-		);
+
+            $data = array(
+                'lab_id'   => $lab_id,
+                'name'   => $name,
+                'tariff'      => $tariff,
+                'updated_at' => date('Y-m-j H:i:s'),
+            );
 
             $this->db->where("lab_id", $lab_id);
             $this->db->update("lab",$data);

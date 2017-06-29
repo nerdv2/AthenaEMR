@@ -29,6 +29,7 @@ class AthenaMain extends CI_Controller {
         $this->load->model('MedicineTypeModel');
         $this->load->model('LabResultModel');
         $this->load->model('PrescriptionModel');
+        $this->load->model('SettingsModel');
     }
 
     
@@ -283,6 +284,23 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('floatnav/prescription_floatbar');
                 $this->load->view('prescription/prescription_view', $data);
                 $this->load->view('footer/table_footer');
+            } else {
+                $this->load->view('errors/access_denied');
+            }
+        } else {
+            $this->login();
+        }
+    }
+
+    public function settings(){
+        if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+            if($_SESSION['status'] == "ADMIN") {
+                $data['query'] = $this->SettingsModel->getData()->row();
+                $this->load->view('header');
+                $this->load->view('sidebar/dashboard_active');
+                $this->load->view('navbar');
+                $this->load->view('settings/settings_view', $data);
+                $this->load->view('footer/footer');
             } else {
                 $this->load->view('errors/access_denied');
             }
