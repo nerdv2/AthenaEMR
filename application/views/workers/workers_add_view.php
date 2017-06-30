@@ -14,7 +14,7 @@
 				</div>
 			</div>
 		<?php endif; ?>
-    <?php $data = $this->WorkersModel->generate_id(); ?>
+    
   <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -24,7 +24,7 @@
             <div class="row">
               <?= form_open() ?>
                 <div class="col-md-12">
-                     <input type="text" value="<?= $data; ?>" class="form-control" placeholder="WorkersID" name="worker_id" required>
+                     <input type="text" value="<?= $id; ?>" class="form-control" placeholder="WorkersID" name="worker_id" readonly required>
                 </div>
                 <div class="col-md-12">
                      <input type="text" class="form-control" placeholder="Full Name" name="name" required>

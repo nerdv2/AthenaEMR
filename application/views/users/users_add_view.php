@@ -14,8 +14,7 @@
 				</div>
 			</div>
 		<?php endif; ?>
-    <?php $dokter = $this->UsersModel->getDoctorID(); ?>
-    <?php $petugas = $this->UsersModel->getWorkerID(); ?>
+    
   <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -47,7 +46,7 @@
                     <?php
                       echo "<select class='select2' name='doctor_id' id='doctor_id'>";
                       echo "<option value=''>Select Doctor</option>";
-                      foreach ($dokter as $list) {
+                      foreach ($doctor as $list) {
                         echo "<option value='". $list['doctor_id'] . "'>" . $list['name'] . "</option>";
                       }
                     ?>
@@ -57,7 +56,7 @@
                      <?php
                       echo "<select class='select2' name='worker_id' id='worker_id'>";
                       echo "<option value=''>Select Worker</option>";
-                      foreach ($petugas as $list2) {
+                      foreach ($worker as $list2) {
                         echo "<option value='". $list2['worker_id'] . "'>" . $list2['name'] . "</option>";
                       }
                     ?>

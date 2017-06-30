@@ -25,7 +25,7 @@
             <div class="row">
               <?= form_open() ?>
                 <div class="col-md-12">
-                     <input type="text" value="<?= $data; ?>" class="form-control" placeholder="MedicineID" name="medicine_id" required>
+                     <input type="text" value="<?= $data; ?>" class="form-control" placeholder="MedicineID" name="medicine_id" readonly required>
                 </div>
                 <div class="col-md-12">
                      <?php

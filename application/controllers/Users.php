@@ -32,9 +32,7 @@ class Users extends CI_Controller {
 	public function adddata()
 	{
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-            
-			//create the data object
-			$data = new stdClass();
+
 
 			// set validation rules
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[user.username]', array('is_unique' => 'This username already exists. Please choose another one.'));
@@ -45,12 +43,14 @@ class Users extends CI_Controller {
             $this->form_validation->set_rules('photo', 'Photo', 'trim');
 
 			if ($this->form_validation->run() === false) {
-			
+				$data['doctor'] = $this->UsersModel->getDoctorID();
+    			$data['worker'] = $this->UsersModel->getWorkerID();
+
 				// validation not ok, send validation errors to the view
 				$this->load->view('header');
             	$this->load->view('sidebar/users_active');
             	$this->load->view('navbar');
-            	$this->load->view('users/users_add_view');
+            	$this->load->view('users/users_add_view', $data);
             	$this->load->view('footer/footer');
 			
 			} else {
@@ -71,8 +71,10 @@ class Users extends CI_Controller {
 						} else {
 							
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
-								
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
+						
+						$data['doctor'] = $this->UsersModel->getDoctorID();
+    					$data['worker'] = $this->UsersModel->getWorkerID();
 						// send error to the view
 						$this->load->view('header');
 						$this->load->view('sidebar/users_active');
@@ -90,8 +92,9 @@ class Users extends CI_Controller {
 						} else {
 							
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
-								
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
+						$data['doctor'] = $this->UsersModel->getDoctorID();
+    					$data['worker'] = $this->UsersModel->getWorkerID();
 						// send error to the view
 						$this->load->view('header');
 						$this->load->view('sidebar/users_active');
@@ -109,8 +112,9 @@ class Users extends CI_Controller {
 						} else {
 							
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
-								
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
+						$data['doctor'] = $this->UsersModel->getDoctorID();
+    					$data['worker'] = $this->UsersModel->getWorkerID();
 						// send error to the view
 						$this->load->view('header');
 						$this->load->view('sidebar/users_active');
