@@ -31,7 +31,7 @@ class Users extends CI_Controller {
 
 	public function adddata()
 	{
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
             
 			//create the data object
 			$data = new stdClass();
@@ -134,7 +134,7 @@ class Users extends CI_Controller {
 
 
 	public function editdata($id){
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
             
 			//create the data object
 			$stddata = new stdClass();
@@ -236,7 +236,7 @@ class Users extends CI_Controller {
 
 
 	public function deletedata($ID){
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 			$data['id_user'] = $ID;
 			$this->UsersModel->Delete($data);
 			$this->UsersModel->Redirect();

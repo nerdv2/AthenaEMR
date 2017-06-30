@@ -15,7 +15,6 @@
 			</div>
 		<?php endif; ?>
 
-    <?php $data = $this->ClinicModel->generate_id(); ?>
   <div class="col-md-12">
       <div class="card">
         <div class="card-header">
@@ -25,7 +24,7 @@
             <div class="row">
               <?= form_open() ?>
                 <div class="col-md-12">
-                     <input type="text" value="<?= $data; ?>" class="form-control" placeholder="ClinicID" name="clinic_id" required>
+                     <input type="text" value="<?= $id; ?>" class="form-control" placeholder="ClinicID" name="clinic_id" required>
                 </div>
                 <div class="col-md-12">
                      <input type="text" class="form-control" placeholder="Clinic Name" name="name" required>

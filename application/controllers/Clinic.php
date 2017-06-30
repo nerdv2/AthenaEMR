@@ -30,11 +30,8 @@ class Clinic extends CI_Controller {
 
     public function adddata()
     {
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            
-			//create the data object
-			$data = new stdClass();
-
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
+    
 			// set validation rules
 			$this->form_validation->set_rules('clinic_id', 'Clinic ID', 'trim|required|alpha_dash|max_length[8]|is_unique[clinic.clinic_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
 			$this->form_validation->set_rules('name', 'Clinic Name', 'trim|required|min_length[3]');
@@ -43,10 +40,11 @@ class Clinic extends CI_Controller {
 			if ($this->form_validation->run() === false) {
 			
 				// validation not ok, send validation errors to the view
+				$data['id'] = $this->ClinicModel->generate_id();
 				$this->load->view('header');
             	$this->load->view('sidebar/management_active');
             	$this->load->view('navbar');
-            	$this->load->view('clinic/clinic_add_view');
+            	$this->load->view('clinic/clinic_add_view', $data);
             	$this->load->view('footer/footer');
 			
 			} else {
@@ -65,7 +63,8 @@ class Clinic extends CI_Controller {
 				} else {
 				
 					// user creation failed, this should never happen
-					$data->error = 'There was a problem creating your new data. Please try again.';
+					$data['error'] = 'There was a problem creating your new data. Please try again.';
+					$data['id'] = $this->ClinicModel->generate_id();
 					
 					// send error to the view
 					$this->load->view('header');
@@ -85,7 +84,7 @@ class Clinic extends CI_Controller {
 
 
 	public function editdata($id){
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 
 			// set validation rules
 			$this->form_validation->set_rules('clinic_id', 'Clinic ID', 'trim|required|alpha_dash|max_length[8]', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -117,8 +116,9 @@ class Clinic extends CI_Controller {
 				} else {
 				
 					// user creation failed, this should never happen
-					$data->error = 'There was a problem creating your new account. Please try again.';
-					
+					$data['error'] = 'There was a problem creating your new data. Please try again.';
+					$data['id'] = $this->ClinicModel->generate_id();
+
 					// send error to the view
 					$this->load->view('header');
             		$this->load->view('sidebar/management_active');
@@ -136,7 +136,7 @@ class Clinic extends CI_Controller {
 	}
 
 	public function viewdata($id){
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 			$data['query'] = $this->ClinicModel->Read_specific($id)->row();
 			$this->load->view('header');
 			$this->load->view('sidebar/users_active');
@@ -149,7 +149,7 @@ class Clinic extends CI_Controller {
 	}
 
 	public function deletedata($ID){
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 			$data['clinic_id'] = $ID;
 			$this->ClinicModel->Delete($data);
 			$this->ClinicModel->Redirect();

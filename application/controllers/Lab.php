@@ -31,7 +31,7 @@ class Lab extends CI_Controller {
 
 	public function adddata()
 	{
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
             
 			//create the data object
 			$data = new stdClass();
@@ -86,7 +86,7 @@ class Lab extends CI_Controller {
 
 
 	public function editdata($id){
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
             
 			//create the data object
 			$stddata = new stdClass();
@@ -140,7 +140,7 @@ class Lab extends CI_Controller {
 	}
 
 	public function viewdata($id){
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 			$data['query'] = $this->WorkersModel->Read_specific($id)->row();
 			$this->load->view('header');
 			$this->load->view('sidebar/users_active');
@@ -153,7 +153,7 @@ class Lab extends CI_Controller {
 	}
 
 	public function deletedata($ID){
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 			$data['lab_id'] = $ID;
 			$this->LabModel->Delete($data);
 			$this->LabModel->Redirect();
