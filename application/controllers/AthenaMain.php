@@ -32,12 +32,16 @@ class AthenaMain extends CI_Controller {
         $this->load->model('SettingsModel');
     }
 
-    
-    
 
     public function index(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+
+            //get data from model for statistic
             $data['query'] = $this->DashModel->getRegisterEntry();
+            $data['registertoday'] = $this->DashModel->getNewRegister();
+            $data['patienttotal'] = $this->DashModel->getPatientTotal();
+            $data['registrationtotal'] = $this->DashModel->getRegistrationTotal();
+            
             $this->load->view('header');
             $this->load->view('sidebar/dashboard_active');
             $this->load->view('navbar');
@@ -51,7 +55,7 @@ class AthenaMain extends CI_Controller {
 
     public function users_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN"){
+            if($_SESSION['status'] === "ADMIN"){
                 $data['query'] = $this->UsersModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/users_active');
@@ -60,7 +64,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('users/users_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("users");
             }
         } else {
             $this->login();
@@ -69,7 +73,7 @@ class AthenaMain extends CI_Controller {
 
     public function workers_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN"){
+            if($_SESSION['status'] === "ADMIN"){
                 $data['query'] = $this->WorkersModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/users_active');
@@ -78,7 +82,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('workers/workers_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("worker");
             }
         } else {
             $this->login();
@@ -87,7 +91,7 @@ class AthenaMain extends CI_Controller {
 
     public function lab_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN"){
+            if($_SESSION['status'] === "ADMIN"){
                 $data['query'] = $this->LabModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -96,7 +100,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('lab/lab_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("lab");
             }
         } else {
             $this->login();
@@ -105,7 +109,7 @@ class AthenaMain extends CI_Controller {
 
     public function doctor_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN"){
+            if($_SESSION['status'] === "ADMIN"){
                 $data['query'] = $this->DoctorModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/users_active');
@@ -114,7 +118,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('doctor/doctor_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("doctor");
             }
         } else {
             $this->login();
@@ -123,7 +127,7 @@ class AthenaMain extends CI_Controller {
 
     public function patient_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+            if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION"){
                 $data['query'] = $this->PatientModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -131,7 +135,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('floatnav/patient_floatbar');
                 $this->load->view('patient/patient_view', $data);
                 $this->load->view('footer/table_footer');
-            } elseif($_SESSION['status'] == "DOCTOR") {
+            } elseif($_SESSION['status'] === "DOCTOR") {
                 $data['query'] = $this->PatientModel->getDoctorPatientData($_SESSION['doctor_id']);
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -140,7 +144,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('patient/patient_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("patient");
             }
             
         } else {
@@ -150,7 +154,7 @@ class AthenaMain extends CI_Controller {
 
     public function clinic_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN"){
+            if($_SESSION['status'] === "ADMIN"){
                 $data['query'] = $this->ClinicModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -159,7 +163,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('clinic/clinic_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("clinic");
             }
         } else {
             $this->login();
@@ -168,7 +172,7 @@ class AthenaMain extends CI_Controller {
 
     public function payment_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "PAYMENT"){
+            if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PAYMENT"){
                 $data['query'] = $this->PaymentModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -177,7 +181,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('payment/payment_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("payment");
             }
         } else {
             $this->login();
@@ -186,7 +190,7 @@ class AthenaMain extends CI_Controller {
 
     public function registration_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+            if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION"){
                 $data['query'] = $this->RegistrationModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -195,7 +199,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('registration/registration_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("registration");
             }
         } else {
             $this->login();
@@ -204,7 +208,7 @@ class AthenaMain extends CI_Controller {
 
     public function emr_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "DOCTOR"){
+            if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "DOCTOR"){
                 $data['query'] = $this->EMRModel->getDataSpecific($_SESSION['doctor_id']);
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -213,7 +217,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('emr/emr_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("medical record");
             }
         } else {
             $this->login();
@@ -222,7 +226,7 @@ class AthenaMain extends CI_Controller {
 
     public function medicine_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "PHARMACIST"){
+            if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST"){
                 $data['query'] = $this->MedicineModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -231,7 +235,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('medicine/medicine_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("medicine");
             }
         } else {
             $this->login();
@@ -240,7 +244,7 @@ class AthenaMain extends CI_Controller {
 
     public function medicine_type_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "PHARMACIST"){
+            if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST"){
                 $data['query'] = $this->MedicineTypeModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -249,7 +253,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('medicine_type/medicine_type_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("medicine type");
             }
         } else {
             $this->login();
@@ -258,7 +262,7 @@ class AthenaMain extends CI_Controller {
 
     public function labresult_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "LAB"){
+            if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "LAB"){
                 $data['query'] = $this->LabResultModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -267,7 +271,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('labresult/labresult_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("lab result");
             }
         } else {
             $this->login();
@@ -276,7 +280,7 @@ class AthenaMain extends CI_Controller {
 
     public function prescription_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "PHARMACIST" or $_SESSION['status'] == "DOCTOR"){
+            if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST" or $_SESSION['status'] === "DOCTOR"){
                 $data['query'] = $this->PrescriptionModel->getData();
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
@@ -285,7 +289,7 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('prescription/prescription_view', $data);
                 $this->load->view('footer/table_footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("prescription");
             }
         } else {
             $this->login();
@@ -294,7 +298,7 @@ class AthenaMain extends CI_Controller {
 
     public function settings(){
         if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if($_SESSION['status'] == "ADMIN") {
+            if($_SESSION['status'] === "ADMIN") {
                 $data['query'] = $this->SettingsModel->getData()->row();
                 $this->load->view('header');
                 $this->load->view('sidebar/dashboard_active');
@@ -302,8 +306,29 @@ class AthenaMain extends CI_Controller {
                 $this->load->view('settings/settings_view', $data);
                 $this->load->view('footer/footer');
             } else {
-                $this->load->view('errors/access_denied');
+                $this->access_denied("settings");
             }
+        } else {
+            $this->login();
+        }
+    }
+
+    public function access_denied($message){
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+
+            $data['query']              = $this->DashModel->getRegisterEntry();
+            $data['registertoday']      = $this->DashModel->getNewRegister();
+            $data['patienttotal']       = $this->DashModel->getPatientTotal();
+            $data['registrationtotal']  = $this->DashModel->getRegistrationTotal();
+
+            $data['error'] = "Access Denied on accessing " . $message;
+            
+            $this->load->view('header');
+            $this->load->view('sidebar/dashboard_active');
+            $this->load->view('navbar');
+            $this->load->view('floatnav/dashboard_floatbar');
+            $this->load->view('admin_dashboard/dashboard_view', $data);
+            $this->load->view('footer/footer');
         } else {
             $this->login();
         }
@@ -317,7 +342,7 @@ class AthenaMain extends CI_Controller {
         $this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
         $this->form_validation->set_rules('password', 'Password', 'required');
         
-        if($this->form_validation->run() == false){
+        if($this->form_validation->run() === false){
             //validation not ok, send validation error to view
             $this->load->view('header');
             $this->load->view('login/login_view');
@@ -331,25 +356,25 @@ class AthenaMain extends CI_Controller {
                 $user = $this->AuthModel->get_user($user_id);
 
                 //set session user data
-                $_SESSION['user_id'] = (int)$user->id_user;
-                $_SESSION['username'] = (string)$user->username;
-                $_SESSION['doctor_id'] = (string)$user->doctor_id;
-                $_SESSION['worker_id'] = (string)$user->worker_id;
-                $_SESSION['logged_in'] = (bool)true;
+                $_SESSION['user_id']    = (int)$user->id_user;
+                $_SESSION['username']   = (string)$user->username;
+                $_SESSION['doctor_id']  = (string)$user->doctor_id;
+                $_SESSION['worker_id']  = (string)$user->worker_id;
+                $_SESSION['logged_in']  = (bool)true;
                 
                 $auth_status = $user->status;
 
-                if($auth_status == "admin"){
+                if($auth_status === "admin"){
                     $_SESSION['status'] = "ADMIN";
-                } else if($auth_status == "doctor") {
+                } else if($auth_status === "doctor") {
                     $_SESSION['status'] = "DOCTOR";
-                } else if($auth_status == "payment") {
+                } else if($auth_status === "payment") {
                     $_SESSION['status'] = "PAYMENT";
-                } else if($auth_status == "registration") {
+                } else if($auth_status === "registration") {
                     $_SESSION['status'] = "REGISTRATION";
-                } else if($auth_status == "lab") {
+                } else if($auth_status === "lab") {
                     $_SESSION['status'] = "LAB";
-                } else if($auth_status == "pharmacist") {
+                } else if($auth_status === "pharmacist") {
                     $_SESSION['status'] = "PHARMACIST";
                 }
 

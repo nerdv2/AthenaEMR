@@ -1,6 +1,12 @@
-<?php $registertoday = $this->DashModel->getNewRegister(); ?>
-<?php $patienttotal = $this->DashModel->getPatientTotal(); ?>
-<?php $registrationtotal = $this->DashModel->getRegistrationTotal(); ?>
+
+<?php if (isset($error)) : ?>
+  <div class="col-md-12">
+    <div class="alert alert-danger" role="alert">
+      <?= $error ?>
+    </div>
+  </div>
+<?php endif; ?>
+
 <div class="row">
     <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
       <a class="card card-banner card-yellow-light">
