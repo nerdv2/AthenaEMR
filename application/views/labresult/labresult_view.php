@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/labresult/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('LabResultID','WorkerID','Time of Entry','');
+                $this->table->set_heading('LabResultID','WorkerID','Time of Entry','Action');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                     $edit = "<a href='".site_url()."/athenaReport/get_labresult/".$row->result_id."' title='".$row->result_id."'>Print</a><br>

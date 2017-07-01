@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/users/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('UserID','Username','Status','Doctor ID','Worker ID','Created Date','Updated Date','');
+                $this->table->set_heading('UserID','Username','Status','Doctor ID','Worker ID','Created Date','Updated Date','Action');
                 foreach($query as $row){
                     $edit = "<a href='".site_url()."/users/editdata/".$row->id_user."' title='".$row->username."'>Edit</a>
                     <br>

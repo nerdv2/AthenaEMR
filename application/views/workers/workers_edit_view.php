@@ -29,7 +29,7 @@
                      <input type="text" class="form-control" placeholder="Full Name" name="name" value="<?= $query->name; ?>" required>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="gender">
+                     <select class="select2" style='width: 100%;' name="gender">
                      <?php
                         if($query->gender=="male"){
                             echo "<option value='male' selected>Male</option>";
@@ -45,7 +45,7 @@
                      </select>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="role">
+                     <select class="select2" style='width: 100%;' name="role">
                      <?php
                         if($query->role=="lab"){
                             echo "<option value='lab' selected>Lab</option>";

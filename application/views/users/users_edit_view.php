@@ -33,7 +33,7 @@
                      <input type="password" class="form-control" autocomplete="off" placeholder="Confirm Password" name="password_confirm" required>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="status">
+                     <select class="select2" style='width: 100%;' name="status">
                        <?php
                           if($query->status=="admin"){
                             echo "<option value='admin' selected>Administrator</option>";

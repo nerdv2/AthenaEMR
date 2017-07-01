@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                      echo "<select class='select2' name='clinic_id' id='clinic_id'>";
+                      echo "<select class='select2' name='clinic_id' style='width: 100%;' id='clinic_id'>";
                       echo "<option value=''>Select Clinic</option>";
                       foreach ($clinic as $list) {
                         echo "<option value='". $list['clinic_id'] . "'>" . $list['name'] . "</option>";
@@ -39,7 +39,7 @@
                      <input type="text" class="form-control" placeholder="Full Name" name="name" required>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="gender">
+                     <select class="select2" style='width: 100%;' name="gender">
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                      </select>

@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/prescription/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('PrescriptionID','RecordID','WorkerID','Time of Entry','');
+                $this->table->set_heading('PrescriptionID','RecordID','WorkerID','Time of Entry','Action');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                     $edit = "<a href='".site_url()."/prescription/viewdata/".$row->prescription_id."' title='".$row->record_id."'>View</a>

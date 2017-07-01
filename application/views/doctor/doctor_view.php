@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/doctor/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('DoctorID','ClinicID','Name','Gender','D.O.B','Created At','Updated At','');
+                $this->table->set_heading('DoctorID','ClinicID','Name','Gender','D.O.B','Created At','Updated At','Action');
                 foreach($query as $row){
                     $edit = "<a href='".site_url()."/doctor/viewdata/".$row->doctor_id."' title='".$row->name."'>View</a>
                     <br>

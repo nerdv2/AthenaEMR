@@ -68,7 +68,7 @@
                                     <label class="col-md-3 control-label">Registration ID*</label>
                                     <div class="col-md-9">
                                         <?php
-                                            echo "<select class='select2' name='register_id' id='register_id' required>";
+                                            echo "<select class='select2' style='width: 100%;' name='register_id' id='register_id' required>";
                                             echo "<option value=''>Select Registration</option>";
                                             foreach ($register as $list) {
                                                 echo "<option value='". $list['register_id'] . "'>" . $list['register_id'] . " - " . $list['patient_name'] . "</option>";

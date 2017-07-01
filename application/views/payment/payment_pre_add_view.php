@@ -26,7 +26,7 @@
             <div class="row">
               <?= form_open() ?>
                 <div class="col-md-12">
-                     <select class="select2" name="type">
+                     <select class="select2" style='width: 100%;' name="type">
                          <option value="clinic">CLINIC</option>
                          <option value="lab">LAB</option>
                          <option value="medicine">MEDICINE</option>

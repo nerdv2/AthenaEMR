@@ -33,7 +33,7 @@
                      <input type="password" class="form-control" autocomplete="off" placeholder="Confirm Password" name="password_confirm" required>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="status">
+                     <select class="select2" style='width: 100%;' name="status">
                         <option value="admin">Administrator</option>
                         <option value="doctor">Doctor</option>
                         <option value="pharmacist">Pharmacist</option>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-12">
                     <?php
-                      echo "<select class='select2' name='doctor_id' id='doctor_id'>";
+                      echo "<select class='select2' style='width: 100%;' name='doctor_id' id='doctor_id'>";
                       echo "<option value=''>Select Doctor</option>";
                       foreach ($doctor as $list) {
                         echo "<option value='". $list['doctor_id'] . "'>" . $list['name'] . "</option>";
@@ -54,7 +54,7 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                      echo "<select class='select2' name='worker_id' id='worker_id'>";
+                      echo "<select class='select2' style='width: 100%;' name='worker_id' id='worker_id'>";
                       echo "<option value=''>Select Worker</option>";
                       foreach ($worker as $list2) {
                         echo "<option value='". $list2['worker_id'] . "'>" . $list2['name'] . "</option>";

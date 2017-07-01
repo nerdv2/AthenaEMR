@@ -30,13 +30,13 @@
                      <input type="text" class="form-control" placeholder="Full Name" name="name" required>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="gender">
+                     <select class="select2" style='width: 100%;' name="gender">
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                      </select>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="role">
+                     <select class="select2" style='width: 100%;' name="role">
                         <option value="lab">Lab</option>
                         <option value="pharmacist">Pharmacist</option>
                         <option value="registration">Registration</option>

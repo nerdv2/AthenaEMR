@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/medicinetype/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('Medicine Type ID','Medicine Type Name','Created At','Updated At','');
+                $this->table->set_heading('Medicine Type ID','Medicine Type Name','Created At','Updated At','Action');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                     $edit = "

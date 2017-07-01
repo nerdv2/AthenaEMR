@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/clinic/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('Clinic ID','Name','Tariff','Created At','Updated At','');
+                $this->table->set_heading('Clinic ID','Name','Tariff','Created At','Updated At','Action');
                 foreach($query as $row){
                     $edit = "
                     <a href='".site_url()."/clinic/editdata/".$row->clinic_id."' title='".$row->name."'>Edit</a>

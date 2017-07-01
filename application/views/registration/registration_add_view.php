@@ -33,10 +33,10 @@
                 <div class="col-md-12">
                      <?php
                      if($_SESSION['status'] == "ADMIN"){
-                        echo "<select class='select2' name='worker_id' id='worker_id'>";
+                        echo "<select class='select2' style='width: 100%;' name='worker_id' id='worker_id'>";
                         echo "<option value='ADMIN'>ADMINISTRATOR</option>";
                      } else {
-                        echo "<select class='select2' name='worker_id' id='worker_id'>";
+                        echo "<select class='select2' style='width: 100%;' name='worker_id' id='worker_id'>";
                         //echo "<option value=''>Select Worker</option>";
                         foreach ($worker as $list) {
                         echo "<option value='". $list['worker_id'] . "'>" . $list['name'] . "</option>";
@@ -64,7 +64,7 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                      echo "<select class='select2' name='patient_id' id='patient_id'>";
+                      echo "<select class='select2' style='width: 100%;' name='patient_id' id='patient_id'>";
                       echo "<option value=''>Select Patient</option>";
                       foreach ($patient as $list) {
                         echo "<option value='". $list['patient_id'] . "'>" . $list['name'] . "</option>";
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                      echo "<select class='select2' name='clinic_id' id='clinic_id'>";
+                      echo "<select class='select2' style='width: 100%;' name='clinic_id' id='clinic_id'>";
                       echo "<option value=''>Select Clinic</option>";
                       foreach ($clinic as $list) {
                         echo "<option value='". $list['clinic_id'] . "'>" . $list['name'] . "</option>";
@@ -97,7 +97,7 @@
                       */
                     ?>
 
-                    <select class='select2' name='doctor_id' id='doctor_id'>
+                    <select class='select2' style='width: 100%;' name='doctor_id' id='doctor_id'>
                     
                     </select>
                 </div>

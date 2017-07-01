@@ -32,7 +32,7 @@
                      <input type="text" class="form-control" placeholder="Full Name" value="<?= $query->name; ?>" name="name" required>
                 </div>
                 <div class="col-md-12">
-                     <select class="select2" name="gender">
+                     <select class="select2" style='width: 100%;' name="gender">
                      <?php
                         if($query->gender == "male"){
                             echo "<option value='male' selected>Male</option>";

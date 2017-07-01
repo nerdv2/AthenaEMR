@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                      echo "<select class='select2' name='worker_id' id='worker_id'>";
+                      echo "<select class='select2' style='width: 100%;' name='worker_id' id='worker_id'>";
                       //echo "<option value=''>Select Workers</option>";
                       foreach ($worker as $list) {
                         echo "<option value='". $list['worker_id'] . "'>" . $list['name'] . "</option>";
@@ -41,7 +41,7 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                      echo "<select class='select2' name='record_id' id='record_id'>";
+                      echo "<select class='select2' style='width: 100%;' name='record_id' id='record_id'>";
                       echo "<option value=''>Select Medical Record</option>";
                       foreach ($record as $list) {
                         echo "<option value='". $list['record_id'] . "'>" . $list['record_id'] . "</option>";
@@ -51,7 +51,7 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                      echo "<select class='select2' name='lab_id' id='lab_id'>";
+                      echo "<select class='select2' style='width: 100%;' name='lab_id' id='lab_id'>";
                       echo "<option value=''>Select Lab</option>";
                       foreach ($lab as $list) {
                         echo "<option value='". $list['lab_id'] . "'>" . $list['name'] . "</option>";

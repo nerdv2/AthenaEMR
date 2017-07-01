@@ -45,7 +45,7 @@
                         </div>
                         <div class="col-md-12">
                             <?php
-                              echo "<select class='select2' name='medicine_id[". $x ."]' id='medicine_id'>";
+                              echo "<select class='select2' style='width: 100%;' name='medicine_id[". $x ."]' id='medicine_id'>";
                               echo "<option value=''>Select Medicine</option>";
                               foreach ($medicine as $list) {
                                 echo "<option value='". $list['medicine_id'] . "'>" . $list['name'] . "</option>";

@@ -12,7 +12,7 @@
 
                 $cell_add = array('data' => '<a href="'.site_url().'/registration/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
-                $this->table->set_heading('RegisterID','WorkerID','PatientID','ClinicID','Time of Register','');
+                $this->table->set_heading('RegisterID','WorkerID','PatientID','ClinicID','Time of Register','Action');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                     $edit = "
