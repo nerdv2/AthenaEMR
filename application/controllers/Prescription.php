@@ -25,7 +25,7 @@ class Prescription extends CI_Controller {
 	*/
 
 	public function index() {
-
+		redirect('/');
     }
 
 	public function pre_adddata(){

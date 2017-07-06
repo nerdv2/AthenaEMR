@@ -25,7 +25,7 @@ class MedicineType extends CI_Controller {
 	*/
 
 	public function index() {
-
+		redirect('/');
     }
 
 public function adddata()

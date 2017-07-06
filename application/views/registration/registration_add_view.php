@@ -67,7 +67,7 @@
                       echo "<select class='select2' style='width: 100%;' name='patient_id' id='patient_id'>";
                       echo "<option value=''>Select Patient</option>";
                       foreach ($patient as $list) {
-                        echo "<option value='". $list['patient_id'] . "'>" . $list['name'] . "</option>";
+                        echo "<option value='". $list['patient_id'] . "'>" . $list['patient_id'] . " " . $list['name'] . "</option>";
                       }
                     ?>
                     </select>

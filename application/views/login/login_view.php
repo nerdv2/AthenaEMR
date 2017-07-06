@@ -19,16 +19,17 @@
       </div>
       <div class="app-block">
       <div class="app-form">
-      <?php if (validation_errors()) : ?>
+      
+        <div class="form-header">
+          <div class="app-brand"><span class="highlight">Athena</span> EMR</div>
+        </div>
+        <?php if (validation_errors()) : ?>
 					<?= validation_errors() ?>
             <?php endif; ?>
 
             <?php if (isset($error)) : ?>
-                        <?= $error ?>
-            <?php endif; ?>
-        <div class="form-header">
-          <div class="app-brand"><span class="highlight">Athena</span> EMR</div>
-        </div>
+              <?= $error ?>
+        <?php endif; ?>
         <?= form_open() ?>
             <div class="input-group">
               <span class="input-group-addon" id="basic-addon1">

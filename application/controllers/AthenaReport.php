@@ -34,8 +34,8 @@ class AthenaReport extends CI_Controller {
    *  @param : void
    *  @return : void
    */
-    public function index(){
-      
+    public function index() {
+		redirect('/');
     }
 
     public function getPDF(){

@@ -391,7 +391,7 @@ class AthenaMain extends CI_Controller {
 
     public function login(){
         //create the data object
-        $data = new stdClass();
+        //$data = new stdClass();
 
         //set validation rules
         $this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
@@ -436,11 +436,11 @@ class AthenaMain extends CI_Controller {
                 $this->index();
             } else {
                 //login failed
-                $data->error = "Wrong Username or Password.";
+                $data['error'] = "Wrong Username or Password.";
                 
                 //send error to view
                 $this->load->view('header');
-                $this->load->view('login/login_view');
+                $this->load->view('login/login_view', $data);
             }
         }
     }
