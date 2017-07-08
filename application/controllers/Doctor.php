@@ -2,13 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Doctor controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control doctor management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Doctor Controller Class
+ *
+ * control doctor management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
+
 class Doctor extends CI_Controller {
 
 
@@ -16,13 +19,6 @@ class Doctor extends CI_Controller {
 		parent::__construct();
 		$this->load->model('DoctorModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -56,16 +52,9 @@ class Doctor extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$doctor_id = $this->input->post('doctor_id');
-				$clinic_id    = $this->input->post('clinic_id');
-				$name = $this->input->post('name');
-				$gender = $this->input->post('gender');
-				$dob = $this->input->post('dob');
-				$address = $this->input->post('address');
-				$phone = $this->input->post('phone');
+				
 
-				if ($this->DoctorModel->create_doctor($doctor_id, $clinic_id, 
-				$name, $gender, $dob, $address, $phone)) {
+				if ($this->DoctorModel->create_doctor()) {
 				
 					// user creation ok
 					$this->DoctorModel->Redirect();
@@ -120,16 +109,9 @@ class Doctor extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$doctor_id = $this->input->post('doctor_id');
-				$clinic_id    = $this->input->post('clinic_id');
-				$name = $this->input->post('name');
-				$gender = $this->input->post('gender');
-				$dob = $this->input->post('dob');
-				$address = $this->input->post('address');
-				$phone = $this->input->post('phone');
+				
 
-				if ($this->DoctorModel->Update($doctor_id, $clinic_id, 
-				$name, $gender, $dob, $address, $phone)) {
+				if ($this->DoctorModel->Update()) {
 				
 					// user creation ok
 					$this->DoctorModel->Redirect();

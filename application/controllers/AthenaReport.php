@@ -2,13 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');  
  
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * AthenaReport controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control reporting management, QRCode and export data(excel, pdf)
-     * ----------------------------------------------
-	 */
+ * AthenaReport Controller Class
+ *
+ * control reporting management, QRCode and export data(excel, pdf)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
+
 class AthenaReport extends CI_Controller {
 
 

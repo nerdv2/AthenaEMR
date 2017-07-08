@@ -160,10 +160,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('registration', $data);
-        }
-
         public function Read_specific($id){
             $this->db->select('*');
             $this->db->from('registration');

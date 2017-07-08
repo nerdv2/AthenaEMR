@@ -12,8 +12,11 @@
             return $query->result();
         }
 
-        public function create_lab($lab_id, $name, 
-				$tariff) {
+        public function create_lab() {
+
+            $lab_id = $this->input->post('lab_id');
+			$name    = $this->input->post('name');
+			$tariff = $this->input->post('tariff');
 		
             $data = array(
                 'lab_id'   => $lab_id,
@@ -22,7 +25,7 @@
                 'created_at' => date('Y-m-j H:i:s'),
             );
 		
-		return $this->db->insert('lab', $data);
+		    return $this->db->insert('lab', $data);
 		
 	    }
 
@@ -42,10 +45,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('lab', $data);
-        }
-
         public function Read_specific($NIS){
             $this->db->select('*');
             $this->db->from('lab');
@@ -53,8 +52,11 @@
             return $this->db->get();
         }
 
-        public function Update($lab_id, $name, 
-				$tariff){
+        public function Update(){
+
+            $lab_id = $this->input->post('lab_id');
+			$name    = $this->input->post('name');
+			$tariff = $this->input->post('tariff');
 
             $data = array(
                 'lab_id'   => $lab_id,

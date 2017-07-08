@@ -78,8 +78,12 @@
             return $result;
         }
 
-        public function create_payment_medicine($payment_id, $prescription_id, 
-                                                    $worker_id, $type) {
+        public function create_payment_medicine() {
+
+            $payment_id = $this->input->post('payment_id');
+			$prescription_id    = $this->input->post('prescription_id');
+			$worker_id = $this->input->post('worker_id');
+
             $amount = $this->getPrescriptionAmount($prescription_id);
             $register_id = $this->getPrescriptionRegistration($prescription_id);
 
@@ -96,8 +100,12 @@
 
         }
 
-        public function create_lab_payment($payment_id, $result_id, 
-				$worker_id, $type) {
+        public function create_lab_payment() {
+
+            $payment_id = $this->input->post('payment_id');
+			$result_id    = $this->input->post('result_id');
+			$worker_id = $this->input->post('worker_id');
+            
             $amount = $this->getLabAmount($result_id);
             $register_id = $this->getLabRegistration($result_id);
 
@@ -113,8 +121,12 @@
             return $this->db->insert('payment', $data);
         }
 
-        public function create_payment($payment_id, $register_id, 
-				$worker_id, $type) {
+        public function create_payment() {
+
+            $payment_id = $this->input->post('payment_id');
+			$register_id    = $this->input->post('register_id');
+			$worker_id = $this->input->post('worker_id');
+			$type = $this->input->post('type');
 		
             $amount = $this->getAmount($register_id);
             
@@ -233,7 +245,10 @@
             return $amount;
         }
 
-        public function update_register($register_id){
+        public function update_register(){
+
+            $register_id    = $this->input->post('register_id');
+
             $data = array(
                 'patient_type'   => 0,
             );
@@ -263,9 +278,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('payment', $data);
-        }
 
         public function Read_specific($id){
             $this->db->select('*');

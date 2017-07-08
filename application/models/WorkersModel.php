@@ -12,20 +12,26 @@
             return $query->result();
         }
 
-        public function create_workers($worker_id, $name, 
-				$gender, $role, $dob, $address) {
+        public function create_workers() {
+
+            $worker_id = $this->input->post('worker_id');
+			$name    = $this->input->post('name');
+			$gender = $this->input->post('gender');
+			$role = $this->input->post('role');
+			$dob = $this->input->post('dob');
+			$address = $this->input->post('address');
 		
-		$data = array(
-			'worker_id'   => $worker_id,
-			'name'   => $name,
-			'gender'      => $gender,
-            'role'      => $role,
-            'dob'      => $dob,
-            'address'      => $address,
-			'created_at' => date('Y-m-j H:i:s'),
-		);
-		
-		return $this->db->insert('worker', $data);
+            $data = array(
+                'worker_id'   => $worker_id,
+                'name'   => $name,
+                'gender'      => $gender,
+                'role'      => $role,
+                'dob'      => $dob,
+                'address'      => $address,
+                'created_at' => date('Y-m-j H:i:s'),
+            );
+            
+            return $this->db->insert('worker', $data);
 		
 	    }
 
@@ -45,10 +51,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('worker', $data);
-        }
-
         public function Read_specific($NIS){
             $this->db->select('*');
             $this->db->from('worker');
@@ -56,8 +58,14 @@
             return $this->db->get();
         }
 
-        public function Update($worker_id, $name, 
-				$gender, $role, $dob, $address){
+        public function Update(){
+
+            $worker_id = $this->input->post('worker_id');
+			$name    = $this->input->post('name');
+			$gender = $this->input->post('gender');
+			$role = $this->input->post('role');
+			$dob = $this->input->post('dob');
+			$address = $this->input->post('address');
             
             $data = array(
                 'name'   => $name,

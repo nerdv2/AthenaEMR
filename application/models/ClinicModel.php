@@ -28,33 +28,35 @@
             return $query;
         }
 
-        public function create_clinic($clinic_id, $name, 
-				$tariff) {
-		
-		$data = array(
-			'clinic_id'   => $clinic_id,
-			'name'   => $name,
-			'tariff'      => $tariff,
-			'created_at' => date('Y-m-j H:i:s'),
-		);
-		
-		return $this->db->insert('clinic', $data);
-		
-	}
+        public function create_clinic() {
 
-        public function Insert($data){
-            $this->db->insert('clinic', $data);
-        }
+            $clinic_id = $this->input->post('clinic_id');
+			$name    = $this->input->post('name');
+			$tariff = $this->input->post('tariff');
+		
+            $data = array(
+                'clinic_id'   => $clinic_id,
+                'name'   => $name,
+                'tariff'      => $tariff,
+                'created_at' => date('Y-m-j H:i:s'),
+            );
+		
+		    return $this->db->insert('clinic', $data);
+		
+	    }
 
-        public function Read_specific($NIS){
+        public function Read_specific($id){
             $this->db->select('*');
             $this->db->from('clinic');
-            $this->db->where('clinic_id', $NIS);
+            $this->db->where('clinic_id', $id);
             return $this->db->get();
         }
 
-        public function Update($clinic_id, $name, 
-				$tariff){
+        public function Update(){
+
+            $clinic_id = $this->input->post('clinic_id');
+			$name    = $this->input->post('name');
+			$tariff = $this->input->post('tariff');
             
             $data = array(
                 'clinic_id'   => $clinic_id,

@@ -147,10 +147,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('prescription', $data);
-        }
-
         public function Read_specific($NIS){
             $dataquery = "CALL getPrescription(?)";
             $execute = $this->db->query($dataquery,array($NIS));

@@ -21,7 +21,7 @@
           <div class="app-title">
             <div class="title">
                 <div class="col-md-9">
-                    <span class="highlight">Edit <?= $query->name;?></span>
+                    <span class="highlight">Editing <?= $query->name;?></span>
                 </div>
                 <div class="col-md-3">
                     <input type="submit" form="forminput" class="btn btn-primary" value="Save" />

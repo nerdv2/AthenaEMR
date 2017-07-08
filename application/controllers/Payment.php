@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Payment controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control payment management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Payment Controller Class
+ *
+ * control payment management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 class Payment extends CI_Controller {
 
 
@@ -16,13 +18,6 @@ class Payment extends CI_Controller {
 		parent::__construct();
 		$this->load->model('PaymentModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -100,14 +95,8 @@ class Payment extends CI_Controller {
 				
 				} else {
 					// set variables from the form
-					$payment_id = $this->input->post('payment_id');
-					$prescription_id    = $this->input->post('prescription_id');
-					$worker_id = $this->input->post('worker_id');
-					$type = $this->input->post('type');
-					//$amount = $this->input->post('amount');
-
-					if ($this->PaymentModel->create_payment_medicine($payment_id, $prescription_id, 
-					$worker_id, $type)) {
+					
+					if ($this->PaymentModel->create_payment_medicine()) {
 						$this->PaymentModel->Redirect();
 						
 						
@@ -161,14 +150,8 @@ class Payment extends CI_Controller {
 				
 				} else {
 					// set variables from the form
-					$payment_id = $this->input->post('payment_id');
-					$result_id    = $this->input->post('result_id');
-					$worker_id = $this->input->post('worker_id');
-					$type = $this->input->post('type');
-					//$amount = $this->input->post('amount');
 
-					if ($this->PaymentModel->create_lab_payment($payment_id, $result_id, 
-					$worker_id, $type)) {
+					if ($this->PaymentModel->create_lab_payment()) {
 						$this->PaymentModel->Redirect();
 						
 						
@@ -222,15 +205,9 @@ class Payment extends CI_Controller {
 				
 				} else {
 					// set variables from the form
-					$payment_id = $this->input->post('payment_id');
-					$register_id    = $this->input->post('register_id');
-					$worker_id = $this->input->post('worker_id');
-					$type = $this->input->post('type');
-					//$amount = $this->input->post('amount');
 
-					if ($this->PaymentModel->create_payment($payment_id, $register_id, 
-					$worker_id, $type)) {
-						if($this->PaymentModel->update_register($register_id)){
+					if ($this->PaymentModel->create_payment()) {
+						if($this->PaymentModel->update_register()){
 							// user creation ok
 							$this->PaymentModel->Redirect();
 						}

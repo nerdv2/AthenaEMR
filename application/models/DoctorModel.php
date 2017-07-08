@@ -24,21 +24,28 @@
             return $data;
         }
 
-        public function create_doctor($doctor_id, $clinic_id, 
-				$name, $gender, $dob, $address, $phone) {
+        public function create_doctor() {
 		
-		$data = array(
-			'doctor_id'   => $doctor_id,
-			'clinic_id'   => $clinic_id,
-			'name'      => $name,
-            'gender'      => $gender,
-            'dob'      => $dob,
-            'address'      => $address,
-            'phone'      => $phone,
-			'created_at' => date('Y-m-j H:i:s'),
-		);
-		
-		return $this->db->insert('doctor', $data);
+            $doctor_id = $this->input->post('doctor_id');
+			$clinic_id    = $this->input->post('clinic_id');
+			$name = $this->input->post('name');
+			$gender = $this->input->post('gender');
+			$dob = $this->input->post('dob');
+			$address = $this->input->post('address');
+			$phone = $this->input->post('phone');
+
+            $data = array(
+                'doctor_id'   => $doctor_id,
+                'clinic_id'   => $clinic_id,
+                'name'      => $name,
+                'gender'      => $gender,
+                'dob'      => $dob,
+                'address'      => $address,
+                'phone'      => $phone,
+                'created_at' => date('Y-m-j H:i:s'),
+            );
+            
+            return $this->db->insert('doctor', $data);
 		
 	    }
 
@@ -58,29 +65,33 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('doctor', $data);
-        }
-
-        public function Read_specific($NIS){
+        public function Read_specific($id){
             $this->db->select('*');
             $this->db->from('doctor');
-            $this->db->where('doctor_id', $NIS);
+            $this->db->where('doctor_id', $id);
             return $this->db->get();
         }
 
-        public function Read_doctorname($NIS){
+        public function Read_doctorname($id){
             $this->db->select('*');
             $this->db->from('doctor');
-            $this->db->where('doctor_id', $NIS);
+            $this->db->where('doctor_id', $id);
             $query = $this->db->get();
             $ret = $query->row();
             return $ret->name;
         }
 
-        public function Update($doctor_id, $clinic_id, 
-				$name, $gender, $dob, $address, $phone){
+        public function Update(){
             
+            $doctor_id = $this->input->post('doctor_id');
+			$clinic_id    = $this->input->post('clinic_id');
+			$name = $this->input->post('name');
+			$gender = $this->input->post('gender');
+			$dob = $this->input->post('dob');
+			$address = $this->input->post('address');
+			$phone = $this->input->post('phone');
+
+
             $data = array(
                 'doctor_id'   => $doctor_id,
 			    'clinic_id'   => $clinic_id,

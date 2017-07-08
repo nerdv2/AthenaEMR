@@ -2,13 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Clinic controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control clinic management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Clinic Controller Class
+ *
+ * control clinic management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
+
 class Clinic extends CI_Controller {
 
 
@@ -16,14 +19,7 @@ class Clinic extends CI_Controller {
 		parent::__construct();
 		$this->load->model('ClinicModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
-
+	
 	public function index() {
 		redirect('/');
     }
@@ -49,13 +45,8 @@ class Clinic extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$clinic_id = $this->input->post('clinic_id');
-				$name    = $this->input->post('name');
-				$tariff = $this->input->post('tariff');
-				
 
-				if ($this->ClinicModel->create_clinic($clinic_id, $name, 
-				$tariff)) {
+				if ($this->ClinicModel->create_clinic()) {
 				
 					// user creation ok
 					$this->ClinicModel->Redirect();
@@ -103,12 +94,8 @@ class Clinic extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$clinic_id = $this->input->post('clinic_id');
-				$name    = $this->input->post('name');
-				$tariff = $this->input->post('tariff');
 
-				if ($this->ClinicModel->Update($clinic_id, $name, 
-				$tariff)) {
+				if ($this->ClinicModel->Update()) {
 				
 					// user creation ok
 					$this->LabModel->Redirect();

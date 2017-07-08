@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Patient controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control patient management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Patient Controller Class
+ *
+ * control patient type management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 class Patient extends CI_Controller {
 
 
@@ -17,13 +19,6 @@ class Patient extends CI_Controller {
 		$this->load->model('PatientModel');
 		$this->load->model('EMRModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -70,31 +65,9 @@ class Patient extends CI_Controller {
 				
 				} else {
 					// set variables from the form
-					$patient_id = $this->input->post('patient_id');
-					$name    = $this->input->post('name');
-					$dob = $this->input->post('dob');
-					$gender = $this->input->post('gender');
-					$address = $this->input->post('address');
-					$city = $this->input->post('city');
-					$state = $this->input->post('state');
-					$country = $this->input->post('country');
-					$postal_code = $this->input->post('postal_code');
-					$mother_name = $this->input->post('mother_name');
-					$emergency_contact = $this->input->post('emergency_contact');
-					$home_phone = $this->input->post('home_phone');
-					$work_phone = $this->input->post('work_phone');
-					$mobile_phone = $this->input->post('mobile_phone');
-					$email = $this->input->post('email');
-					$marital_status = $this->input->post('marital_status');
-					$religion = $this->input->post('religion');
-					$language = $this->input->post('language');
-					$race = $this->input->post('race');
-					$ethnicity = $this->input->post('ethnicity');
+					
 
-					if ($this->PatientModel->create_patient($patient_id, $name, 
-						$dob, $gender, $address, $city, $state, $country, $postal_code, 
-						$mother_name, $emergency_contact, $home_phone, $work_phone, 
-						$mobile_phone, $email, $marital_status, $religion, $language, $race, $ethnicity)) {
+					if ($this->PatientModel->create_patient()) {
 					
 						// user creation ok
 						$this->PatientModel->Redirect();
@@ -165,31 +138,9 @@ class Patient extends CI_Controller {
 				
 				} else {
 					// set variables from the form
-					$patient_id = $this->input->post('patient_id');
-					$name    = $this->input->post('name');
-					$dob = $this->input->post('dob');
-					$gender = $this->input->post('gender');
-					$address = $this->input->post('address');
-					$city = $this->input->post('city');
-					$state = $this->input->post('state');
-					$country = $this->input->post('country');
-					$postal_code = $this->input->post('postal_code');
-					$emergency_contact = $this->input->post('emergency_contact');
-					$mother_name = $this->input->post('mother_name');
-					$home_phone = $this->input->post('home_phone');
-					$work_phone = $this->input->post('work_phone');
-					$mobile_phone = $this->input->post('mobile_phone');
-					$email = $this->input->post('email');
-					$marital_status = $this->input->post('marital_status');
-					$religion = $this->input->post('religion');
-					$language = $this->input->post('language');
-					$race = $this->input->post('race');
-					$ethnicity = $this->input->post('ethnicity');
+					
 
-					if ($this->PatientModel->Update($patient_id, $name, 
-						$dob, $gender, $address, $city, $state, $country, $postal_code, 
-						$mother_name, $emergency_contact, $home_phone, $work_phone, 
-						$mobile_phone, $email, $marital_status, $religion, $language, $race, $ethnicity)) {
+					if ($this->PatientModel->Update()) {
 					
 						// user creation ok
 						$this->PatientModel->Redirect();

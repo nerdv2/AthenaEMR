@@ -14,13 +14,16 @@
 
         public function create_medicine($type_id,$name) {
 		
-		$data = array(
-            'type_id'   => $type_id,
-            'name'   => $name,
-            'created_at' => date('Y-m-j H:i:s'),
-		);
-		
-		return $this->db->insert('medicine_type', $data);
+            $type_id    = $this->input->post('type_id');
+			$name = $this->input->post('name');	
+            
+            $data = array(
+                'type_id'   => $type_id,
+                'name'   => $name,
+                'created_at' => date('Y-m-j H:i:s'),
+            );
+            
+            return $this->db->insert('medicine_type', $data);
 		
 	    }
 
@@ -40,10 +43,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('medicine_type', $data);
-        }
-
         public function Read_specific($NIS){
             $this->db->select('*');
             $this->db->from('medicine_type');
@@ -51,7 +50,10 @@
             return $this->db->get();
         }
 
-        public function Update($type_id,$name){
+        public function Update(){
+
+            $type_id    = $this->input->post('type_id');
+			$name = $this->input->post('name');	
             
             $data = array(
                'type_id'   => $type_id,

@@ -36,8 +36,13 @@
             return $data;
         }
 
-        public function create_user($username, $password, $status, $doctor_id, $worker_id, $photo) {
+        public function create_user() {
 		
+            $username = $this->input->post('username');
+			$password    = $this->input->post('password');
+			$status = $this->input->post('status');
+			$photo = $this->input->post('photo');
+
             $data = array(
                 'username'   => $username,
                 'password_hash'   => $this->hash_password($password),
@@ -50,8 +55,14 @@
             
         }
 
-        public function create_user_doctor($username, $password, $status, $doctor_id, $photo) {
+        public function create_user_doctor() {
 		
+            $username = $this->input->post('username');
+			$password    = $this->input->post('password');
+			$status = $this->input->post('status');
+			$doctor_id = $this->input->post('doctor_id');
+			$photo = $this->input->post('photo');
+
             $data = array(
                 'username'   => $username,
                 'password_hash'   => $this->hash_password($password),
@@ -65,7 +76,13 @@
             
         }
 
-        public function create_user_worker($username, $password, $status, $worker_id, $photo) {
+        public function create_user_worker() {
+
+            $username = $this->input->post('username');
+			$password    = $this->input->post('password');
+			$status = $this->input->post('status');
+			$worker_id = $this->input->post('worker_id');
+			$photo = $this->input->post('photo');
 		
             $data = array(
                 'username'   => $username,
@@ -80,14 +97,10 @@
             
         }
 
-        public function Insert($data){
-            $this->db->insert('user', $data);
-        }
-
-        public function Read_specific($NIS){
+        public function Read_specific($id){
             $this->db->select('*');
             $this->db->from('user');
-            $this->db->where('id_user', $NIS);
+            $this->db->where('id_user', $id);
             return $this->db->get();
         }
 

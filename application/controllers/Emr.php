@@ -2,13 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * EMR controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control EMR management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Emr Controller Class
+ *
+ * control EMR management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
+
 class Emr extends CI_Controller {
 
 
@@ -16,13 +19,6 @@ class Emr extends CI_Controller {
 		parent::__construct();
 		$this->load->model('EMRModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -69,35 +65,11 @@ class Emr extends CI_Controller {
 				
 				} else {
 					// set variables from the form
-					$record_id = $this->input->post('record_id');
-					$register_id = $this->input->post('register_id');
-					$additional_notes = $this->input->post('additional_notes');
-					$weight = $this->input->post('weight');
-					$height = $this->input->post('height');
-					$blood_pressure_systolic = $this->input->post('blood_pressure_systolic');
-					$blood_pressure_diastolic = $this->input->post('blood_pressure_diastolic');
-					$pulse = $this->input->post('pulse');
-					$respiration = $this->input->post('respiration');
-					$temperature = $this->input->post('temperature');
-					$temperature_location = $this->input->post('temperature_location');
-					$oxygen_saturation = $this->input->post('oxygen_saturation');
-					$head_circumference = $this->input->post('head_circumference');
-					$waist_circumference = $this->input->post('waist_circumference');
-					$bmi = $this->input->post('bmi');
-					$complaint = $this->input->post('complaint');
-					$symptoms = $this->input->post('symptoms');
-					$diagnosis = $this->input->post('diagnosis');
-					$handling = $this->input->post('handling');
-
+					
 					$doctor_id =   $this->EMRModel->getRegistrationDoctor($register_id);
 					$patient_id =   $this->EMRModel->getRegistrationPatient($register_id);
 
-
-					if ($this->EMRModel->create_emr($record_id, $doctor_id, $register_id, $patient_id, 
-					$additional_notes, $complaint, $symptoms, $diagnosis, $handling, 
-					$weight, $height, $blood_pressure_systolic, $blood_pressure_diastolic, $pulse, 
-					$respiration, $temperature, $temperature_location, $oxygen_saturation, $head_circumference, 
-					$waist_circumference, $bmi)) {
+					if ($this->EMRModel->create_emr($doctor_id, $patient_id)) {
 					
 						// user creation ok
 						$this->EMRModel->Redirect();

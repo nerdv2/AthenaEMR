@@ -64,8 +64,11 @@
             return $data;
         }
 
-        public function create_labresult($result_id, $worker_id, 
-				$result_data) {
+        public function create_labresult() {
+
+            $result_id = $this->input->post('result_id');
+			$worker_id    = $this->input->post('worker_id');
+			$result_data = $this->input->post('result_data');
 		
             $data = array(
                 'result_id'   => $result_id,
@@ -78,7 +81,12 @@
 		
 	    }
 
-        public function update_medicalrecord($result_id, $record_id, $lab_id){
+        public function update_medicalrecord(){
+
+            $result_id = $this->input->post('result_id');
+			$record_id    = $this->input->post('record_id');
+			$lab_id    = $this->input->post('lab_id');
+
             $data = array(
                 'lab_id'   => $lab_id,
                 'result_id'   => $result_id,
@@ -115,10 +123,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('lab_result', $data);
-        }
-
         public function Read_specific($NIS){
             $this->db->select('*');
             $this->db->from('lab_result');
@@ -126,8 +130,11 @@
             return $this->db->get();
         }
 
-        public function Update($result_id, $worker_id, 
-				$result_data){
+        public function Update(){
+
+            $result_id = $this->input->post('result_id');
+			$worker_id    = $this->input->post('worker_id');
+			$result_data = $this->input->post('result_data');
             
             $data = array(
                 'result_id'   => $result_id,

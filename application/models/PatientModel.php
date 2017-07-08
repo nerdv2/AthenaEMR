@@ -48,54 +48,72 @@
             return $resultdata;
         }
 
-        public function create_patient($patient_id, $name, 
-					$dob, $gender, $address, $city, $state, $country, $postal_code, 
-					$mother_name, $emergency_contact, $home_phone, $work_phone, 
-					$mobile_phone, $email, $marital_status, $religion, $language, $race, $ethnicity) {
+        public function create_patient() {
 		
-		$data = array(
-			'patient_id'   => $patient_id,
-			'name'   => $name,
-			'dob'      => $dob,
-            'gender'      => $gender,
-			'created_at' => date('Y-m-j H:i:s'),
-		);
-
-        $run = $this->db->insert('patient', $data);
-
-        if ($run) {
-            $data2 = array(
-                'patient_id' => $patient_id,
-                'address' => $address,
-                'city' => $city,
-                'state' => $state,
-                'country' => $country,
-                'postal_code' => $postal_code,
-                'mother_name' => $mother_name,
-                'emergency_contact' => $emergency_contact,
-                'home_phone' => $home_phone,
-                'work_phone' => $work_phone,
-                'mobile_phone' => $mobile_phone,
-                'email' => $email,
+            $patient_id = $this->input->post('patient_id');
+            $name    = $this->input->post('name');
+            $dob = $this->input->post('dob');
+            $gender = $this->input->post('gender');
+            $address = $this->input->post('address');
+            $city = $this->input->post('city');
+            $state = $this->input->post('state');
+            $country = $this->input->post('country');
+            $postal_code = $this->input->post('postal_code');
+            $mother_name = $this->input->post('mother_name');
+            $emergency_contact = $this->input->post('emergency_contact');
+            $home_phone = $this->input->post('home_phone');
+            $work_phone = $this->input->post('work_phone');
+            $mobile_phone = $this->input->post('mobile_phone');
+            $email = $this->input->post('email');
+            $marital_status = $this->input->post('marital_status');
+            $religion = $this->input->post('religion');
+            $language = $this->input->post('language');
+            $race = $this->input->post('race');
+            $ethnicity = $this->input->post('ethnicity');
+            
+            $data = array(
+                'patient_id'   => $patient_id,
+                'name'   => $name,
+                'dob'      => $dob,
+                'gender'      => $gender,
+                'created_at' => date('Y-m-j H:i:s'),
             );
 
-            $run2 = $this->db->insert('patient_contact', $data2);
+            $run = $this->db->insert('patient', $data);
 
-            if ($run2) {
-                $data3 = array(
+            if ($run) {
+                $data2 = array(
                     'patient_id' => $patient_id,
-                    'marital_status' => $marital_status,
-                    'religion' => $religion,
-                    'language' => $language,
-                    'race' => $race,
-                    'ethnicity' => $ethnicity,
+                    'address' => $address,
+                    'city' => $city,
+                    'state' => $state,
+                    'country' => $country,
+                    'postal_code' => $postal_code,
+                    'mother_name' => $mother_name,
+                    'emergency_contact' => $emergency_contact,
+                    'home_phone' => $home_phone,
+                    'work_phone' => $work_phone,
+                    'mobile_phone' => $mobile_phone,
+                    'email' => $email,
                 );
 
-                $run3 = $this->db->insert('patient_detail', $data3);
+                $run2 = $this->db->insert('patient_contact', $data2);
+
+                if ($run2) {
+                    $data3 = array(
+                        'patient_id' => $patient_id,
+                        'marital_status' => $marital_status,
+                        'religion' => $religion,
+                        'language' => $language,
+                        'race' => $race,
+                        'ethnicity' => $ethnicity,
+                    );
+
+                    $run3 = $this->db->insert('patient_detail', $data3);
+                }
             }
-        }
-        
-		return $run3;
+            
+            return $run3;
 		
 	    }
 
@@ -119,10 +137,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('patient', $data);
-        }
-
         public function Read_specific($patient_id){
             $this->db->select('*');
             $this->db->from('patient');
@@ -132,10 +146,28 @@
             return $this->db->get();
         }
 
-        public function Update($patient_id, $name, 
-					$dob, $gender, $address, $city, $state, $country, $postal_code, 
-					$mother_name, $emergency_contact, $home_phone, $work_phone, 
-					$mobile_phone, $email, $marital_status, $religion, $language, $race, $ethnicity){
+        public function Update(){
+
+            $patient_id = $this->input->post('patient_id');
+			$name    = $this->input->post('name');
+			$dob = $this->input->post('dob');
+			$gender = $this->input->post('gender');
+		    $address = $this->input->post('address');
+			$city = $this->input->post('city');
+			$state = $this->input->post('state');
+			$country = $this->input->post('country');
+			$postal_code = $this->input->post('postal_code');
+			$emergency_contact = $this->input->post('emergency_contact');
+			$mother_name = $this->input->post('mother_name');
+			$home_phone = $this->input->post('home_phone');
+			$work_phone = $this->input->post('work_phone');
+			$mobile_phone = $this->input->post('mobile_phone');
+			$email = $this->input->post('email');
+			$marital_status = $this->input->post('marital_status');
+			$religion = $this->input->post('religion');
+			$language = $this->input->post('language');
+			$race = $this->input->post('race');
+			$ethnicity = $this->input->post('ethnicity');
 
             $data = array(
                 'patient_id'   => $patient_id,

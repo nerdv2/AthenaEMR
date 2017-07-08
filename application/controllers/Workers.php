@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Workers controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control workers management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Workers Controller Class
+ *
+ * control workers management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 class Workers extends CI_Controller {
 
 
@@ -16,13 +18,6 @@ class Workers extends CI_Controller {
 		parent::__construct();
 		$this->load->model('WorkersModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -52,15 +47,8 @@ class Workers extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$worker_id = $this->input->post('worker_id');
-				$name    = $this->input->post('name');
-				$gender = $this->input->post('gender');
-				$role = $this->input->post('role');
-				$dob = $this->input->post('dob');
-				$address = $this->input->post('address');
 
-				if ($this->WorkersModel->create_workers($worker_id, $name, 
-				$gender, $role, $dob, $address)) {
+				if ($this->WorkersModel->create_workers()) {
 				
 					// user creation ok
 					$this->WorkersModel->Redirect();
@@ -113,15 +101,8 @@ class Workers extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$worker_id = $this->input->post('worker_id');
-				$name    = $this->input->post('name');
-				$gender = $this->input->post('gender');
-				$role = $this->input->post('role');
-				$dob = $this->input->post('dob');
-				$address = $this->input->post('address');
-
-				if ($this->WorkersModel->Update($worker_id, $name, 
-				$gender, $role, $dob, $address)) {
+				
+				if ($this->WorkersModel->Update()) {
 				
 					// user creation ok
 					$this->WorkersModel->Redirect();

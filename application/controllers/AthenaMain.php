@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed!');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * AthenaMain controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control auth(login, logout), user type session check and view management.
-     * ----------------------------------------------
-	 */
+ * AthenaMain Controller Class
+ *
+ * control auth(login, logout), user type session check and view management.
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 
 class AthenaMain extends CI_Controller {
 
@@ -326,24 +328,9 @@ class AthenaMain extends CI_Controller {
                     $this->load->view('settings/settings_view', $data);
                     $this->load->view('footer/footer');
                } else {
-                   $inputdata['hospital_name'] = $this->input->post('hospital_name');
-                   $inputdata['hospital_address'] = $this->input->post('hospital_address');
-                   $inputdata['hospital_phone'] = $this->input->post('hospital_phone');
-                   $inputdata['hospital_email'] = $this->input->post('hospital_email');
-                   $inputdata['worker_id_prefix'] = $this->input->post('worker_id_prefix');
-                   $inputdata['doctor_id_prefix'] = $this->input->post('doctor_id_prefix');
-                   $inputdata['register_id_prefix'] = $this->input->post('register_id_prefix');
-                   $inputdata['clinic_id_prefix'] = $this->input->post('clinic_id_prefix');
-                   $inputdata['payment_id_prefix'] = $this->input->post('payment_id_prefix');
-                   $inputdata['patient_id_prefix'] = $this->input->post('patient_id_prefix');
-                   $inputdata['record_id_prefix'] = $this->input->post('record_id_prefix');
-                   $inputdata['lab_id_prefix'] = $this->input->post('lab_id_prefix');
-                   $inputdata['result_id_prefix'] = $this->input->post('result_id_prefix');
-                   $inputdata['prescription_id_prefix'] = $this->input->post('prescription_id_prefix');
-                   $inputdata['medicine_id_prefix'] = $this->input->post('medicine_id_prefix');
-                   $inputdata['medicine_type_prefix'] = $this->input->post('medicine_type_prefix');
+                   
 
-                   if ($this->SettingsModel->saveData($inputdata)) {
+                   if ($this->SettingsModel->saveData()) {
 
                        // input data success, redirect
                        $this->SettingsModel->Redirect();

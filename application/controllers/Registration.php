@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Registration controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control registration management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Registration Controller Class
+ *
+ * control registration management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 class Registration extends CI_Controller {
 
 
@@ -16,13 +18,6 @@ class Registration extends CI_Controller {
 		parent::__construct();
 		$this->load->model('RegistrationModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');

@@ -2,13 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Lab controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control Lab management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Lab Controller Class
+ *
+ * control lab management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
+
 class Lab extends CI_Controller {
 
 
@@ -16,13 +19,6 @@ class Lab extends CI_Controller {
 		parent::__construct();
 		$this->load->model('LabModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -52,13 +48,8 @@ class Lab extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$lab_id = $this->input->post('lab_id');
-				$name    = $this->input->post('name');
-				$tariff = $this->input->post('tariff');
-				
 
-				if ($this->LabModel->create_lab($lab_id, $name, 
-				$tariff)) {
+				if ($this->LabModel->create_lab()) {
 				
 					// user creation ok
 					$this->LabModel->Redirect();
@@ -108,12 +99,9 @@ class Lab extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$lab_id = $this->input->post('lab_id');
-				$name    = $this->input->post('name');
-				$tariff = $this->input->post('tariff');
+				
 
-				if ($this->LabModel->Update($lab_id, $name, 
-				$tariff)) {
+				if ($this->LabModel->Update()) {
 				
 					// user creation ok
 					$this->LabModel->Redirect();

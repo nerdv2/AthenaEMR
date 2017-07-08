@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Medicine controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control medicine management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Medicine Controller Class
+ *
+ * control medicine management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 class Medicine extends CI_Controller {
 
 
@@ -16,13 +18,6 @@ class Medicine extends CI_Controller {
 		parent::__construct();
 		$this->load->model('MedicineModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -55,15 +50,8 @@ public function adddata()
 				
 				} else {
 					// set variables from the form
-					$medicine_id = $this->input->post('medicine_id');
-					$type_id    = $this->input->post('type_id');
-					$name = $this->input->post('name');
-					$description = $this->input->post('description');
-					$price    = $this->input->post('price');
-					$amount = $this->input->post('amount');
-					
-
-					if ($this->MedicineModel->create_medicine($medicine_id,$type_id,$name,$description,$price,$amount)) {
+			
+					if ($this->MedicineModel->create_medicine()) {
 					
 						// user creation ok
 						$this->MedicineModel->Redirect();
@@ -118,14 +106,9 @@ public function adddata()
 				
 				} else {
 					// set variables from the form
-					$medicine_id = $this->input->post('medicine_id');
-					$type_id    = $this->input->post('type_id');
-					$name = $this->input->post('name');
-					$description = $this->input->post('description');
-					$price    = $this->input->post('price');
-					$amount = $this->input->post('amount');
+					
 
-					if ($this->MedicineModel->Update($medicine_id,$type_id,$name,$description,$price,$amount)) {
+					if ($this->MedicineModel->Update()) {
 					
 						// user creation ok
 						$this->MedicineModel->Redirect();

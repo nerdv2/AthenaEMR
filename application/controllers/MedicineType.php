@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * MedicineType controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control medicine type management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * MedicineType Controller Class
+ *
+ * control medicine type management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 class MedicineType extends CI_Controller {
 
 
@@ -16,13 +18,6 @@ class MedicineType extends CI_Controller {
 		parent::__construct();
 		$this->load->model('MedicineTypeModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -51,10 +46,9 @@ public function adddata()
 				
 				} else {
 					// set variables from the form
-					$type_id    = $this->input->post('type_id');
-					$name = $this->input->post('name');	
+					
 
-					if ($this->MedicineTypeModel->create_medicine($type_id,$name)) {
+					if ($this->MedicineTypeModel->create_medicine()) {
 					
 						// user creation ok
 						$this->MedicineTypeModel->Redirect();
@@ -110,10 +104,8 @@ public function adddata()
 				
 				} else {
 					// set variables from the form
-					$type_id    = $this->input->post('type_id');
-					$name = $this->input->post('name');	
 					
-					if ($this->MedicineTypeModel->Update($type_id,$name)) {
+					if ($this->MedicineTypeModel->Update()) {
 					
 						// user creation ok
 						$this->MedicineTypeModel->Redirect();

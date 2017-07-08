@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Labresult controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control lab result management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Labresult Controller Class
+ *
+ * control lab result management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 class Labresult extends CI_Controller {
 
 
@@ -16,13 +18,6 @@ class Labresult extends CI_Controller {
 		parent::__construct();
 		$this->load->model('LabResultModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -54,15 +49,9 @@ class Labresult extends CI_Controller {
 				
 				} else {
 					// set variables from the form
-					$result_id = $this->input->post('result_id');
-					$worker_id    = $this->input->post('worker_id');
-					$record_id    = $this->input->post('record_id');
-					$lab_id    = $this->input->post('lab_id');
-					$result_data = $this->input->post('result_data');
 
-					if ($this->LabResultModel->create_labresult($result_id, $worker_id, 
-					$result_data)) {
-						if($this->LabResultModel->update_medicalrecord($result_id, $record_id, $lab_id)) {
+					if ($this->LabResultModel->create_labresult()) {
+						if($this->LabResultModel->update_medicalrecord()) {
 							// user creation ok
 							$this->LabResultModel->Redirect();
 						} else {
@@ -127,12 +116,8 @@ class Labresult extends CI_Controller {
 				
 				} else {
 					// set variables from the form
-					$result_id = $this->input->post('result_id');
-					$worker_id    = $this->input->post('worker_id');
-					$result_data = $this->input->post('result_data');
 
-					if ($this->LabResultModel->Update($result_id, $worker_id, 
-					$result_data)) {
+					if ($this->LabResultModel->Update()) {
 					
 						// user creation ok
 						$this->LabResultModel->Redirect();

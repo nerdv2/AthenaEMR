@@ -2,13 +2,15 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
-	 * AthenaEMR - Gema Aji Wardian
-     * Users controller.
-     * <gema_wardian@hotmail.com>
-     * ----------------------------------------------
-     * control users management(view, add, edit, delete)
-     * ----------------------------------------------
-	 */
+ * Users Controller Class
+ *
+ * control users management(view, add, edit, delete)
+ *
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ */
 class Users extends CI_Controller {
 
 
@@ -16,13 +18,6 @@ class Users extends CI_Controller {
 		parent::__construct();
 		$this->load->model('UsersModel');
 	}
-	/*
-	public function index()
-	{
-		$data['query'] = $this->CRUD->getData();
-		$this->load->view('homepage',$data);
-	}
-	*/
 
 	public function index() {
 		redirect('/');
@@ -55,15 +50,9 @@ class Users extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$username = $this->input->post('username');
-				$password    = $this->input->post('password');
-				$status = $this->input->post('status');
-				$doctor_id = $this->input->post('doctor_id');
-				$worker_id = $this->input->post('worker_id');
-				$photo = $this->input->post('photo');
 
 				if($doctor_id == "" && $worker_id == ""){
-					if ($this->UsersModel->create_user($username, $password, $status, $doctor_id, $worker_id, $photo)) {
+					if ($this->UsersModel->create_user()) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();
@@ -84,7 +73,7 @@ class Users extends CI_Controller {
 								
 					}
 				} else if($doctor_id == "" && $worker_id !== ""){
-					if ($this->UsersModel->create_user_worker($username, $password, $status, $worker_id, $photo)) {
+					if ($this->UsersModel->create_user_worker()) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();
@@ -104,7 +93,7 @@ class Users extends CI_Controller {
 								
 					}
 				} else if($doctor_id !== "" && $worker_id == ""){
-					if ($this->UsersModel->create_user_doctor($username, $password, $status, $doctor_id, $photo)) {
+					if ($this->UsersModel->create_user_doctor()) {
 				
 						// user creation ok
 						$this->UsersModel->Redirect();

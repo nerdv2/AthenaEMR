@@ -119,49 +119,65 @@
             return $ret->patient_id;
         }
 
-        public function create_emr($record_id, $doctor_id, $register_id, $patient_id, 
-				$additional_notes, $complaint, $symptoms, $diagnosis, $handling, 
-				$weight, $height, $blood_pressure_systolic, $blood_pressure_diastolic, $pulse, 
-				$respiration, $temperature, $temperature_location, $oxygen_saturation, $head_circumference, 
-				$waist_circumference, $bmi) {
+        public function create_emr($doctor_id, $patient_id) {
+
+            $record_id = $this->input->post('record_id');
+			$register_id = $this->input->post('register_id');
+			$additional_notes = $this->input->post('additional_notes');
+			$weight = $this->input->post('weight');
+			$height = $this->input->post('height');
+			$blood_pressure_systolic = $this->input->post('blood_pressure_systolic');
+			$blood_pressure_diastolic = $this->input->post('blood_pressure_diastolic');
+			$pulse = $this->input->post('pulse');
+			$respiration = $this->input->post('respiration');
+			$temperature = $this->input->post('temperature');
+			$temperature_location = $this->input->post('temperature_location');
+			$oxygen_saturation = $this->input->post('oxygen_saturation');
+			$head_circumference = $this->input->post('head_circumference');
+			$waist_circumference = $this->input->post('waist_circumference');
+			$bmi = $this->input->post('bmi');
+			$complaint = $this->input->post('complaint');
+			$symptoms = $this->input->post('symptoms');
+			$diagnosis = $this->input->post('diagnosis');
+			$handling = $this->input->post('handling');
 		
-		$data = array(
-			'record_id'   => $record_id,
-			'doctor_id'   => $doctor_id,
-			'register_id'      => $register_id,
-			'patient_id'      => $patient_id,
-			'time' => date('Y-m-j H:i:s'),
-            'complaint'      => $complaint,
-            'symptoms'      => $symptoms,
-            'diagnosis'    => $diagnosis,
-            'handling'    => $handling,
-            'additional_notes' => $additional_notes,
-            'created_at' => date('Y-m-j H:i:s'),
-		);
-
-        $run = $this->db->insert('medical_record', $data);
-
-        if ($run) {
-            $data2 = array(
+            $data = array(
                 'record_id'   => $record_id,
-                'weight'   => $weight,
-                'height'      => $height,
-                'blood_pressure_systolic'      => $blood_pressure_systolic,
-                'blood_pressure_diastolic' => $blood_pressure_diastolic,
-                'pulse'      => $pulse,
-                'respiration'      => $respiration,
-                'temperature'    => $temperature,
-                'temperature_location'    => $temperature_location,
-                'oxygen_saturation' => $oxygen_saturation,
-                'head_circumference' => $head_circumference,
-                'waist_circumference' => $waist_circumference,
-                'bmi' => $bmi,
+                'doctor_id'   => $doctor_id,
+                'register_id'      => $register_id,
+                'patient_id'      => $patient_id,
+                'time' => date('Y-m-j H:i:s'),
+                'complaint'      => $complaint,
+                'symptoms'      => $symptoms,
+                'diagnosis'    => $diagnosis,
+                'handling'    => $handling,
+                'additional_notes' => $additional_notes,
+                'created_at' => date('Y-m-j H:i:s'),
             );
 
-            $run2 = $this->db->insert('medical_record_vitals', $data2);
-        }
-		
-		return $run2;
+            $run = $this->db->insert('medical_record', $data);
+
+            if ($run) {
+                $data2 = array(
+                    'record_id'   => $record_id,
+                    'weight'   => $weight,
+                    'height'      => $height,
+                    'blood_pressure_systolic'      => $blood_pressure_systolic,
+                    'blood_pressure_diastolic' => $blood_pressure_diastolic,
+                    'pulse'      => $pulse,
+                    'respiration'      => $respiration,
+                    'temperature'    => $temperature,
+                    'temperature_location'    => $temperature_location,
+                    'oxygen_saturation' => $oxygen_saturation,
+                    'head_circumference' => $head_circumference,
+                    'waist_circumference' => $waist_circumference,
+                    'bmi' => $bmi,
+                );
+
+                $run2 = $this->db->insert('medical_record_vitals', $data2);
+            }
+            
+            return $run2;
 		
 	    }
         
@@ -183,10 +199,6 @@
             }
 
             return $query;
-        }
-
-        public function Insert($data){
-            $this->db->insert('medical_record', $data);
         }
 
         public function Read_specific($record_id){

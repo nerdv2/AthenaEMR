@@ -24,21 +24,28 @@
             return $data;
         }
 
-        public function create_medicine($medicine_id,$type_id,$name,$description,$price,$amount) {
+        public function create_medicine() {
+
+            $medicine_id = $this->input->post('medicine_id');
+			$type_id    = $this->input->post('type_id');
+			$name = $this->input->post('name');
+			$description = $this->input->post('description');
+			$price    = $this->input->post('price');
+			$amount = $this->input->post('amount');
 		
-		$data = array(
-			'medicine_id'   => $medicine_id,
-            'type_id'   => $type_id,
-            'name'   => $name,
-            'description'   => $description,
-			'price'   => $price,
-			'amount'      => $amount,
-			'created_at' => date('Y-m-j H:i:s'),
-		);
-		
-		return $this->db->insert('medicine', $data);
-		
-	}
+            $data = array(
+                'medicine_id'   => $medicine_id,
+                'type_id'   => $type_id,
+                'name'   => $name,
+                'description'   => $description,
+                'price'   => $price,
+                'amount'      => $amount,
+                'created_at' => date('Y-m-j H:i:s'),
+            );
+            
+            return $this->db->insert('medicine', $data);
+            
+        }
 
         public function generate_id(){
             $result = $this->db->count_all('medicine');
@@ -56,10 +63,6 @@
             return $query;
         }
 
-        public function Insert($data){
-            $this->db->insert('medicine', $data);
-        }
-
         public function Read_specific($NIS){
             $this->db->select('*');
             $this->db->from('medicine');
@@ -67,7 +70,14 @@
             return $this->db->get();
         }
 
-        public function Update($medicine_id,$type_id,$name,$description,$price,$amount){
+        public function Update(){
+
+            $medicine_id = $this->input->post('medicine_id');
+			$type_id    = $this->input->post('type_id');
+			$name = $this->input->post('name');
+			$description = $this->input->post('description');
+			$price    = $this->input->post('price');
+			$amount = $this->input->post('amount');
             
             $data = array(
                 'medicine_id'   => $medicine_id,
