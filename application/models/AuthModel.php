@@ -4,7 +4,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * AuthModel class
  * 
- * @extends CI_Model
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ * @extends    CI_Model
  */
 class AuthModel extends CI_Model {
 

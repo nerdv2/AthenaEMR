@@ -1,4 +1,15 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * UsersModel class
+ * 
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ * @extends    CI_Model
+ */
     class UsersModel extends CI_Model {
 
         public function Redirect(){

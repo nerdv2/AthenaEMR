@@ -1,4 +1,15 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * PrescriptionModel class
+ * 
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ * @extends    CI_Model
+ */
     class PrescriptionModel extends CI_Model {
 
         public function Redirect(){
@@ -147,9 +158,9 @@
             return $query;
         }
 
-        public function Read_specific($NIS){
+        public function Read_specific($id){
             $dataquery = "CALL getPrescription(?)";
-            $execute = $this->db->query($dataquery,array($NIS));
+            $execute = $this->db->query($dataquery,array($id));
             $ret = $execute->row();
             $execute->next_result();
             $execute->free_result();

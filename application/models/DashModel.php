@@ -1,4 +1,15 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * DashModel class
+ * 
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ * @extends    CI_Model
+ */
     class DashModel extends CI_Model{
         public function getNewRegister(){
             $this->db->from('getregistertoday');

@@ -1,4 +1,15 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+/**
+ * LabResultModel class
+ * 
+ * @package    AthenaEMR
+ * @license    https://opensource.org/licenses/MIT  MIT License
+ * @author     Gema Aji Wardian <gema_wardian@hotmail.com>
+ * @link	   https://github.com/nerdv2/AthenaEMR
+ * @extends    CI_Model
+ */
     class LabResultModel extends CI_Model {
 
         public function Redirect(){
@@ -123,10 +134,10 @@
             return $query;
         }
 
-        public function Read_specific($NIS){
+        public function Read_specific($id){
             $this->db->select('*');
             $this->db->from('lab_result');
-            $this->db->where('result_id', $NIS);
+            $this->db->where('result_id', $id);
             return $this->db->get();
         }
 
