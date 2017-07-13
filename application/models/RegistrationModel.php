@@ -82,7 +82,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             for ($i=0; $i<count($result); $i++)
             {
                 array_push($id, $result[$i]->doctor_id);
-                array_push($name, $result[$i]->name);
+                array_push($name, $result[$i]->doctor_id . " - " . $result[$i]->name);
             }
             return array_combine($id, $name);
         }

@@ -86,73 +86,73 @@
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Worker ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->worker_id_prefix; ?>" class="form-control" placeholder="Worker ID Prefix" name="worker_id_prefix" required>
+                                        <input type="text" value="<?= $query->worker_id_prefix; ?>" class="form-control" placeholder="Worker ID Prefix" name="worker_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Doctor ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->doctor_id_prefix; ?>" class="form-control" placeholder="Doctor ID Prefix" name="doctor_id_prefix" required>
+                                        <input type="text" value="<?= $query->doctor_id_prefix; ?>" class="form-control" placeholder="Doctor ID Prefix" name="doctor_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Register ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->register_id_prefix; ?>" class="form-control" placeholder="Register ID Prefix" name="register_id_prefix" required>
+                                        <input type="text" value="<?= $query->register_id_prefix; ?>" class="form-control" placeholder="Register ID Prefix" name="register_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Clinic ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->clinic_id_prefix; ?>" class="form-control" placeholder="Clinic ID Prefix" name="clinic_id_prefix" required>
+                                        <input type="text" value="<?= $query->clinic_id_prefix; ?>" class="form-control" placeholder="Clinic ID Prefix" name="clinic_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Payment ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->payment_id_prefix; ?>" class="form-control" placeholder="Payment ID Prefix" name="payment_id_prefix" required>
+                                        <input type="text" value="<?= $query->payment_id_prefix; ?>" class="form-control" placeholder="Payment ID Prefix" name="payment_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Patient ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->patient_id_prefix; ?>" class="form-control" placeholder="Patient ID Prefix" name="patient_id_prefix" required>
+                                        <input type="text" value="<?= $query->patient_id_prefix; ?>" class="form-control" placeholder="Patient ID Prefix" name="patient_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Medical Record ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->record_id_prefix; ?>" class="form-control" placeholder="Medical Record ID Prefix" name="record_id_prefix" required>
+                                        <input type="text" value="<?= $query->record_id_prefix; ?>" class="form-control" placeholder="Medical Record ID Prefix" name="record_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Lab ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->lab_id_prefix; ?>" class="form-control" placeholder="Lab ID Prefix" name="lab_id_prefix" required>
+                                        <input type="text" value="<?= $query->lab_id_prefix; ?>" class="form-control" placeholder="Lab ID Prefix" name="lab_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Lab Result ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->result_id_prefix; ?>" class="form-control" placeholder="Lab Result ID Prefix" name="result_id_prefix" required>
+                                        <input type="text" value="<?= $query->result_id_prefix; ?>" class="form-control" placeholder="Lab Result ID Prefix" name="result_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Prescription ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->prescription_id_prefix; ?>" class="form-control" placeholder="Prescription ID Prefix" name="prescription_id_prefix" required>
+                                        <input type="text" value="<?= $query->prescription_id_prefix; ?>" class="form-control" placeholder="Prescription ID Prefix" name="prescription_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Medicine ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->medicine_id_prefix; ?>" class="form-control" placeholder="Medicine ID Prefix" name="medicine_id_prefix" required>
+                                        <input type="text" value="<?= $query->medicine_id_prefix; ?>" class="form-control" placeholder="Medicine ID Prefix" name="medicine_id_prefix" readonly required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-3 control-label">Medicine Type ID Prefix</label>
                                     <div class="col-md-9">
-                                        <input type="text" value="<?= $query->medicine_type_prefix; ?>" class="form-control" placeholder="Medicine Type ID Prefix" name="medicine_type_prefix" required>
+                                        <input type="text" value="<?= $query->medicine_type_prefix; ?>" class="form-control" placeholder="Medicine Type ID Prefix" name="medicine_type_prefix" readonly required>
                                     </div>
                                 </div>
                             </div>
