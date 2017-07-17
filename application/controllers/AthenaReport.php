@@ -29,6 +29,7 @@ class AthenaReport extends CI_Controller {
         $this->load->model('LabResultModel');
         $this->load->model('RegistrationModel');
         $this->load->model('EMRModel');
+        $this->load->model('SettingsModel');
         }
 
   /**
@@ -49,6 +50,7 @@ class AthenaReport extends CI_Controller {
 
     public function getregistration(){
         $data['query'] = $this->RegistrationModel->getData();
+        $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/report_template', $data);
         $this->pdf->Output();
     }
@@ -56,6 +58,7 @@ class AthenaReport extends CI_Controller {
     public function export_visitmonth($start, $end, $doctor_id){
         $data['query'] = $this->RegistrationModel->getvisit_month($start, $end, $doctor_id);
         $data['doctor'] = $this->DoctorModel->Read_doctorname($doctor_id);
+        $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/visit_template', $data);
         $this->pdf->Output();
     }
@@ -64,6 +67,7 @@ class AthenaReport extends CI_Controller {
         $data['query'] = $this->EMRModel->getrecord_report($patient_id, $start, $end);
         $data['patientid'] = $patient_id;
         $data['patientname'] = $this->PatientModel->Read_patientname($patient_id);
+        $data['setting'] = $this->SettingsModel->getData()->row();
         //$this->load->view('common/medical_record_template', $data);
         $this->pdf->load_view_landscape('common/medical_record_template', $data);
         $this->pdf->Output();
@@ -71,12 +75,14 @@ class AthenaReport extends CI_Controller {
 
     public function get_invoice($id){
         $data['query'] = $this->PaymentModel->getInvoiceData($id)->row();
+        $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/invoice_template', $data);
         $this->pdf->Output();
     }
 
     public function get_labresult($id){
         $data['query'] = $this->LabResultModel->getLabResultData($id)->row();
+        $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/labresult_template', $data);
         $this->pdf->Output();
     }

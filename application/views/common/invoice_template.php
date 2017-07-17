@@ -109,9 +109,10 @@
                     <table>
                         <tr>
                             <td>
-                                AthenaEMR, Inc.<br>
-                                12345 Sunny Road<br>
-                                Sunnyville, TX 12345
+                                <?= $setting->hospital_name; ?><br>
+                                <?= $setting->hospital_address; ?><br>
+                                <?= $setting->hospital_phone; ?><br>
+                                <?= $setting->hospital_email; ?>
                             </td>
                             
                             <td>
