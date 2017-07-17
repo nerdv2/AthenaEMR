@@ -144,15 +144,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->db->from('prescription');
             $result = $this->db->count_all_results();
             $date = date("dmy");
+
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->prescription_id_prefix;
             
             if($result<=9){
-                $query = "PSC-". $date ."-000" . $result;
+                $query = $prefix . "-". $date ."-000" . $result;
             } else if($result<=99){
-                $query = "PSC-". $date ."-00" . $result;
+                $query = $prefix . "-". $date ."-00" . $result;
             } else if($result<=999){
-                $query = "PSC-". $date ."-0" . $result;
+                $query = $prefix . "-". $date ."-0" . $result;
             } else if($result<=9999){
-                $query = "PSC-". $date ."-" . $result;
+                $query = $prefix . "-". $date ."-" . $result;
             }
 
             return $query;

@@ -26,14 +26,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function generate_id(){
             $result = $this->db->count_all('clinic');
 
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->clinic_id_prefix;
+
             if($result<=9){
-                $query = "DIV-000" . $result;
+                $query = $prefix . "-000" . $result;
             } else if($result<=99){
-                $query = "DIV-00" . $result;
+                $query = $prefix . "-00" . $result;
             } else if($result<=999){
-                $query = "DIV-0" . $result;
+                $query = $prefix . "-0" . $result;
             } else if($result<=9999){
-                $query = "DIV-" . $result;
+                $query = $prefix . "-" . $result;
             }
 
             return $query;

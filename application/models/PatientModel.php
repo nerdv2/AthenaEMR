@@ -131,18 +131,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function generate_id(){
             $result = $this->db->count_all('patient');
 
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->patient_id_prefix;
+
             if($result<=9){
-                $query = "USR-00000" . $result;
+                $query = $prefix . "-00000" . $result;
             } else if($result<=99){
-                $query = "USR-0000" . $result;
+                $query = $prefix . "-0000" . $result;
             } else if($result<=999){
-                $query = "USR-000" . $result;
+                $query = $prefix . "-000" . $result;
             } else if($result<=9999){
-                $query = "USR-00" . $result;
+                $query = $prefix . "-00" . $result;
             } else if($result<=99999){
-                $query = "USR-0" . $result;
+                $query = $prefix . "-0" . $result;
             } else if($result<=999999){
-                $query = "USR-" . $result;
+                $query = $prefix . "-" . $result;
             }
 
             return $query;

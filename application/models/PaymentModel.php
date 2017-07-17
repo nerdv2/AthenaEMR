@@ -275,15 +275,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->db->from('payment');
             $result = $this->db->count_all_results();
             $date = date("dmy");
+
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->payment_id_prefix;
             
             if($result<=9){
-                $query = "PAY-". $date ."-000" . $result;
+                $query = $prefix . "-". $date ."-000" . $result;
             } else if($result<=99){
-                $query = "PAY-". $date ."-00" . $result;
+                $query = $prefix . "-". $date ."-00" . $result;
             } else if($result<=999){
-                $query = "PAY-". $date ."-0" . $result;
+                $query = $prefix . "-". $date ."-0" . $result;
             } else if($result<=9999){
-                $query = "PAY-". $date ."-" . $result;
+                $query = $prefix . "-". $date ."-" . $result;
             }
 
             return $query;

@@ -157,15 +157,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->db->from('registration');
             $result = $this->db->count_all_results();
             $date = date("dmy");
+
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->register_id_prefix;
             
             if($result<=9){
-                $query = "REG-". $date ."-000" . $result;
+                $query = $prefix ."-". $date ."-000" . $result;
             } else if($result<=99){
-                $query = "REG-". $date ."-00" . $result;
+                $query = $prefix ."-". $date ."-00" . $result;
             } else if($result<=999){
-                $query = "REG-". $date ."-0" . $result;
+                $query = $prefix ."-". $date ."-0" . $result;
             } else if($result<=9999){
-                $query = "REG-". $date ."-" . $result;
+                $query = $prefix ."-". $date ."-" . $result;
             }
 
             return $query;

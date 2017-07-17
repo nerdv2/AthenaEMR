@@ -198,15 +198,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->db->from('medical_record');
             $result = $this->db->count_all_results();
             $date = date("dmy");
+
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->record_id_prefix;
             
             if($result<=9){
-                $query = "REC-". $date ."-000" . $result;
+                $query = $prefix . "-". $date ."-000" . $result;
             } else if($result<=99){
-                $query = "REC-". $date ."-00" . $result;
+                $query = $prefix . "-". $date ."-00" . $result;
             } else if($result<=999){
-                $query = "REC-". $date ."-0" . $result;
+                $query = $prefix . "-". $date ."-0" . $result;
             } else if($result<=9999){
-                $query = "REC-". $date ."-" . $result;
+                $query = $prefix . "-". $date ."-" . $result;
             }
 
             return $query;

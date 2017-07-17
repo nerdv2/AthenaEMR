@@ -49,14 +49,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function generate_id(){
             $result = $this->db->count_all('worker');
 
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->worker_id_prefix;
+
             if($result<=9){
-                $query = "WRK-000" . $result;
+                $query = $prefix."-000" . $result;
             } else if($result<=99){
-                $query = "WRK-00" . $result;
+                $query = $prefix."-00" . $result;
             } else if($result<=999){
-                $query = "WRK-0" . $result;
+                $query = $prefix."-0" . $result;
             } else if($result<=9999){
-                $query = "WRK-" . $result;
+                $query = $prefix."-" . $result;
             }
 
             return $query;

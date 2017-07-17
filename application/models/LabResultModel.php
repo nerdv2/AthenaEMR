@@ -120,15 +120,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->db->from('lab_result');
             $result = $this->db->count_all_results();
             $date = date("dmy");
+
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->result_id_prefix;
             
             if($result<=9){
-                $query = "RES-". $date ."-000" . $result;
+                $query = $prefix . "-". $date ."-000" . $result;
             } else if($result<=99){
-                $query = "RES-". $date ."-00" . $result;
+                $query = $prefix . "-". $date ."-00" . $result;
             } else if($result<=999){
-                $query = "RES-". $date ."-0" . $result;
+                $query = $prefix . "-". $date ."-0" . $result;
             } else if($result<=9999){
-                $query = "RES-". $date ."-" . $result;
+                $query = $prefix . "-". $date ."-" . $result;
             }
 
             return $query;

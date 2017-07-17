@@ -43,14 +43,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function generate_id(){
             $result = $this->db->count_all('lab');
 
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->lab_id_prefix;
+
             if($result<=9){
-                $query = "LAB-000" . $result;
+                $query = $prefix . "-000" . $result;
             } else if($result<=99){
-                $query = "LAB-00" . $result;
+                $query = $prefix . "-00" . $result;
             } else if($result<=999){
-                $query = "LAB-0" . $result;
+                $query = $prefix . "-0" . $result;
             } else if($result<=9999){
-                $query = "LAB-" . $result;
+                $query = $prefix . "-" . $result;
             }
 
             return $query;

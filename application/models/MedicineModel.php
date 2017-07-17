@@ -61,14 +61,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         public function generate_id(){
             $result = $this->db->count_all('medicine');
 
+            $getprefix = $this->db->get('app_settings')->row();
+            $prefix = $getprefix->medicine_id_prefix;
+
             if($result<=9){
-                $query = "MED-000" . $result;
+                $query = $prefix . "-000" . $result;
             } else if($result<=99){
-                $query = "MED-00" . $result;
+                $query = $prefix . "-00" . $result;
             } else if($result<=999){
-                $query = "MED-0" . $result;
+                $query = $prefix . "-0" . $result;
             } else if($result<=9999){
-                $query = "MED-" . $result;
+                $query = $prefix . "-" . $result;
             }
 
             return $query;
