@@ -23,18 +23,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query->result();
         }
 
-        public function getDoctorPatientData($id){
+        public function getDoctorPatientData($doctor_id){
             $this->db->select("*");
-            $this->db->where("doctor_id", $id);
+            $this->db->where("doctor_id", $doctor_id);
             $this->db->from('getpatientdoctor');
             $this->db->group_by("name");
             $query = $this->db->get();
             return $query->result();
         }
 
-        public function getPatientLab($id){
+        public function getPatientLab($patient_id){
             $dataquery = "CALL getPatientLab(?)";
-            $execute = $this->db->query($dataquery,array($id));
+            $execute = $this->db->query($dataquery,array($patient_id));
             $resultdata = $execute->result();
             $execute->next_result();
             $execute->free_result();
@@ -50,9 +50,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $ret->name;
         }
 
-        public function getPatientPrescription($id){
+        public function getPatientPrescription($patient_id){
             $dataquery = "CALL getPatientPrescription(?)";
-            $execute = $this->db->query($dataquery,array($id));
+            $execute = $this->db->query($dataquery,array($patient_id));
             $resultdata = $execute->result();
             $execute->next_result();
             $execute->free_result();

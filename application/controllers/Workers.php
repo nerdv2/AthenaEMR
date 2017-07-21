@@ -75,7 +75,7 @@ class Workers extends CI_Controller {
 	}
 
 
-	public function editdata($id){
+	public function editdata($worker_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 
 			// set validation rules
@@ -89,7 +89,7 @@ class Workers extends CI_Controller {
 			if ($this->form_validation->run() === false) {
 			
 				// validation not ok, send validation errors to the view
-				$data['query'] = $this->WorkersModel->Read_specific($id)->row();
+				$data['query'] = $this->WorkersModel->Read_specific($worker_id)->row();
 				$this->load->view('header');
     			$this->load->view('sidebar/users_active');
         		$this->load->view('navbar');
@@ -125,9 +125,9 @@ class Workers extends CI_Controller {
         }
 	}
 
-	public function viewdata($id){
+	public function viewdata($worker_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-			$data['query'] = $this->WorkersModel->Read_specific($id)->row();
+			$data['query'] = $this->WorkersModel->Read_specific($worker_id)->row();
 			$this->load->view('header');
 			$this->load->view('sidebar/users_active');
 			$this->load->view('navbar');
@@ -138,9 +138,9 @@ class Workers extends CI_Controller {
         }
 	}
 
-	public function deletedata($ID){
+	public function deletedata($worker_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-			$data['worker_id'] = $ID;
+			$data['worker_id'] = $worker_id;
 			$this->WorkersModel->Delete($data);
 			$this->WorkersModel->Redirect();
 		} else {

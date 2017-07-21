@@ -125,7 +125,7 @@ class Users extends CI_Controller {
 	}
 
 
-	public function editdata($id){
+	public function editdata($user_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 
 			// set validation rules
@@ -139,7 +139,7 @@ class Users extends CI_Controller {
 			if ($this->form_validation->run() === false) {
 			
 				// validation not ok, send validation errors to the view
-				$data['query'] = $this->UsersModel->Read_specific($id)->row();
+				$data['query'] = $this->UsersModel->Read_specific($user_id)->row();
 				$this->load->view('header');
     			$this->load->view('sidebar/users_active');
         		$this->load->view('navbar');
@@ -224,9 +224,9 @@ class Users extends CI_Controller {
 
 
 
-	public function deletedata($ID){
+	public function deletedata($user_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-			$data['id_user'] = $ID;
+			$data['id_user'] = $user_id;
 			$this->UsersModel->Delete($data);
 			$this->UsersModel->Redirect();
 		} else {

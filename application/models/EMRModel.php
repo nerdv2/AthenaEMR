@@ -23,17 +23,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query->result();
         }
 
-        public function getDataSpecific($id){
+        public function getDataSpecific($doctor_id){
             $this->db->select("*");
-            $this->db->where('doctor_id', $id);
+            $this->db->where('doctor_id', $doctor_id);
             $this->db->from('getmedicalrecord_today');
             $query = $this->db->get();
             return $query->result();
         }
 
-        public function getPatientEMR($id){
+        public function getPatientEMR($patient_id){
             $this->db->select("*");
-            $this->db->where('patient_id', $id);
+            $this->db->where('patient_id', $patient_id);
             $this->db->from('medical_record');
             $query = $this->db->get();
             return $query->result();
@@ -51,10 +51,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $data;
         }
 
-        public function getRegisterID($id){
+        public function getRegisterID($doctor_id){
             $data = array();
             $this->db->select("*");
-            $this->db->where('doctor_id', $id);
+            $this->db->where('doctor_id', $doctor_id);
             $this->db->from('getregistertoday');
             $query = $this->db->get();
             if ($query->num_rows() > 0) {
@@ -114,17 +114,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $data;
         }
 
-        public function getRegistrationDoctor($id)
+        public function getRegistrationDoctor($register_id)
         {  
-            $this->db->where('register_id',$id);
+            $this->db->where('register_id',$register_id);
             $query = $this->db->get('registration');
             $ret = $query->row();
             return $ret->doctor_id;
         }
 
-        public function getRegistrationPatient($id)
+        public function getRegistrationPatient($register_id)
         {  
-            $this->db->where('register_id',$id);
+            $this->db->where('register_id',$register_id);
             $query = $this->db->get('registration');
             $ret = $query->row();
             return $ret->patient_id;

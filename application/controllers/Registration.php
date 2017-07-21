@@ -92,15 +92,15 @@ class Registration extends CI_Controller {
 	}
 
 	function getDoctor(){
-        $id = $this->input->post('id');
-        echo(json_encode($this->RegistrationModel->getDoctorID($id)));
+        $doctor_id = $this->input->post('id');
+        echo(json_encode($this->RegistrationModel->getDoctorID($doctor_id)));
     }
 
 
-	public function viewdata($id){
+	public function viewdata($register_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION"){
-				$data['query'] = $this->RegistrationModel->Read_specific($id)->row();
+				$data['query'] = $this->RegistrationModel->Read_specific($register_id)->row();
 				$this->load->view('header');
 				$this->load->view('sidebar/management_active');
 				$this->load->view('navbar');
@@ -115,10 +115,10 @@ class Registration extends CI_Controller {
         }
 	}
 
-	public function deletedata($ID){
+	public function deletedata($register_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN"){
-				$data['register_id'] = $ID;
+				$data['register_id'] = $register_id;
 				$this->RegistrationModel->Delete($data);
 				$this->RegistrationModel->Redirect();
 			} else {

@@ -108,10 +108,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
         }
 
-        public function Read_specific($id){
+        public function Read_specific($id_user){
             $this->db->select('*');
             $this->db->from('user');
-            $this->db->where('id_user', $id);
+            $this->db->where('id_user', $id_user);
             return $this->db->get();
         }
 

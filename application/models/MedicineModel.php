@@ -77,10 +77,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query;
         }
 
-        public function Read_specific($id){
+        public function Read_specific($medicine_id){
             $this->db->select('*');
             $this->db->from('medicine');
-            $this->db->where('medicine_id', $id);
+            $this->db->where('medicine_id', $medicine_id);
             return $this->db->get();
         }
 

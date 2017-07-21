@@ -73,22 +73,22 @@ class AthenaReport extends CI_Controller {
         $this->pdf->Output();
     }
 
-    public function get_invoice($id){
-        $data['query'] = $this->PaymentModel->getInvoiceData($id)->row();
+    public function get_invoice($invoice_id){
+        $data['query'] = $this->PaymentModel->getInvoiceData($invoice_id)->row();
         $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/invoice_template', $data);
         $this->pdf->Output();
     }
 
-    public function get_labresult($id){
-        $data['query'] = $this->LabResultModel->getLabResultData($id)->row();
+    public function get_labresult($result_id){
+        $data['query'] = $this->LabResultModel->getLabResultData($result_id)->row();
         $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/labresult_template', $data);
         $this->pdf->Output();
     }
 
-    public function get_id($id){
-        $data['query'] = $this->PatientModel->Read_specific($id)->row();
+    public function get_id($patient_id){
+        $data['query'] = $this->PatientModel->Read_specific($patient_id)->row();
         $this->load->view('header');
         $this->load->view('sidebar/management_active');
         $this->load->view('navbar');
@@ -96,8 +96,8 @@ class AthenaReport extends CI_Controller {
         $this->load->view('footer/qrcode_footer');
     }
 
-    public function get_entry($id){
-        $data['query'] = $this->PaymentModel->Read_specific($id)->row();
+    public function get_entry($payment_id){
+        $data['query'] = $this->PaymentModel->Read_specific($payment_id)->row();
         $this->load->view('header');
         $this->load->view('sidebar/management_active');
         $this->load->view('navbar');

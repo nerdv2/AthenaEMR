@@ -293,10 +293,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
 
-        public function Read_specific($id){
+        public function Read_specific($payment_id){
             $this->db->select('*');
             $this->db->from('payment');
-            $this->db->where('payment_id', $id);
+            $this->db->where('payment_id', $payment_id);
             return $this->db->get();
         }
 

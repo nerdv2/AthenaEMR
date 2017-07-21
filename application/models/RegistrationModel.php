@@ -174,10 +174,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query;
         }
 
-        public function Read_specific($id){
+        public function Read_specific($register_id){
             $this->db->select('*');
             $this->db->from('registration');
-            $this->db->where('register_id', $id);
+            $this->db->where('register_id', $register_id);
             return $this->db->get();
         }
 

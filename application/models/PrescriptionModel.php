@@ -23,18 +23,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query->result();
         }
 
-        public function getMedicineInfo($id){
+        public function getMedicineInfo($prescription_id){
             $this->db->select("*");
             $this->db->from('getprescriptionprice');
-            $this->db->where('prescription_id', $id);
+            $this->db->where('prescription_id', $prescription_id);
             $query = $this->db->get();
             return $query->result();
         }
 
-        public function getMedicineUsage($id){
+        public function getMedicineUsage($prescription_id){
             $this->db->select("*");
             $this->db->from('prescription_detail');
-            $this->db->where('prescription_id', $id);
+            $this->db->where('prescription_id', $prescription_id);
             $query = $this->db->get();
             return $query->result();
         }
@@ -161,9 +161,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query;
         }
 
-        public function Read_specific($id){
+        public function Read_specific($prescription_id){
             $dataquery = "CALL getPrescription(?)";
-            $execute = $this->db->query($dataquery,array($id));
+            $execute = $this->db->query($dataquery,array($prescription_id));
             $ret = $execute->row();
             $execute->next_result();
             $execute->free_result();

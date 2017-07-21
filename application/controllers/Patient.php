@@ -96,7 +96,7 @@ class Patient extends CI_Controller {
 	}
 
 
-	public function editdata($id){
+	public function editdata($patient_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION"){
 
@@ -125,7 +125,7 @@ class Patient extends CI_Controller {
 				if ($this->form_validation->run() === false) {
 				
 					// validation not ok, send validation errors to the view
-					$data['query'] = $this->PatientModel->Read_specific($id)->row();
+					$data['query'] = $this->PatientModel->Read_specific($patient_id)->row();
 					$this->load->view('header');
 					$this->load->view('sidebar/management_active');
 					$this->load->view('navbar');
@@ -164,13 +164,13 @@ class Patient extends CI_Controller {
         }
 	}
 
-	public function viewdata($id){
+	public function viewdata($patient_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION" or $_SESSION['status'] === "DOCTOR"){
-				$data['query'] = $this->PatientModel->Read_specific($id)->row();
-				$data['emr'] = $this->EMRModel->getPatientEMR($id);
-				$data['lab'] = $this->PatientModel->getPatientLab($id);
-				$data['prescription'] = $this->PatientModel->getPatientPrescription($id);
+				$data['query'] = $this->PatientModel->Read_specific($patient_id)->row();
+				$data['emr'] = $this->EMRModel->getPatientEMR($patient_id);
+				$data['lab'] = $this->PatientModel->getPatientLab($patient_id);
+				$data['prescription'] = $this->PatientModel->getPatientPrescription($patient_id);
 				$this->load->view('header');
 				$this->load->view('sidebar/management_active');
 				$this->load->view('navbar');
@@ -187,10 +187,10 @@ class Patient extends CI_Controller {
         }
 	}
 
-	public function deletedata($ID){
+	public function deletedata($patient_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 
-			$data['patient_id'] = $ID;
+			$data['patient_id'] = $patient_id;
 			$this->PatientModel->Delete($data);
 			$this->PatientModel->Redirect();
 			

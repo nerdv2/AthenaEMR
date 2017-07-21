@@ -96,10 +96,10 @@ class Emr extends CI_Controller {
         }
 	}
 
-	public function viewdata($id){
+	public function viewdata($record_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "DOCTOR"){
-				$data['query'] = $this->EMRModel->Read_specific($id)->row();
+				$data['query'] = $this->EMRModel->Read_specific($record_id)->row();
 				$this->load->view('header');
 				$this->load->view('sidebar/management_active');
 				$this->load->view('navbar');

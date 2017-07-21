@@ -79,7 +79,7 @@ public function adddata()
         }
 	}
 
-	public function editdata($id){
+	public function editdata($type_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST"){
@@ -91,7 +91,7 @@ public function adddata()
 				if ($this->form_validation->run() === false) {
 				
 					// validation not ok, send validation errors to the view
-					$data['query'] = $this->MedicineTypeModel->Read_specific($id)->row();
+					$data['query'] = $this->MedicineTypeModel->Read_specific($type_id)->row();
 					$this->load->view('header');
 					$this->load->view('sidebar/management_active');
 					$this->load->view('navbar');
@@ -134,11 +134,11 @@ public function adddata()
         }
 	}
 
-	public function viewdata($id){
+	public function viewdata($type_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST"){
-				$data['query'] = $this->MedicineTypeModel->Read_specific($id)->row();
+				$data['query'] = $this->MedicineTypeModel->Read_specific($type_id)->row();
 				$this->load->view('header');
 				$this->load->view('sidebar/users_active');
 				$this->load->view('navbar');
@@ -155,11 +155,11 @@ public function adddata()
         }
 	}
 
-	public function deletedata($ID){
+	public function deletedata($type_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST"){
-				$data['type_id'] = $ID;
+				$data['type_id'] = $type_id;
 				$this->MedicineTypeModel->Delete($data);
 				$this->MedicineTypeModel->Redirect();
 			} else {

@@ -232,10 +232,10 @@ class Payment extends CI_Controller {
         }
 	}
 
-	public function viewdata($id){
+	public function viewdata($payment_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PAYMENT"){
-				$data['query'] = $this->PaymentModel->Read_specific($id)->row();
+				$data['query'] = $this->PaymentModel->Read_specific($payment_id)->row();
 				$this->load->view('header');
 				$this->load->view('sidebar/users_active');
 				$this->load->view('navbar');
@@ -249,9 +249,9 @@ class Payment extends CI_Controller {
         }
 	}
 
-	public function deletedata($ID){
+	public function deletedata($payment_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-			$data['payment_id'] = $ID;
+			$data['payment_id'] = $payment_id;
 			$this->PaymentModel->Delete($data);
 			$this->PaymentModel->Redirect();
 		} else {

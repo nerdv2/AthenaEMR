@@ -268,7 +268,7 @@ class Prescription extends CI_Controller {
 	}
 
 
-	public function editdata($id){
+	public function editdata($prescription_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST"){
 				//create the data object
@@ -288,7 +288,7 @@ class Prescription extends CI_Controller {
 				if ($this->form_validation->run() === false) {
 				
 					// validation not ok, send validation errors to the view
-					$data['query'] = $this->PrescriptionModel->Read_specific($id)->row();
+					$data['query'] = $this->PrescriptionModel->Read_specific($prescription_id)->row();
 					$this->load->view('header');
 					$this->load->view('sidebar/management_active');
 					$this->load->view('navbar');
@@ -349,12 +349,12 @@ class Prescription extends CI_Controller {
         }
 	}
 
-	public function viewdata($id){
+	public function viewdata($prescription_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST" or $_SESSION['status'] === "DOCTOR"){
-				$data['query'] = $this->PrescriptionModel->Read_specific($id);
-				$data['medicine'] = $this->PrescriptionModel->getMedicineInfo($id);
-				$data['usage'] = $this->PrescriptionModel->getMedicineUsage($id);
+				$data['query'] = $this->PrescriptionModel->Read_specific($prescription_id);
+				$data['medicine'] = $this->PrescriptionModel->getMedicineInfo($prescription_id);
+				$data['usage'] = $this->PrescriptionModel->getMedicineUsage($prescription_id);
 				$this->load->view('header');
 				$this->load->view('sidebar/management_active');
 				$this->load->view('navbar');
@@ -369,10 +369,10 @@ class Prescription extends CI_Controller {
         }
 	}
 
-	public function deletedata($ID){
+	public function deletedata($prescription_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN"){
-				$data['prescription_id'] = $ID;
+				$data['prescription_id'] = $prescription_id;
 				$this->PrescriptionModel->Delete($data);
 				$this->PrescriptionModel->Redirect();
 			} else {

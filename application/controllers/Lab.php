@@ -73,7 +73,7 @@ class Lab extends CI_Controller {
 	}
 
 
-	public function editdata($id){
+	public function editdata($lab_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 
 			// set validation rules
@@ -84,7 +84,7 @@ class Lab extends CI_Controller {
 			if ($this->form_validation->run() === false) {
 			
 				// validation not ok, send validation errors to the view
-				$data['query'] = $this->LabModel->Read_specific($id)->row();
+				$data['query'] = $this->LabModel->Read_specific($lab_id)->row();
 				$this->load->view('header');
     			$this->load->view('sidebar/management_active');
         		$this->load->view('navbar');
@@ -121,9 +121,9 @@ class Lab extends CI_Controller {
         }
 	}
 
-	public function viewdata($id){
+	public function viewdata($lab_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-			$data['query'] = $this->WorkersModel->Read_specific($id)->row();
+			$data['query'] = $this->WorkersModel->Read_specific($lab_id)->row();
 			$this->load->view('header');
 			$this->load->view('sidebar/users_active');
 			$this->load->view('navbar');
@@ -134,9 +134,9 @@ class Lab extends CI_Controller {
         }
 	}
 
-	public function deletedata($ID){
+	public function deletedata($lab_id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-			$data['lab_id'] = $ID;
+			$data['lab_id'] = $lab_id;
 			$this->LabModel->Delete($data);
 			$this->LabModel->Redirect();
 		} else {

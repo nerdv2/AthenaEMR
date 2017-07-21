@@ -79,17 +79,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             return $query;
         }
 
-        public function Read_specific($id){
+        public function Read_specific($doctor_id){
             $this->db->select('*');
             $this->db->from('doctor');
-            $this->db->where('doctor_id', $id);
+            $this->db->where('doctor_id', $doctor_id);
             return $this->db->get();
         }
 
-        public function Read_doctorname($id){
+        public function Read_doctorname($doctor_id){
             $this->db->select('*');
             $this->db->from('doctor');
-            $this->db->where('doctor_id', $id);
+            $this->db->where('doctor_id', $doctor_id);
             $query = $this->db->get();
             $ret = $query->row();
             return $ret->name;
