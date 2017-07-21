@@ -108,9 +108,6 @@ class AthenaReport extends CI_Controller {
     public function registration_view()
 	{
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            
-			//create the data object
-			//$data = new stdClass();
 
 			// set validation rules
 			$this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -126,7 +123,7 @@ class AthenaReport extends CI_Controller {
 			
 			} else {
 				// set variables from the form
-				$start = $this->input->post('start');
+				$start  = $this->input->post('start');
 				$end    = $this->input->post('end');
 
 				if ($this->export_registrationmonth($start, $end)) {
@@ -136,7 +133,7 @@ class AthenaReport extends CI_Controller {
 				} else {
 				
 					// user creation failed, this should never happen
-					$data->error = 'There was a problem creating your new account. Please try again.';
+					$data['error'] = 'There was a problem creating your new account. Please try again.';
 					
 					// send error to the view
 					$this->load->view('header');
@@ -156,9 +153,6 @@ class AthenaReport extends CI_Controller {
 
     public function visit_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            
-			//create the data object
-			//$data = new stdClass();
 
 			// set validation rules
 			$this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -186,7 +180,7 @@ class AthenaReport extends CI_Controller {
 				} else {
 				
 					// user creation failed, this should never happen
-					$data->error = 'There was a problem creating your new account. Please try again.';
+					$data['error'] = 'There was a problem creating your new account. Please try again.';
 					
 					// send error to the view
 					$this->load->view('header');
@@ -206,9 +200,6 @@ class AthenaReport extends CI_Controller {
 
     public function medical_report_view(){
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            
-			//create the data object
-			//$data = new stdClass();
 
 			// set validation rules
 			$this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -236,7 +227,7 @@ class AthenaReport extends CI_Controller {
 				} else {
 				
 					// user creation failed, this should never happen
-					//$data->error = 'There was a problem creating your new account. Please try again.';
+					$data['error'] = 'There was a problem creating your new account. Please try again.';
 					
 					// send error to the view
 					$this->load->view('header');

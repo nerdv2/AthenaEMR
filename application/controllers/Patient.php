@@ -29,8 +29,6 @@ class Patient extends CI_Controller {
 	{
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION"){
-				//create the data object
-				$data = new stdClass();
 
 				// set validation rules
 				$this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required|alpha_dash|min_length[10]|is_unique[patient.patient_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -75,7 +73,7 @@ class Patient extends CI_Controller {
 					} else {
 					
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 						
 						// send error to the view
 						$this->load->view('header');
@@ -101,8 +99,6 @@ class Patient extends CI_Controller {
 	public function editdata($id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION"){
-				//create the data object
-				$stddata = new stdClass();
 
 				// set validation rules
 				$this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required|alpha_dash|min_length[10]', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -148,7 +144,7 @@ class Patient extends CI_Controller {
 					} else {
 					
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 						
 						// send error to the view
 						$this->load->view('header');

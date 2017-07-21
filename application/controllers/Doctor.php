@@ -84,9 +84,6 @@ class Doctor extends CI_Controller {
 
 	public function editdata($id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-            
-			//create the data object
-			$stddata = new stdClass();
 
 			// set validation rules
 			$this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|required|alpha_dash|min_length[8]', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -119,7 +116,7 @@ class Doctor extends CI_Controller {
 				} else {
 				
 					// user creation failed, this should never happen
-					$data->error = 'There was a problem creating your new account. Please try again.';
+					$data['error'] = 'There was a problem creating your new account. Please try again.';
 					
 					// send error to the view
 					$this->load->view('header');

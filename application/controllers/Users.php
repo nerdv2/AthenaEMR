@@ -28,7 +28,6 @@ class Users extends CI_Controller {
 	{
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
 
-
 			// set validation rules
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[user.username]', array('is_unique' => 'This username already exists. Please choose another one.'));
 			$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
@@ -128,9 +127,6 @@ class Users extends CI_Controller {
 
 	public function editdata($id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true && $_SESSION['status'] === "ADMIN") {
-            
-			//create the data object
-			$stddata = new stdClass();
 
 			// set validation rules
 			$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]', array('is_unique' => 'This username already exists. Please choose another one.'));
@@ -169,7 +165,7 @@ class Users extends CI_Controller {
 						} else {
 							
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 								
 						// send error to the view
 						$this->load->view('header');
@@ -188,7 +184,7 @@ class Users extends CI_Controller {
 						} else {
 							
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 								
 						// send error to the view
 						$this->load->view('header');
@@ -207,7 +203,7 @@ class Users extends CI_Controller {
 						} else {
 							
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 								
 						// send error to the view
 						$this->load->view('header');

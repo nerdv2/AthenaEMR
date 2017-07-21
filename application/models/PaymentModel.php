@@ -227,7 +227,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
         public function getLabRegistration($result_id){
-            $amount = 0;
+
             $this->db->select('*');
             $this->db->from('getlabprice');
             $this->db->where('result_id', $result_id);

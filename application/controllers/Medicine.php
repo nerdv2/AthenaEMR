@@ -28,8 +28,6 @@ public function adddata()
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST"){
-				//create the data object
-				$data = new stdClass();
 
 				// set validation rules
 				$this->form_validation->set_rules('medicine_id', 'Medicine ID', 'trim|required|alpha_dash|is_unique[medicine.medicine_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -59,7 +57,7 @@ public function adddata()
 					} else {
 					
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new data. Please try again.';
+						$data['error'] = 'There was a problem creating your new data. Please try again.';
 						
 						// send error to the view
 						$this->load->view('header');
@@ -83,8 +81,6 @@ public function adddata()
 	public function editdata($id){
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 			if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST"){
-				//create the data object
-				$stddata = new stdClass();
 
 				// set validation rules
 				$this->form_validation->set_rules('medicine_id', 'Medicine ID', 'trim|required|alpha_dash', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -116,7 +112,7 @@ public function adddata()
 					} else {
 					
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 						
 						// send error to the view
 						$this->load->view('header');

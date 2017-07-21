@@ -74,8 +74,6 @@ class Payment extends CI_Controller {
 	{
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PAYMENT"){
-				//create the data object
-				$data = new stdClass();
 
 				// set validation rules
 				$this->form_validation->set_rules('payment_id', 'PaymentID', 'trim|required|alpha_dash|is_unique[payment.payment_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -103,7 +101,7 @@ class Payment extends CI_Controller {
 					} else {
 					
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 						
 						// send error to the view
 						$this->load->view('header');
@@ -129,8 +127,6 @@ class Payment extends CI_Controller {
 	{
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PAYMENT"){
-				//create the data object
-				$data = new stdClass();
 
 				// set validation rules
 				$this->form_validation->set_rules('payment_id', 'PaymentID', 'trim|required|alpha_dash|is_unique[payment.payment_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -158,7 +154,7 @@ class Payment extends CI_Controller {
 					} else {
 					
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 						
 						// send error to the view
 						$this->load->view('header');
@@ -184,8 +180,6 @@ class Payment extends CI_Controller {
 	{
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
             if($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PAYMENT"){
-				//create the data object
-				$data = new stdClass();
 
 				// set validation rules
 				$this->form_validation->set_rules('payment_id', 'PaymentID', 'trim|required|alpha_dash|is_unique[payment.payment_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
@@ -216,7 +210,7 @@ class Payment extends CI_Controller {
 					} else {
 					
 						// user creation failed, this should never happen
-						$data->error = 'There was a problem creating your new account. Please try again.';
+						$data['error'] = 'There was a problem creating your new account. Please try again.';
 						
 						// send error to the view
 						$this->load->view('header');

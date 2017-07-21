@@ -377,8 +377,6 @@ class AthenaMain extends CI_Controller {
     }
 
     public function login(){
-        //create the data object
-        //$data = new stdClass();
 
         //set validation rules
         $this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
