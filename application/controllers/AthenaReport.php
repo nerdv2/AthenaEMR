@@ -469,10 +469,6 @@ class AthenaReport extends CI_Controller {
         $objWriter->save('php://output');
     }
 
-    public function getPHPExcelVersion(){
-        $data = PHPExcel_Calculation_Functions::VERSION();
-        echo $data;
-    }
 
     public function export_medicinedata(){
         $objPHPExcel = new PHPExcel();

@@ -442,7 +442,7 @@ class AthenaMain extends CI_Controller {
 			}
 			
 			// user logout ok
-			$this->load->view('login/logout_success_view');
+			redirect('/');
 			
 		} else {
 			
