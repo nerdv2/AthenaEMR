@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-require_once(dirname(__FILE__) . '/mpdf/mpdf.php');
-class Pdf extends MPDF
+class Pdf extends \Mpdf\Mpdf
 {
 	/**
 	 * Get an instance of CodeIgniter

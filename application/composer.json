@@ -1,0 +1,17 @@
+{
+    "require": {
+				"mpdf/mpdf": "7.0.0-beta2",
+				"tracy/tracy": "*"
+    },
+	"config": {
+	    "github-protocols": [
+	      "https"
+	    ]
+	  },
+	  "repositories": {
+	    "packagist": {
+	      "type": "composer",
+	      "url": "https://packagist.org"
+	    }
+  }
+}
