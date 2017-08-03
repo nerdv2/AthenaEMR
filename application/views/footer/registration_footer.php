@@ -25,6 +25,8 @@
 
   <script type="text/javascript">
     $('#clinic_id').change(function(){
+        $("#input_doctor").removeClass("hide");
+
         var clinic_id = $(this).val();
         $("#doctor_id > option").remove();
         $.ajax({

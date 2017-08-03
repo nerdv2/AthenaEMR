@@ -85,7 +85,7 @@
                     ?>
                     </select>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-12 hide" id="input_doctor">
                      
                      <?php
                      /*
