@@ -118,7 +118,7 @@ class AthenaReport extends CI_Controller {
 				$this->load->view('header');
             	$this->load->view('sidebar/report_active');
             	$this->load->view('navbar');
-            	$this->load->view('report/registration_month_view',$data);
+            	$this->load->view('report/registration_month_view');
             	$this->load->view('footer/footer');
 			
 			} else {
@@ -164,7 +164,7 @@ class AthenaReport extends CI_Controller {
 				$this->load->view('header');
             	$this->load->view('sidebar/report_active');
             	$this->load->view('navbar');
-            	$this->load->view('report/patient_visit_month',$data);
+            	$this->load->view('report/patient_visit_month');
             	$this->load->view('footer/footer');
 			
 			} else {
@@ -173,23 +173,11 @@ class AthenaReport extends CI_Controller {
 				$end    = $this->input->post('end');
 				$doctor_id    = $this->input->post('doctor_id');
 
-				if ($this->export_visitmonth($start, $end, $doctor_id)) {
-
-					// user creation ok
-					
-				} else {
-				
-					// user creation failed, this should never happen
-					$data['error'] = 'There was a problem creating your new account. Please try again.';
-					
-					// send error to the view
-					$this->load->view('header');
-                    $this->load->view('sidebar/report_active');
-                    $this->load->view('navbar');
-                    $this->load->view('report/patient_visit_month',$data);
-                    $this->load->view('footer/footer');
-					
-				}
+                try{
+                    $this->export_visitmonth($start, $end, $doctor_id);
+                }catch(Exception $ex){
+                    redirect('/');
+                }
 
 			}
 
@@ -220,23 +208,11 @@ class AthenaReport extends CI_Controller {
 				$end    = $this->input->post('end');
 				$patient_id    = $this->input->post('patient_id');
 
-				if ($this->export_medicalrecord($start, $end, $patient_id)) {
-
-					// user creation ok
-					
-				} else {
-				
-					// user creation failed, this should never happen
-					$data['error'] = 'There was a problem creating your new account. Please try again.';
-					
-					// send error to the view
-					$this->load->view('header');
-                    $this->load->view('sidebar/report_active');
-                    $this->load->view('navbar');
-                    $this->load->view('report/patient_record_month');
-                    $this->load->view('footer/footer');
-					
-				}
+                try{
+                    $this->export_medicalrecord($start, $end, $patient_id);
+                }catch(Exception $ex){
+                    redirect('/');
+                }
 
 			}
 
