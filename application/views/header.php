@@ -5,7 +5,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="ee2acbd2d69a4d1f504abb12303112fe29ddc378" content="cde94c152ed833495af3b55314535aa09a584b9f" />
-  <link rel="stylesheet" type="text/css" href="<?php echo html_escape(base_url("assets/css/bootstrap.css")); ?>">
+  <link rel="stylesheet" type="text/css" href="<?php echo html_escape(base_url("assets/css/bootstrap.min.css")); ?>">
   <link rel="stylesheet" type="text/css" href="<?php echo html_escape(base_url("assets/css/font-awesome.css")); ?>">
 
   <link rel="stylesheet" type="text/css" href="<?php echo html_escape(base_url("assets/css/datatables.bootstrap.css")); ?>">

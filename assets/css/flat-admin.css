@@ -2515,7 +2515,7 @@ aside.app-sidebar {
   -ms-flex-pack: start;
       justify-content: flex-start;
   z-index: 100108;
-  min-height: 120vh;
+  min-height: 130vh;
   background-color: #FFF;
   box-shadow: 0 2px 2px rgba(68, 68, 68, 0.2);
   transition: all 0.3s ease; }
