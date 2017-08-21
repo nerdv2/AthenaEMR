@@ -82,7 +82,7 @@
   <script type="text/javascript" src="<?php echo base_url("assets/js/jquery.autocomplete.js"); ?>"></script>
   <script type="text/javascript" src="<?php echo base_url("assets/js/perfect-scrollbar.jquery.js"); ?>"></script>
   <script type="text/javascript" src="<?php echo base_url("assets/js/app.js"); ?>"></script>
-  <script type="text/javascript" src="<?php echo base_url("assets/js/moment.js"); ?>"></script>
+  <script type="text/javascript" src="<?php echo base_url("assets/js/moment.min.js"); ?>"></script>
   <script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap3-typeahead.js"); ?>"></script>
   <script type="text/javascript" src="<?php echo base_url("assets/js/bootstrap-datetimepicker.min.js"); ?>"></script>
 </body>
