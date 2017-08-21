@@ -270,24 +270,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
         public function generate_id(){
-            $today = date("Y-m-d");
-            $this->db->where('time', $today);
-            $this->db->from('payment');
-            $result = $this->db->count_all_results();
             $date = date("dmy");
 
             $getprefix = $this->db->get('app_settings')->row();
             $prefix = $getprefix->payment_id_prefix;
+
+            $iddata = $this->extfnc->id_generate(5);
             
-            if($result<=9){
-                $query = $prefix . "-". $date ."-000" . $result;
-            } else if($result<=99){
-                $query = $prefix . "-". $date ."-00" . $result;
-            } else if($result<=999){
-                $query = $prefix . "-". $date ."-0" . $result;
-            } else if($result<=9999){
-                $query = $prefix . "-". $date ."-" . $result;
-            }
+            $query = $prefix . "-". $date ."-" . $iddata;
 
             return $query;
         }

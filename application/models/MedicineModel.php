@@ -59,20 +59,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         }
 
         public function generate_id(){
-            $result = $this->db->count_all('medicine');
-
             $getprefix = $this->db->get('app_settings')->row();
             $prefix = $getprefix->medicine_id_prefix;
 
-            if($result<=9){
-                $query = $prefix . "-000" . $result;
-            } else if($result<=99){
-                $query = $prefix . "-00" . $result;
-            } else if($result<=999){
-                $query = $prefix . "-0" . $result;
-            } else if($result<=9999){
-                $query = $prefix . "-" . $result;
-            }
+            $iddata = $this->extfnc->id_generate(4);
+            
+            $query = $prefix . "-". $iddata;
 
             return $query;
         }
