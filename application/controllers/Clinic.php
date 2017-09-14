@@ -22,7 +22,11 @@ class Clinic extends CI_Controller {
 	
 	public function index() {
 		redirect('/');
-    }
+	}
+	
+	public function test() {
+		die();
+	}
 
     public function adddata()
     {
