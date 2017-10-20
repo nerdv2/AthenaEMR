@@ -1762,14 +1762,10 @@ html, body {
   position: relative; }
 
 body {
-  min-height: 120vh;
   background-color: #e7edee;
   overflow-x: hidden; }
-  body .app {
-    min-height: 120vh; }
   body .app-container {
     padding: 0px;
-    min-height: 120vh;
     position: relative;
     overflow-x: hidden;
     padding-left: 180px; }
