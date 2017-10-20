@@ -1,74 +1,74 @@
 <select class="select2" name="language" style="width: 100%;">
-  <option value="AF">Afrikanns</option>
-  <option value="SQ">Albanian</option>
-  <option value="AR">Arabic</option>
-  <option value="HY">Armenian</option>
-  <option value="EU">Basque</option>
-  <option value="BN">Bengali</option>
-  <option value="BG">Bulgarian</option>
-  <option value="CA">Catalan</option>
-  <option value="KM">Cambodian</option>
-  <option value="ZH">Chinese (Mandarin)</option>
-  <option value="HR">Croation</option>
-  <option value="CS">Czech</option>
-  <option value="DA">Danish</option>
-  <option value="NL">Dutch</option>
-  <option value="EN" selected>English</option>
-  <option value="ET">Estonian</option>
-  <option value="FJ">Fiji</option>
-  <option value="FI">Finnish</option>
-  <option value="FR">French</option>
-  <option value="KA">Georgian</option>
-  <option value="DE">German</option>
-  <option value="EL">Greek</option>
-  <option value="GU">Gujarati</option>
-  <option value="HE">Hebrew</option>
-  <option value="HI">Hindi</option>
-  <option value="HU">Hungarian</option>
-  <option value="IS">Icelandic</option>
-  <option value="ID">Indonesian</option>
-  <option value="GA">Irish</option>
-  <option value="IT">Italian</option>
-  <option value="JA">Japanese</option>
-  <option value="JW">Javanese</option>
-  <option value="KO">Korean</option>
-  <option value="LA">Latin</option>
-  <option value="LV">Latvian</option>
-  <option value="LT">Lithuanian</option>
-  <option value="MK">Macedonian</option>
-  <option value="MS">Malay</option>
-  <option value="ML">Malayalam</option>
-  <option value="MT">Maltese</option>
-  <option value="MI">Maori</option>
-  <option value="MR">Marathi</option>
-  <option value="MN">Mongolian</option>
-  <option value="NE">Nepali</option>
-  <option value="NO">Norwegian</option>
-  <option value="FA">Persian</option>
-  <option value="PL">Polish</option>
-  <option value="PT">Portuguese</option>
-  <option value="PA">Punjabi</option>
-  <option value="QU">Quechua</option>
-  <option value="RO">Romanian</option>
-  <option value="RU">Russian</option>
-  <option value="SM">Samoan</option>
-  <option value="SR">Serbian</option>
-  <option value="SK">Slovak</option>
-  <option value="SL">Slovenian</option>
-  <option value="ES">Spanish</option>
-  <option value="SW">Swahili</option>
-  <option value="SV">Swedish </option>
-  <option value="TA">Tamil</option>
-  <option value="TT">Tatar</option>
-  <option value="TE">Telugu</option>
-  <option value="TH">Thai</option>
-  <option value="BO">Tibetan</option>
-  <option value="TO">Tonga</option>
-  <option value="TR">Turkish</option>
-  <option value="UK">Ukranian</option>
-  <option value="UR">Urdu</option>
-  <option value="UZ">Uzbek</option>
-  <option value="VI">Vietnamese</option>
-  <option value="CY">Welsh</option>
-  <option value="XH">Xhosa</option>
+  <option value="AF" <?php if ($query->language == "AF") { echo "selected"; } ?>>Afrikanns</option>
+  <option value="SQ" <?php if ($query->language == "SQ") { echo "selected"; } ?>>Albanian</option>
+  <option value="AR" <?php if ($query->language == "AR") { echo "selected"; } ?>>Arabic</option>
+  <option value="HY" <?php if ($query->language == "HY") { echo "selected"; } ?>>Armenian</option>
+  <option value="EU" <?php if ($query->language == "EU") { echo "selected"; } ?>>Basque</option>
+  <option value="BN" <?php if ($query->language == "BN") { echo "selected"; } ?>>Bengali</option>
+  <option value="BG" <?php if ($query->language == "BG") { echo "selected"; } ?>>Bulgarian</option>
+  <option value="CA" <?php if ($query->language == "CA") { echo "selected"; } ?>>Catalan</option>
+  <option value="KM" <?php if ($query->language == "KM") { echo "selected"; } ?>>Cambodian</option>
+  <option value="ZH" <?php if ($query->language == "ZH") { echo "selected"; } ?>>Chinese (Mandarin)</option>
+  <option value="HR" <?php if ($query->language == "HR") { echo "selected"; } ?>>Croation</option>
+  <option value="CS" <?php if ($query->language == "CS") { echo "selected"; } ?>>Czech</option>
+  <option value="DA" <?php if ($query->language == "DA") { echo "selected"; } ?>>Danish</option>
+  <option value="NL" <?php if ($query->language == "NL") { echo "selected"; } ?>>Dutch</option>
+  <option value="EN" <?php if ($query->language == "EN") { echo "selected"; } ?>>English</option>
+  <option value="ET" <?php if ($query->language == "ET") { echo "selected"; } ?>>Estonian</option>
+  <option value="FJ" <?php if ($query->language == "FJ") { echo "selected"; } ?>>Fiji</option>
+  <option value="FI" <?php if ($query->language == "FI") { echo "selected"; } ?>>Finnish</option>
+  <option value="FR" <?php if ($query->language == "FR") { echo "selected"; } ?>>French</option>
+  <option value="KA" <?php if ($query->language == "KA") { echo "selected"; } ?>>Georgian</option>
+  <option value="DE" <?php if ($query->language == "DE") { echo "selected"; } ?>>German</option>
+  <option value="EL" <?php if ($query->language == "EL") { echo "selected"; } ?>>Greek</option>
+  <option value="GU" <?php if ($query->language == "GU") { echo "selected"; } ?>>Gujarati</option>
+  <option value="HE" <?php if ($query->language == "HE") { echo "selected"; } ?>>Hebrew</option>
+  <option value="HI" <?php if ($query->language == "HI") { echo "selected"; } ?>>Hindi</option>
+  <option value="HU" <?php if ($query->language == "HU") { echo "selected"; } ?>>Hungarian</option>
+  <option value="IS" <?php if ($query->language == "IS") { echo "selected"; } ?>>Icelandic</option>
+  <option value="ID" <?php if ($query->language == "ID") { echo "selected"; } ?>>Indonesian</option>
+  <option value="GA" <?php if ($query->language == "GA") { echo "selected"; } ?>>Irish</option>
+  <option value="IT" <?php if ($query->language == "IT") { echo "selected"; } ?>>Italian</option>
+  <option value="JA" <?php if ($query->language == "JA") { echo "selected"; } ?>>Japanese</option>
+  <option value="JW" <?php if ($query->language == "JW") { echo "selected"; } ?>>Javanese</option>
+  <option value="KO" <?php if ($query->language == "KO") { echo "selected"; } ?>>Korean</option>
+  <option value="LA" <?php if ($query->language == "LA") { echo "selected"; } ?>>Latin</option>
+  <option value="LV" <?php if ($query->language == "LV") { echo "selected"; } ?>>Latvian</option>
+  <option value="LT" <?php if ($query->language == "LT") { echo "selected"; } ?>>Lithuanian</option>
+  <option value="MK" <?php if ($query->language == "MK") { echo "selected"; } ?>>Macedonian</option>
+  <option value="MS" <?php if ($query->language == "MS") { echo "selected"; } ?>>Malay</option>
+  <option value="ML" <?php if ($query->language == "ML") { echo "selected"; } ?>>Malayalam</option>
+  <option value="MT" <?php if ($query->language == "MT") { echo "selected"; } ?>>Maltese</option>
+  <option value="MI" <?php if ($query->language == "MI") { echo "selected"; } ?>>Maori</option>
+  <option value="MR" <?php if ($query->language == "MR") { echo "selected"; } ?>>Marathi</option>
+  <option value="MN" <?php if ($query->language == "MN") { echo "selected"; } ?>>Mongolian</option>
+  <option value="NE" <?php if ($query->language == "NE") { echo "selected"; } ?>>Nepali</option>
+  <option value="NO" <?php if ($query->language == "NO") { echo "selected"; } ?>>Norwegian</option>
+  <option value="FA" <?php if ($query->language == "FA") { echo "selected"; } ?>>Persian</option>
+  <option value="PL" <?php if ($query->language == "PL") { echo "selected"; } ?>>Polish</option>
+  <option value="PT" <?php if ($query->language == "PT") { echo "selected"; } ?>>Portuguese</option>
+  <option value="PA" <?php if ($query->language == "PA") { echo "selected"; } ?>>Punjabi</option>
+  <option value="QU" <?php if ($query->language == "QU") { echo "selected"; } ?>>Quechua</option>
+  <option value="RO" <?php if ($query->language == "RO") { echo "selected"; } ?>>Romanian</option>
+  <option value="RU" <?php if ($query->language == "RU") { echo "selected"; } ?>>Russian</option>
+  <option value="SM" <?php if ($query->language == "SM") { echo "selected"; } ?>>Samoan</option>
+  <option value="SR" <?php if ($query->language == "SR") { echo "selected"; } ?>>Serbian</option>
+  <option value="SK" <?php if ($query->language == "SK") { echo "selected"; } ?>>Slovak</option>
+  <option value="SL" <?php if ($query->language == "SL") { echo "selected"; } ?>>Slovenian</option>
+  <option value="ES" <?php if ($query->language == "ES") { echo "selected"; } ?>>Spanish</option>
+  <option value="SW" <?php if ($query->language == "SW") { echo "selected"; } ?>>Swahili</option>
+  <option value="SV" <?php if ($query->language == "SV") { echo "selected"; } ?>>Swedish </option>
+  <option value="TA" <?php if ($query->language == "TA") { echo "selected"; } ?>>Tamil</option>
+  <option value="TT" <?php if ($query->language == "TT") { echo "selected"; } ?>>Tatar</option>
+  <option value="TE" <?php if ($query->language == "TE") { echo "selected"; } ?>>Telugu</option>
+  <option value="TH" <?php if ($query->language == "TH") { echo "selected"; } ?>>Thai</option>
+  <option value="BO" <?php if ($query->language == "BO") { echo "selected"; } ?>>Tibetan</option>
+  <option value="TO" <?php if ($query->language == "TO") { echo "selected"; } ?>>Tonga</option>
+  <option value="TR" <?php if ($query->language == "TR") { echo "selected"; } ?>>Turkish</option>
+  <option value="UK" <?php if ($query->language == "UK") { echo "selected"; } ?>>Ukranian</option>
+  <option value="UR" <?php if ($query->language == "UR") { echo "selected"; } ?>>Urdu</option>
+  <option value="UZ" <?php if ($query->language == "UZ") { echo "selected"; } ?>>Uzbek</option>
+  <option value="VI" <?php if ($query->language == "VI") { echo "selected"; } ?>>Vietnamese</option>
+  <option value="CY" <?php if ($query->language == "CY") { echo "selected"; } ?>>Welsh</option>
+  <option value="XH" <?php if ($query->language == "XH") { echo "selected"; } ?>>Xhosa</option>
 </select>

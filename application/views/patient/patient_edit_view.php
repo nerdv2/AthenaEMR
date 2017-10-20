@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-md-9">
-                <span class="description">Note: Country and Language data is reseted</span>
+                <span class="description">Note: Country data is reseted</span>
             </div>
           </div>
         </div>
@@ -95,18 +95,8 @@
                                     <label class="col-md-3 control-label">Gender*</label>
                                     <div class="col-md-9">
                                         <select class="select2" style="width: 100%;" name="gender">
-                                            <?php
-                                                if($query->gender=="male"){
-                                                    echo "<option value='male' selected>Male</option>";
-                                                    echo "<option value='female'>Female</option>"; 
-                                                } else if($query->gender=="female"){
-                                                    echo "<option value='male'>Male</option>";
-                                                    echo "<option value='female' selected>Female</option>"; 
-                                                } else {
-                                                    echo "<option value='male'>Male</option>";
-                                                    echo "<option value='female'>Female</option>";
-                                                }
-                                            ?>
+                                            <option value='male' <?php if ($query->gender == "male") { echo "selected"; } ?>>Male</option>
+                                            <option value='female' <?php if ($query->gender == "female") { echo "selected"; } ?>>Female</option>
                                         </select>
                                     </div>
                                 </div>
@@ -201,51 +191,12 @@
                                     <label class="col-md-3 control-label">Marital Status</label>
                                     <div class="col-md-9">
                                         <select class="select2" style="width: 100%;" name="marital_status">
-                                            <?php
-                                                if ($query->marital_status == 0) {
-                                                    echo "<option value='0' selected>Not disclosed</option>";
-                                                    echo "<option value='1'>Single</option>";
-                                                    echo "<option value='2'>Married/Civil Partner</option>";
-                                                    echo "<option value='3'>Divorced/Person whose Civil Partnership has been dissolved</option>";
-                                                    echo "<option value='4'>Widowed/Surviving Civil Partner</option>";
-                                                    echo "<option value='5'>Separated</option>";
-                                                } elseif ($query->marital_status == 1) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1' selected>Single</option>";
-                                                    echo "<option value='2'>Married/Civil Partner</option>";
-                                                    echo "<option value='3'>Divorced/Person whose Civil Partnership has been dissolved</option>";
-                                                    echo "<option value='4'>Widowed/Surviving Civil Partner</option>";
-                                                    echo "<option value='5'>Separated</option>";
-                                                } elseif ($query->marital_status == 2) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>Single</option>";
-                                                    echo "<option value='2' selected>Married/Civil Partner</option>";
-                                                    echo "<option value='3'>Divorced/Person whose Civil Partnership has been dissolved</option>";
-                                                    echo "<option value='4'>Widowed/Surviving Civil Partner</option>";
-                                                    echo "<option value='5'>Separated</option>";
-                                                } elseif ($query->marital_status == 3) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>Single</option>";
-                                                    echo "<option value='2'>Married/Civil Partner</option>";
-                                                    echo "<option value='3' selected>Divorced/Person whose Civil Partnership has been dissolved</option>";
-                                                    echo "<option value='4'>Widowed/Surviving Civil Partner</option>";
-                                                    echo "<option value='5'>Separated</option>";
-                                                } elseif ($query->marital_status == 4) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>Single</option>";
-                                                    echo "<option value='2'>Married/Civil Partner</option>";
-                                                    echo "<option value='3'>Divorced/Person whose Civil Partnership has been dissolved</option>";
-                                                    echo "<option value='4' selected>Widowed/Surviving Civil Partner</option>";
-                                                    echo "<option value='5'>Separated</option>";
-                                                } elseif ($query->marital_status == 5) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>Single</option>";
-                                                    echo "<option value='2'>Married/Civil Partner</option>";
-                                                    echo "<option value='3'>Divorced/Person whose Civil Partnership has been dissolved</option>";
-                                                    echo "<option value='4'>Widowed/Surviving Civil Partner</option>";
-                                                    echo "<option value='5' selected>Separated</option>";
-                                                }
-                                            ?>
+                                            <option value='0' <?php if ($query->marital_status == 0) { echo "selected"; } ?>>Not disclosed</option>
+                                            <option value='1' <?php if ($query->marital_status == 1) { echo "selected"; } ?>>Single</option>
+                                            <option value='2' <?php if ($query->marital_status == 2) { echo "selected"; } ?>>Married/Civil Partner</option>
+                                            <option value='3' <?php if ($query->marital_status == 3) { echo "selected"; } ?>>Divorced/Person whose Civil Partnership has been dissolved</option>
+                                            <option value='4' <?php if ($query->marital_status == 4) { echo "selected"; } ?>>Widowed/Surviving Civil Partner</option>
+                                            <option value='5' <?php if ($query->marital_status == 5) { echo "selected"; } ?>>Separated</option>
                                         </select>
                                     </div>
                                 </div>
@@ -267,51 +218,12 @@
                                     <label class="col-md-3 control-label">Race</label>
                                     <div class="col-md-9">
                                         <select class="select2" style="width: 100%;" name="race">
-                                            <?php
-                                                if ($query->race == 0) {
-                                                    echo "<option value='0' selected>Not disclosed</option>";
-                                                    echo "<option value='1'>American Indian or Alaska Native</option>";
-                                                    echo "<option value='2'>Asian</option>";
-                                                    echo "<option value='3'>Black or African American</option>";
-                                                    echo "<option value='4'>Native Hawaiian or Other Pacific Islander</option>";
-                                                    echo "<option value='5'>White</option>";
-                                                } elseif ($query->race == 1) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1' selected>American Indian or Alaska Native</option>";
-                                                    echo "<option value='2'>Asian</option>";
-                                                    echo "<option value='3'>Black or African American</option>";
-                                                    echo "<option value='4'>Native Hawaiian or Other Pacific Islander</option>";
-                                                    echo "<option value='5'>White</option>";
-                                                } elseif ($query->race == 2) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>American Indian or Alaska Native</option>";
-                                                    echo "<option value='2' selected>Asian</option>";
-                                                    echo "<option value='3'>Black or African American</option>";
-                                                    echo "<option value='4'>Native Hawaiian or Other Pacific Islander</option>";
-                                                    echo "<option value='5'>White</option>";
-                                                } elseif ($query->race == 3) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>American Indian or Alaska Native</option>";
-                                                    echo "<option value='2'>Asian</option>";
-                                                    echo "<option value='3' selected>Black or African American</option>";
-                                                    echo "<option value='4'>Native Hawaiian or Other Pacific Islander</option>";
-                                                    echo "<option value='5'>White</option>";
-                                                } elseif ($query->race == 4) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>American Indian or Alaska Native</option>";
-                                                    echo "<option value='2'>Asian</option>";
-                                                    echo "<option value='3'>Black or African American</option>";
-                                                    echo "<option value='4' selected>Native Hawaiian or Other Pacific Islander</option>";
-                                                    echo "<option value='5'>White</option>";
-                                                } elseif ($query->race == 5) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>American Indian or Alaska Native</option>";
-                                                    echo "<option value='2'>Asian</option>";
-                                                    echo "<option value='3'>Black or African American</option>";
-                                                    echo "<option value='4'>Native Hawaiian or Other Pacific Islander</option>";
-                                                    echo "<option value='5' selected>White</option>";
-                                                }
-                                            ?>
+                                            <option value='0' <?php if ($query->race == 0) { echo "selected"; } ?>>Not disclosed</option>
+                                            <option value='1' <?php if ($query->race == 1) { echo "selected"; } ?>>American Indian or Alaska Native</option>
+                                            <option value='2' <?php if ($query->race == 2) { echo "selected"; } ?>>Asian</option>
+                                            <option value='3' <?php if ($query->race == 3) { echo "selected"; } ?>>Black or African American</option>
+                                            <option value='4' <?php if ($query->race == 4) { echo "selected"; } ?>>Native Hawaiian or Other Pacific Islander</option>
+                                            <option value='5' <?php if ($query->race == 5) { echo "selected"; } ?>>White</option>
                                         </select>
                                     </div>
                                 </div>
@@ -319,22 +231,9 @@
                                     <label class="col-md-3 control-label">Ethnicity</label>
                                     <div class="col-md-9">
                                         <select class="select2" style="width: 100%;" name="ethnicity">
-                                            <?php
-                                                if ($query->ethnicity == 0) {
-                                                    echo "<option value='0' selected>Not disclosed</option>";
-                                                    echo "<option value='1'>Hispanic or Latino</option>";
-                                                    echo "<option value='2'>Not Hispanic or Latino</option>";
-                                                } elseif ($query->ethnicity == 1) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1' selected>Hispanic or Latino</option>";
-                                                    echo "<option value='2'>Not Hispanic or Latino</option>";
-                                                } elseif ($query->ethnicity == 2) {
-                                                    echo "<option value='0'>Not disclosed</option>";
-                                                    echo "<option value='1'>Hispanic or Latino</option>";
-                                                    echo "<option value='2' selected>Not Hispanic or Latino</option>";
-                                                }
-
-                                            ?>
+                                            <option value='0' <?php if ($query->ethnicity == 0) { echo "selected"; } ?>>Not disclosed</option>
+                                            <option value='1' <?php if ($query->ethnicity == 1) { echo "selected"; } ?>>Hispanic or Latino</option>
+                                            <option value='2' <?php if ($query->ethnicity == 2) { echo "selected"; } ?>>Not Hispanic or Latino</option>
                                         </select>
                                     </div>
                                 </div>
