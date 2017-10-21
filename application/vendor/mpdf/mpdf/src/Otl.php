@@ -4,16 +4,12 @@ namespace Mpdf;
 
 use Mpdf\Css\TextVars;
 use Mpdf\Fonts\FontCache;
+
 use Mpdf\Shaper\Indic;
 use Mpdf\Shaper\Myanmar;
 use Mpdf\Shaper\Sea;
 
-define("_OTL_OLD_SPEC_COMPAT_1", true);
-
-define("_DICT_NODE_TYPE_SPLIT", 0x01);
-define("_DICT_NODE_TYPE_LINEAR", 0x02);
-define("_DICT_INTERMEDIATE_MATCH", 0x03);
-define("_DICT_FINAL_MATCH", 0x04);
+use Mpdf\Utils\UtfString;
 
 class Otl
 {
@@ -1188,7 +1184,7 @@ class Otl
 				}
 				$newchar_data[$ectr] = ['bidi_class' => $this->schOTLdata[$sch][$i]['bidi_type'], 'uni' => $this->schOTLdata[$sch][$i]['uni']];
 				$newgroup .= $this->schOTLdata[$sch][$i]['group'];
-				$e.=code2utf($this->schOTLdata[$sch][$i]['uni']);
+				$e.= UtfString::code2utf($this->schOTLdata[$sch][$i]['uni']);
 				if (isset($this->mpdf->CurrentFont['subset'])) {
 					$this->mpdf->CurrentFont['subset'][$this->schOTLdata[$sch][$i]['uni']] = $this->schOTLdata[$sch][$i]['uni'];
 				}
@@ -1198,7 +1194,6 @@ class Otl
 		$this->OTLdata['GPOSinfo'] = $newGPOSinfo;
 		$this->OTLdata['char_data'] = $newchar_data;
 		$this->OTLdata['group'] = $newgroup;
-
 
 		// This leaves OTLdata::GPOSinfo, ::bidi_type, & ::group
 
@@ -1626,7 +1621,7 @@ class Otl
 		return 0;
 	}
 
-	function _applyGSUBsubtable($lookupID, $subtable, $ptr, $currGlyph, $currGID, $subtable_offset, $Type, $Flag, $MarkFilteringSet, $LuCoverage, $level = 0, $currentTag, $is_old_spec, $tagInt)
+	function _applyGSUBsubtable($lookupID, $subtable, $ptr, $currGlyph, $currGID, $subtable_offset, $Type, $Flag, $MarkFilteringSet, $LuCoverage, $level, $currentTag, $is_old_spec, $tagInt)
 	{
 		$ignore = $this->_getGCOMignoreString($Flag, $MarkFilteringSet);
 
@@ -2910,10 +2905,10 @@ class Otl
 			// not in $this->arabLeftJoining i.e. not a char which can join to the next one
 			if (isset($chars[$n]) && isset($this->arabLeftJoining[hexdec($chars[$n])])) {
 				// if in the middle of Syriac words
-				if (isset($chars[$i + 1]) && preg_match('/[\x{0700}-\x{0745}]/u', code2utf(hexdec($chars[$n]))) && preg_match('/[\x{0700}-\x{0745}]/u', code2utf(hexdec($chars[$i + 1]))) && isset($this->arabGlyphs[$char][4])) {
+				if (isset($chars[$i + 1]) && preg_match('/[\x{0700}-\x{0745}]/u', UtfString::code2utf(hexdec($chars[$n]))) && preg_match('/[\x{0700}-\x{0745}]/u', UtfString::code2utf(hexdec($chars[$i + 1]))) && isset($this->arabGlyphs[$char][4])) {
 					$retk = 4;
 				} // if at the end of Syriac words
-				elseif (!isset($chars[$i + 1]) || !preg_match('/[\x{0700}-\x{0745}]/u', code2utf(hexdec($chars[$i + 1])))) {
+				elseif (!isset($chars[$i + 1]) || !preg_match('/[\x{0700}-\x{0745}]/u', UtfString::code2utf(hexdec($chars[$i + 1])))) {
 					// if preceding base character IS (00715|00716|0072A)
 					if (strpos('0715|0716|072A', $chars[$n]) !== false && isset($this->arabGlyphs[$char][6])) {
 						$retk = 6;
@@ -3081,11 +3076,6 @@ class Otl
 	private function checkwordmatch(&$dict, $ptr)
 	{
 		/*
-		  define("_DICT_NODE_TYPE_SPLIT", 0x01);
-		  define("_DICT_NODE_TYPE_LINEAR", 0x02);
-		  define("_DICT_INTERMEDIATE_MATCH", 0x03);
-		  define("_DICT_FINAL_MATCH", 0x04);
-
 		  Node type: Split.
 		  Divide at < 98 >= 98
 		  Offset for >= 98 == 79    (long 4-byte unsigned)
@@ -3280,14 +3270,14 @@ class Otl
 		return $pos;
 	}
 
-	private function _applyGPOSsubtable($lookupID, $subtable, $ptr, $currGlyph, $currGID, $subtable_offset, $Type, $Flag, $MarkFilteringSet, $LuCoverage, $tag, $level = 0, $is_old_spec)
+	private function _applyGPOSsubtable($lookupID, $subtable, $ptr, $currGlyph, $currGID, $subtable_offset, $Type, $Flag, $MarkFilteringSet, $LuCoverage, $tag, $level, $is_old_spec)
 	{
 		if (($Flag & 0x0001) == 1) {
 			$dir = 'RTL';
-		} // only used for Type 3
-		else {
+		} else { // only used for Type 3
 			$dir = 'LTR';
 		}
+
 		$ignore = $this->_getGCOMignoreString($Flag, $MarkFilteringSet);
 
 		// Lets start
@@ -4583,7 +4573,7 @@ class Otl
 	 * WS    Whitespace          Space, figure space, line separator, form feed, General Punctuation spaces, ...
 	 * ON    Other Neutrals      All other characters, including OBJECT REPLACEMENT CHARACTER
 	 */
-	public function bidiSort($ta, $str = '', $dir, &$chunkOTLdata, $useGPOS)
+	public function bidiSort($ta, $str, $dir, &$chunkOTLdata, $useGPOS)
 	{
 
 		$pel = 0; // paragraph embedding level
@@ -4596,7 +4586,6 @@ class Otl
 		} else {
 			$pel = 0;
 		}
-
 
 		// X1. Begin by setting the current embedding level to the paragraph embedding level. Set the directional override status to neutral.
 		// Current Embedding Level
@@ -5677,7 +5666,7 @@ class Otl
 				$cOTLdata[$nc]['group'] = '';
 			}
 			if ($carac['uni'] != 0xFFFC) {   // Object replacement character (65532)
-				$content[$nc] .= code2utf($carac['uni']);
+				$content[$nc] .= UtfString::code2utf($carac['uni']);
 				$cOTLdata[$nc]['group'] .= $carac['group'];
 				if (!empty($carac['GPOSinfo'])) {
 					if (isset($carac['GPOSinfo'])) {
@@ -6067,38 +6056,47 @@ class Otl
 					if (isset($ScriptLang['beng'])) {
 						return ['beng', true];
 					}
+					// fallthrough
 				case 'dev2':
 					if (isset($ScriptLang['deva'])) {
 						return ['deva', true];
 					}
+					// fallthrough
 				case 'gjr2':
 					if (isset($ScriptLang['gujr'])) {
 						return ['gujr', true];
 					}
+					// fallthrough
 				case 'gur2':
 					if (isset($ScriptLang['guru'])) {
 						return ['guru', true];
 					}
+					// fallthrough
 				case 'knd2':
 					if (isset($ScriptLang['knda'])) {
 						return ['knda', true];
 					}
+					// fallthrough
 				case 'mlm2':
 					if (isset($ScriptLang['mlym'])) {
 						return ['mlym', true];
 					}
+					// fallthrough
 				case 'ory2':
 					if (isset($ScriptLang['orya'])) {
 						return ['orya', true];
 					}
+					// fallthrough
 				case 'tml2':
 					if (isset($ScriptLang['taml'])) {
 						return ['taml', true];
 					}
+					// fallthrough
 				case 'tel2':
 					if (isset($ScriptLang['telu'])) {
 						return ['telu', true];
 					}
+					// fallthrough
 				case 'mym2':
 					if (isset($ScriptLang['mymr'])) {
 						return ['mymr', true];

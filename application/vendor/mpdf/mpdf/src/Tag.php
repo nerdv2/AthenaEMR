@@ -11,6 +11,9 @@ use Mpdf\Image\ImageProcessor;
 
 use Mpdf\Language\LanguageToFontInterface;
 
+use Mpdf\Utils\NumericString;
+use Mpdf\Utils\UtfString;
+
 class Tag
 {
 
@@ -1245,13 +1248,13 @@ class Tag
 					}
 					$this->mpdf->InlineBDFctr++;
 					if ($bdf2) {
-						$bdf2 = code2utf($bdf);
+						$bdf2 = UtfString::code2utf($bdf);
 					}
 					$this->mpdf->OTLdata = [];
 					if ($this->mpdf->tableLevel) {
-						$this->mpdf->_saveCellTextBuffer(code2utf($bdf) . $bdf2);
+						$this->mpdf->_saveCellTextBuffer(UtfString::code2utf($bdf) . $bdf2);
 					} else {
-						$this->mpdf->_saveTextBuffer(code2utf($bdf) . $bdf2);
+						$this->mpdf->_saveTextBuffer(UtfString::code2utf($bdf) . $bdf2);
 					}
 					$this->mpdf->biDirectional = true;
 				}
@@ -2142,6 +2145,7 @@ class Tag
 
 				/* -- CSS-FLOAT -- */
 				if (isset($properties['FLOAT']) && strtoupper($properties['FLOAT']) == 'RIGHT' && !$this->mpdf->ColActive) {
+
 					// Cancel Keep-Block-together
 					$currblk['keep_block_together'] = false;
 					$this->mpdf->kt_y00 = '';
@@ -2176,7 +2180,8 @@ class Tag
 
 					$currblk['float'] = 'R';
 					$currblk['float_start_y'] = $this->mpdf->y;
-					if ($currblk['css_set_width']) {
+
+					if (isset($currblk['css_set_width'])) {
 						$currblk['margin_left'] = $container_w - ($setwidth + $bdl + $pdl + $bdr + $pdr + $currblk['margin_right']);
 						$currblk['float_width'] = ($setwidth + $bdl + $pdl + $bdr + $pdr + $currblk['margin_right']);
 					} else {
@@ -2190,6 +2195,7 @@ class Tag
 
 						$currblk['float_width'] = ($currblk['css_set_width'] + $bdl + $pdl + $bdr + $pdr + $currblk['margin_right']);
 					}
+
 				} elseif (isset($properties['FLOAT']) && strtoupper($properties['FLOAT']) == 'LEFT' && !$this->mpdf->ColActive) {
 					// Cancel Keep-Block-together
 					$currblk['keep_block_together'] = false;
@@ -2624,7 +2630,7 @@ class Tag
 				}
 				if ($bdf) {
 					if ($bdf2) {
-						$bdf2 = code2utf($bdf);
+						$bdf2 = UtfString::code2utf($bdf);
 					}
 					$this->mpdf->OTLdata = [];
 					if ($this->mpdf->tableLevel) {
@@ -2716,12 +2722,12 @@ class Tag
 				/* -- TABLES -- */
 				if ($this->mpdf->tableLevel) {
 					$objattr['W-PERCENT'] = 100;
-					if (isset($properties['WIDTH']) && stristr($properties['WIDTH'], '%')) {
-						$properties['WIDTH'] += 0;  //make "90%" become simply "90"
+					if (isset($properties['WIDTH']) && NumericString::containsPercentChar($properties['WIDTH'])) {
+						$properties['WIDTH'] = NumericString::removePercentChar($properties['WIDTH']); // make "90%" become simply "90"
 						$objattr['W-PERCENT'] = $properties['WIDTH'];
 					}
-					if (isset($attr['WIDTH']) && stristr($attr['WIDTH'], '%')) {
-						$attr['WIDTH'] += 0;  //make "90%" become simply "90"
+					if (isset($attr['WIDTH']) && NumericString::containsPercentChar($attr['WIDTH'])) {
+						$attr['WIDTH'] = NumericString::removePercentChar($attr['WIDTH']); // make "90%" become simply "90"
 						$objattr['W-PERCENT'] = $attr['WIDTH'];
 					}
 				}
@@ -2737,13 +2743,15 @@ class Tag
 				/* -- TABLES -- */
 				// Output it to buffers
 				if ($this->mpdf->tableLevel) {
-					if (!isset($this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['maxs'])) {
-						$this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['maxs'] = $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['s'];
-					} elseif ($this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['maxs'] < $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['s']) {
-						$this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['maxs'] = $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['s'];
+					if ($this->mpdf->cell) {
+						if (!isset($this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['maxs'])) {
+							$this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['maxs'] = $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['s'];
+						} elseif ($this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['maxs'] < $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['s']) {
+							$this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['maxs'] = $this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['s'];
+						}
+						$this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['s'] = 0; // reset
+						$this->mpdf->_saveCellTextBuffer($e, $this->mpdf->HREF);
 					}
-					$this->mpdf->cell[$this->mpdf->row][$this->mpdf->col]['s'] = 0; // reset
-					$this->mpdf->_saveCellTextBuffer($e, $this->mpdf->HREF);
 				} else {
 					/* -- END TABLES -- */
 					$this->mpdf->_saveTextBuffer($e, $this->mpdf->HREF);
@@ -2909,17 +2917,10 @@ class Tag
 
 					$this->barcode = new Barcode();
 
-					if ($objattr['btype'] == 'EAN13' || $objattr['btype'] == 'ISBN' || $objattr['btype'] == 'ISSN'
-							|| $objattr['btype'] == 'UPCA' || $objattr['btype'] == 'UPCE' || $objattr['btype'] == 'EAN8') {
+					if (in_array($objattr['btype'], ['EAN13', 'ISBN', 'ISSN', 'UPCA', 'UPCE', 'EAN8'])) {
+
 						$code = preg_replace('/\-/', '', $objattr['code']);
-						if ($objattr['btype'] == 'ISSN' || $objattr['btype'] == 'ISBN') {
-							$arrcode = $this->barcode->getBarcodeArray($code, 'EAN13');
-						} else {
-							$arrcode = $this->barcode->getBarcodeArray($code, $objattr['btype']);
-						}
-						if ($arrcode === false) {
-							throw new \Mpdf\MpdfException('Error in barcode string.');
-						}
+						$arrcode = $this->barcode->getBarcodeArray($code, $objattr['btype']);
 
 						if ($objattr['bsupp'] == 2 || $objattr['bsupp'] == 5) { // EAN-2 or -5 Supplement
 							$supparrcode = $this->barcode->getBarcodeArray($objattr['bsupp_code'], 'EAN' . $objattr['bsupp']);
@@ -2928,6 +2929,7 @@ class Tag
 						} else {
 							$w = ($arrcode["maxw"] + $arrcode['lightmL'] + $arrcode['lightmR']) * $arrcode['nom-X'] * $objattr['bsize'];
 						}
+
 						$h = $arrcode['nom-H'] * $objattr['bsize'] * $objattr['bheight'];
 						// Add height for ISBN string + margin from top of bars
 						if (($objattr['showtext'] && $objattr['btype'] == 'EAN13') || $objattr['btype'] == 'ISBN' || $objattr['btype'] == 'ISSN') {
@@ -2935,30 +2937,33 @@ class Tag
 							$isbn_fontsize = 2.1 * $objattr['bsize'];
 							$h += $isbn_fontsize + $tisbnm;
 						}
-					} // QR-code
-					elseif ($objattr['btype'] == 'QR') {
+
+					} elseif ($objattr['btype'] == 'QR') { // QR-code
 						$w = $h = $objattr['bsize'] * 25; // Factor of 25mm (default)
 						$objattr['errorlevel'] = 'L';
 						if (isset($attr['ERROR'])) {
 							$objattr['errorlevel'] = $attr['ERROR'];
 						}
-					} elseif ($objattr['btype'] == 'IMB' || $objattr['btype'] == 'RM4SCC' || $objattr['btype'] == 'KIX'
-							|| $objattr['btype'] == 'POSTNET' || $objattr['btype'] == 'PLANET') {
-						$arrcode = $this->barcode->getBarcodeArray($objattr['code'], $objattr['btype']);
-						if ($arrcode === false) {
-							throw new \Mpdf\MpdfException('Error in barcode string.');
+						$objattr['disableborder'] = false;
+						if (isset($attr['DISABLEBORDER'])) {
+							$objattr['disableborder'] = (bool) $attr['DISABLEBORDER'];
 						}
+
+					} elseif (in_array($objattr['btype'], ['IMB', 'RM4SCC', 'KIX', 'POSTNET', 'PLANET'])) {
+
+						$arrcode = $this->barcode->getBarcodeArray($objattr['code'], $objattr['btype']);
+
 						$w = ($arrcode["maxw"] * $arrcode['nom-X'] * $objattr['bsize']) + $arrcode['quietL'] + $arrcode['quietR'];
 						$h = ($arrcode['nom-H'] * $objattr['bsize']) + (2 * $arrcode['quietTB']);
+
 					} elseif (in_array($objattr['btype'], ['C128A', 'C128B', 'C128C', 'EAN128A', 'EAN128B', 'EAN128C',
 							'C39', 'C39+', 'C39E', 'C39E+', 'S25', 'S25+', 'I25', 'I25+', 'I25B',
 							'I25B+', 'C93', 'MSI', 'MSI+', 'CODABAR', 'CODE11'])) {
+
 						$arrcode = $this->barcode->getBarcodeArray($objattr['code'], $objattr['btype'], $objattr['pr_ratio']);
-						if ($arrcode === false) {
-							throw new \Mpdf\MpdfException('Error in barcode string.');
-						}
 						$w = ($arrcode["maxw"] + $arrcode['lightmL'] + $arrcode['lightmR']) * $arrcode['nom-X'] * $objattr['bsize'];
 						$h = ((2 * $arrcode['lightTB'] * $arrcode['nom-X']) + $arrcode['nom-H']) * $objattr['bsize'] * $objattr['bheight'];
+
 					} else {
 						break;
 					}
@@ -2973,6 +2978,7 @@ class Tag
 					$objattr['width'] = $w + $extrawidth;
 					$objattr['barcode_height'] = $h;
 					$objattr['barcode_width'] = $w;
+
 					/* -- CSS-IMAGE-FLOAT -- */
 					if (!$this->mpdf->ColActive && !$this->mpdf->tableLevel && !$this->mpdf->listlvl && !$this->mpdf->kwt) {
 						if (isset($properties['FLOAT']) && (strtoupper($properties['FLOAT']) == 'RIGHT' || strtoupper($properties['FLOAT']) == 'LEFT')) {
@@ -3068,7 +3074,7 @@ class Tag
 					$this->mpdf->selectoption['currentSEL'] = true;
 				}
 				if (isset($attr['VALUE'])) {
-					$attr['VALUE'] = strcode2utf($attr['VALUE']);
+					$attr['VALUE'] = UtfString::strcode2utf($attr['VALUE']);
 					$attr['VALUE'] = $this->mpdf->lesser_entity_decode($attr['VALUE']);
 					if ($this->mpdf->onlyCoreFonts) {
 						$attr['VALUE'] = mb_convert_encoding($attr['VALUE'], $this->mpdf->mb_enc, 'UTF-8');
@@ -3259,7 +3265,7 @@ class Tag
 				} else {
 					$objattr['title'] = '';
 				}
-				$objattr['title'] = strcode2utf($objattr['title']);
+				$objattr['title'] = UtfString::strcode2utf($objattr['title']);
 				$objattr['title'] = $this->mpdf->lesser_entity_decode($objattr['title']);
 				if ($this->mpdf->onlyCoreFonts) {
 					$objattr['title'] = mb_convert_encoding($objattr['title'], $this->mpdf->mb_enc, 'UTF-8');
@@ -3270,7 +3276,7 @@ class Tag
 					}
 				}
 				if (isset($attr['VALUE'])) {
-					$attr['VALUE'] = strcode2utf($attr['VALUE']);
+					$attr['VALUE'] = UtfString::strcode2utf($attr['VALUE']);
 					$attr['VALUE'] = $this->mpdf->lesser_entity_decode($attr['VALUE']);
 					if ($this->mpdf->onlyCoreFonts) {
 						$attr['VALUE'] = mb_convert_encoding($attr['VALUE'], $this->mpdf->mb_enc, 'UTF-8');
@@ -4132,14 +4138,14 @@ class Tag
 					);
 				}
 				if (isset($attr['TOP-TEXT'])) {
-					$objattr['top-text'] = strcode2utf($attr['TOP-TEXT']);
+					$objattr['top-text'] = UtfString::strcode2utf($attr['TOP-TEXT']);
 					$objattr['top-text'] = $this->mpdf->lesser_entity_decode($objattr['top-text']);
 					if ($this->mpdf->onlyCoreFonts) {
 						$objattr['top-text'] = mb_convert_encoding($objattr['top-text'], $this->mpdf->mb_enc, 'UTF-8');
 					}
 				}
 				if (isset($attr['BOTTOM-TEXT'])) {
-					$objattr['bottom-text'] = strcode2utf($attr['BOTTOM-TEXT']);
+					$objattr['bottom-text'] = UtfString::strcode2utf($attr['BOTTOM-TEXT']);
 					$objattr['bottom-text'] = $this->mpdf->lesser_entity_decode($objattr['bottom-text']);
 					if ($this->mpdf->onlyCoreFonts) {
 						$objattr['bottom-text'] = mb_convert_encoding($objattr['bottom-text'], $this->mpdf->mb_enc, 'UTF-8');
@@ -4174,7 +4180,7 @@ class Tag
 					}
 				}
 				if (isset($attr['DIVIDER'])) {
-					$objattr['divider'] = strcode2utf($attr['DIVIDER']);
+					$objattr['divider'] = UtfString::strcode2utf($attr['DIVIDER']);
 					$objattr['divider'] = $this->mpdf->lesser_entity_decode($objattr['divider']);
 					if ($this->mpdf->onlyCoreFonts) {
 						$objattr['divider'] = mb_convert_encoding($objattr['divider'], $this->mpdf->mb_enc, 'UTF-8');
@@ -5193,7 +5199,7 @@ class Tag
 					if (strtolower($attr['ALIGN']) == 'char') {
 						if (isset($attr['CHAR']) && $attr['CHAR']) {
 							$char = html_entity_decode($attr['CHAR']);
-							$char = strcode2utf($char);
+							$char = UtfString::strcode2utf($char);
 							$d = array_search($char, $this->mpdf->decimal_align);
 							if ($d !== false) {
 								$c['a'] = $d . 'R';

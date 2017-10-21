@@ -1,6 +1,6 @@
 {
     "require": {
-				"mpdf/mpdf": "7.0.0-beta2",
+				"mpdf/mpdf": "7.0.0",
 				"tracy/tracy": "*"
     },
 	"config": {

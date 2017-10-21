@@ -2,10 +2,12 @@
 
 namespace Mpdf\Conversion;
 
+use Mpdf\Utils\UtfString;
+
 class DecToHebrew
 {
 
-	public function convert($in, $reverse = FALSE)
+	public function convert($in, $reverse = false)
 	{
 		// reverse is used when called from Lists, as these do not pass through bidi-algorithm
 		$i = intval($in); // I initially be the counter value
@@ -40,16 +42,16 @@ class DecToHebrew
 				if (is_array($additive_glyphs[$t])) {
 					foreach ($additive_glyphs[$t] as $ag) {
 						if ($reverse) {
-							$s = code2utf($ag) . $s;
+							$s = UtfString::code2utf($ag) . $s;
 						} else {
-							$s .= code2utf($ag);
+							$s .= UtfString::code2utf($ag);
 						}
 					}
 				} else {
 					if ($reverse) {
-						$s = code2utf($additive_glyphs[$t]) . $s;
+						$s = UtfString::code2utf($additive_glyphs[$t]) . $s;
 					} else {
-						$s .= code2utf($additive_glyphs[$t]);
+						$s .= UtfString::code2utf($additive_glyphs[$t]);
 					}
 				}
 				$i -= ($ct * $n);
@@ -63,5 +65,3 @@ class DecToHebrew
 	}
 
 }
-
-

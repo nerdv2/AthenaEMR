@@ -8,6 +8,10 @@
 [![License](https://img.shields.io/badge/license-New%20BSD-blue.svg)](https://github.com/nette/tracy/blob/master/license.md)
 [![Join the chat at https://gitter.im/nette/tracy](https://badges.gitter.im/nette/tracy.svg)](https://gitter.im/nette/tracy)
 
+
+Introduction
+------------
+
 Tracy library is a useful helper for everyday PHP programmers. It helps you to:
 
 - quickly detect and correct errors
@@ -21,17 +25,21 @@ PHP is a perfect language for making hardly detectable errors because it gives a
 If you are meeting Tracy the first time, believe me, your life starts to be divided one before the Tracy and the one with her.
 Welcome to the good part!
 
+Documentation can be found on the [website](https://tracy.nette.org).
 
-Installation and requirements
------------------------------
 
-The best way how to install Tracy is to [download a latest package](https://github.com/nette/tracy/releases) or use a Composer:
+Installation
+------------
+
+The recommended way to is via Composer:
 
 ```
 composer require tracy/tracy
 ```
 
-Tracy requires PHP version 5.4.4 or newer (is compatible with PHP 7.0 and 7.1). Older Tracy 2.3 works with PHP 5.3.
+Alternatively, you can download the whole package or [tracy.phar](https://github.com/nette/tester/releases) file.
+
+It requires PHP version 5.4.4 and supports PHP up to 7.2.
 
 
 Usage
@@ -109,6 +117,25 @@ Debugger::$strictMode = true;
 [![Notice rendered by Tracy](https://nette.github.io/tracy/images/tracy-notice.png)](https://nette.github.io/tracy/tracy-notice.html)
 
 If your site uses Content Security Policy, you'll need to add `'unsafe-inline'` to `style-src`, and `'self'` or `'nonce-<value>` to `script-src` for Tracy to work properly. Avoid adding `'unsafe-inline'` in production mode, if you can. Some 3rd plugins may require additional directives.
+
+
+Faster loading
+--------------
+
+The basic integration is straightforward, however if you have slow blocking scripts in web page, they can slow the Tracy loading.
+The solution is to place `<?php Tracy\Debugger::renderLoader() ?>` into your template before
+any scripts:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+	<title>...<title>
+	<?php Tracy\Debugger::renderLoader() ?>
+	<link rel="stylesheet" href="assets/style.css">
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+```
 
 
 AJAX and redirected requests

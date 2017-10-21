@@ -7,9 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInit3775e9a92c178f8ff5ce317bde09a401
 {
     public static $files = array (
-        '7745382c92b7799bf1294b1f43023ba2' => __DIR__ . '/..' . '/tracy/tracy/src/shortcuts.php',
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
-        'db356362850385d08a5381de2638b5fd' => __DIR__ . '/..' . '/mpdf/mpdf/src/functions.php',
+        '7745382c92b7799bf1294b1f43023ba2' => __DIR__ . '/..' . '/tracy/tracy/src/shortcuts.php',
     );
 
     public static $prefixLengthsPsr4 = array (
