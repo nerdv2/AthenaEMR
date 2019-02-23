@@ -24,12 +24,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 date_default_timezone_set('Asia/Jakarta');
-//Azure
-$config['base_url'] = 'http://athenaemr.azurewebsites.net/';
-
-//local
-//$config['base_url'] = 'http://localhost/AthenaEMR/';
-/*
+$http = 'http' . ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') ? 's' : '') . '://';
+$newurl = str_replace("index.php","", $_SERVER['SCRIPT_NAME']);
+$config['base_url']    = "$http" . $_SERVER['SERVER_NAME'] . "" . $newurl;
 
 /*
 |--------------------------------------------------------------------------
