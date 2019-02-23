@@ -1,8 +1,8 @@
 /*
-SQLyog Ultimate v12.09 (64 bit)
-MySQL - 5.7.15-log : Database - project_athena_emr
+SQLyog Ultimate v13.1.1 (64 bit)
+MySQL - 10.1.29-MariaDB-6ubuntu2 : Database - project_athena_emr
 *********************************************************************
-*/
+*/
 
 /*!40101 SET NAMES utf8 */;
 
@@ -39,12 +39,14 @@ CREATE TABLE `app_settings` (
   `hospital_address` varchar(100) DEFAULT NULL,
   `hospital_phone` varchar(25) DEFAULT NULL,
   `hospital_email` varchar(50) DEFAULT NULL,
+  `app_timezone` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 /*Data for the table `app_settings` */
 
-insert  into `app_settings`(`id`,`preset_name`,`worker_id_prefix`,`doctor_id_prefix`,`register_id_prefix`,`clinic_id_prefix`,`payment_id_prefix`,`patient_id_prefix`,`record_id_prefix`,`lab_id_prefix`,`result_id_prefix`,`prescription_id_prefix`,`medicine_id_prefix`,`medicine_type_prefix`,`hospital_name`,`hospital_address`,`hospital_phone`,`hospital_email`) values (1,NULL,'WRK','DOC','REG','DIV','PAY','USR','REC','LAB','RES','PSC','MED','TYP',NULL,NULL,NULL,NULL);
+insert  into `app_settings`(`id`,`preset_name`,`worker_id_prefix`,`doctor_id_prefix`,`register_id_prefix`,`clinic_id_prefix`,`payment_id_prefix`,`patient_id_prefix`,`record_id_prefix`,`lab_id_prefix`,`result_id_prefix`,`prescription_id_prefix`,`medicine_id_prefix`,`medicine_type_prefix`,`hospital_name`,`hospital_address`,`hospital_phone`,`hospital_email`,`app_timezone`) values 
+(1,'default','WRK','DOC','REG','DIV','PAY','USR','REC','LAB','RES','PSC','MED','TYP','AthenaEMR','Athena Road 123<br>','+671231314211','athena@email.com','Asia/Jakarta');
 
 /*Table structure for table `clinic` */
 
@@ -60,8 +62,6 @@ CREATE TABLE `clinic` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `clinic` */
-
-insert  into `clinic`(`clinic_id`,`name`,`tariff`,`created_at`,`updated_at`) values ('DIV-0000','General',50000,'2017-01-21 19:26:21',NULL),('DIV-0001','Dentist',75000,'2017-01-21 19:26:31',NULL);
 
 /*Table structure for table `doctor` */
 
@@ -79,12 +79,10 @@ CREATE TABLE `doctor` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`doctor_id`),
   KEY `clinic_id` (`clinic_id`),
-  CONSTRAINT `doctor_ibfk_1` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `doctor_ibfk_1` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `doctor` */
-
-insert  into `doctor`(`doctor_id`,`clinic_id`,`name`,`gender`,`dob`,`address`,`phone`,`created_at`,`updated_at`) values ('DOC-0000','DIV-0000','Drs. Annisa Baharmin','female','1992-11-13','<p>Home Address</p>','','2017-01-21 19:26:48',NULL),('DOC-0001','DIV-0001','Dr. Sukarman Nugraha','male','1973-02-11','<p>Home Address</p>','','2017-01-21 19:27:03',NULL);
 
 /*Table structure for table `lab` */
 
@@ -101,8 +99,6 @@ CREATE TABLE `lab` (
 
 /*Data for the table `lab` */
 
-insert  into `lab`(`lab_id`,`name`,`tariff`,`created_at`,`updated_at`) values ('LAB-0000','Blood Testing',50000,'2017-01-30 17:39:23',NULL),('LAB-0001','CRT Test',500000,'2017-02-21 20:42:49',NULL);
-
 /*Table structure for table `lab_result` */
 
 DROP TABLE IF EXISTS `lab_result`;
@@ -114,7 +110,7 @@ CREATE TABLE `lab_result` (
   `time` date NOT NULL,
   PRIMARY KEY (`result_id`),
   KEY `worker_id` (`worker_id`),
-  CONSTRAINT `lab_result_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `lab_result_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `lab_result` */
@@ -145,17 +141,15 @@ CREATE TABLE `medical_record` (
   KEY `lab_id` (`lab_id`),
   KEY `result_id` (`result_id`),
   KEY `prescription_id` (`prescription_id`),
-  CONSTRAINT `medical_record_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_2` FOREIGN KEY (`register_id`) REFERENCES `registration` (`register_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_3` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_4` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`lab_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_5` FOREIGN KEY (`result_id`) REFERENCES `lab_result` (`result_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `medical_record_ibfk_6` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `medical_record_ibfk_1` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_2` FOREIGN KEY (`register_id`) REFERENCES `registration` (`register_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_3` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_4` FOREIGN KEY (`lab_id`) REFERENCES `lab` (`lab_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_5` FOREIGN KEY (`result_id`) REFERENCES `lab_result` (`result_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `medical_record_ibfk_6` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medical_record` */
-
-insert  into `medical_record`(`record_id`,`doctor_id`,`register_id`,`patient_id`,`time`,`lab_id`,`result_id`,`prescription_id`,`complaint`,`symptoms`,`diagnosis`,`handling`,`additional_notes`,`created_at`) values ('REC-220617-0000','DOC-0000','REG-220617-0000','USR-000000','2017-06-22',NULL,NULL,NULL,'<p>Headaches</p>','<p>Fever</p>','<p>Fever</p>','<p>Medicine</p>','<p>Additional Stuff</p>','2017-06-22 22:30:10'),('REC-230617-0000','DOC-0000','REG-230617-0000','USR-000000','2017-06-23',NULL,NULL,NULL,'<p>Test Complaints</p>','<p>Test Symptoms</p>','<p>Test <strong>Diagnosis</strong></p>','<p>Test Handling</p>','Notes','2017-06-23 00:12:18');
 
 /*Table structure for table `medical_record_vitals` */
 
@@ -176,12 +170,10 @@ CREATE TABLE `medical_record_vitals` (
   `waist_circumference` int(11) DEFAULT NULL,
   `bmi` int(11) DEFAULT NULL,
   KEY `record_id` (`record_id`),
-  CONSTRAINT `medical_record_vitals_ibfk_1` FOREIGN KEY (`record_id`) REFERENCES `medical_record` (`record_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `medical_record_vitals_ibfk_1` FOREIGN KEY (`record_id`) REFERENCES `medical_record` (`record_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medical_record_vitals` */
-
-insert  into `medical_record_vitals`(`record_id`,`weight`,`height`,`blood_pressure_systolic`,`blood_pressure_diastolic`,`pulse`,`respiration`,`temperature`,`temperature_location`,`oxygen_saturation`,`head_circumference`,`waist_circumference`,`bmi`) values ('REC-220617-0000',52,180,65,80,60,35,42,2,80,50,30,21),('REC-230617-0000',0,0,0,0,0,0,0,0,0,0,0,0);
 
 /*Table structure for table `medicine` */
 
@@ -198,12 +190,10 @@ CREATE TABLE `medicine` (
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`medicine_id`),
   KEY `type_id` (`type_id`),
-  CONSTRAINT `medicine_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `medicine_type` (`type_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `medicine_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `medicine_type` (`type_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medicine` */
-
-insert  into `medicine`(`medicine_id`,`type_id`,`name`,`description`,`price`,`amount`,`created_at`,`updated_at`) values ('MED-0000','TYP-0000','Abrosive','<p>Description</p>',90000,94,'2017-01-30 17:45:38',NULL),('MED-0001','TYP-0000','Avioux','<p>Description</p>',10000,11,'2017-01-30 17:52:54',NULL);
 
 /*Table structure for table `medicine_type` */
 
@@ -218,8 +208,6 @@ CREATE TABLE `medicine_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `medicine_type` */
-
-insert  into `medicine_type`(`type_id`,`name`,`created_at`,`updated_at`) values ('TYP-0000','Alcohol','2017-01-30 17:45:09',NULL);
 
 /*Table structure for table `patient` */
 
@@ -236,8 +224,6 @@ CREATE TABLE `patient` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `patient` */
-
-insert  into `patient`(`patient_id`,`name`,`dob`,`gender`,`created_at`,`updated_at`) values ('USR-000000','Gema Wardian','1999-07-14','male','2017-06-22 16:39:23','2017-06-22 18:53:53');
 
 /*Table structure for table `patient_contact` */
 
@@ -257,12 +243,10 @@ CREATE TABLE `patient_contact` (
   `mobile_phone` varchar(20) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   KEY `patient_id` (`patient_id`),
-  CONSTRAINT `patient_contact_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `patient_contact_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `patient_contact` */
-
-insert  into `patient_contact`(`patient_id`,`address`,`city`,`state`,`country`,`postal_code`,`mother_name`,`emergency_contact`,`home_phone`,`work_phone`,`mobile_phone`,`email`) values ('USR-000000','<p>Jl. Sukagalih Gg.H.Gozali No.74</p>','Bandung','West Java','US',40162,'','89685896213','089685896232','089123125621','089685812351','gema_wardian@hotmail.com');
 
 /*Table structure for table `patient_detail` */
 
@@ -276,12 +260,10 @@ CREATE TABLE `patient_detail` (
   `race` smallint(6) DEFAULT NULL,
   `ethnicity` smallint(6) DEFAULT NULL,
   KEY `patient_id` (`patient_id`),
-  CONSTRAINT `patient_detail_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `patient_detail_ibfk_1` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `patient_detail` */
-
-insert  into `patient_detail`(`patient_id`,`marital_status`,`religion`,`language`,`race`,`ethnicity`) values ('USR-000000',1,'Undisclosed','EN',2,2);
 
 /*Table structure for table `payment` */
 
@@ -299,8 +281,8 @@ CREATE TABLE `payment` (
   PRIMARY KEY (`payment_id`),
   KEY `worker_id` (`worker_id`),
   KEY `payment_ibfk_1` (`register_id`),
-  CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`register_id`) REFERENCES `registration` (`register_id`) ON UPDATE CASCADE,
-  CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`register_id`) REFERENCES `registration` (`register_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `payment` */
@@ -318,7 +300,7 @@ CREATE TABLE `prescription` (
   PRIMARY KEY (`prescription_id`),
   KEY `worker_id` (`worker_id`),
   KEY `record_id` (`record_id`),
-  CONSTRAINT `prescription_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `prescription_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `prescription_ibfk_2` FOREIGN KEY (`record_id`) REFERENCES `medical_record` (`record_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -338,7 +320,7 @@ CREATE TABLE `prescription_detail` (
   KEY `prescription_id` (`prescription_id`),
   KEY `medicine_id` (`medicine_id`),
   CONSTRAINT `prescription_detail_ibfk_1` FOREIGN KEY (`prescription_id`) REFERENCES `prescription` (`prescription_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `prescription_detail_ibfk_2` FOREIGN KEY (`medicine_id`) REFERENCES `medicine` (`medicine_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `prescription_detail_ibfk_2` FOREIGN KEY (`medicine_id`) REFERENCES `medicine` (`medicine_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `prescription_detail` */
@@ -361,15 +343,13 @@ CREATE TABLE `registration` (
   KEY `patient_id` (`patient_id`),
   KEY `clinic_id` (`clinic_id`),
   KEY `doctor_id` (`doctor_id`),
-  CONSTRAINT `registration_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `registration_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `registration_ibfk_3` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `registration_ibfk_4` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `registration_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `registration_ibfk_2` FOREIGN KEY (`patient_id`) REFERENCES `patient` (`patient_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `registration_ibfk_3` FOREIGN KEY (`clinic_id`) REFERENCES `clinic` (`clinic_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `registration_ibfk_4` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `registration` */
-
-insert  into `registration`(`register_id`,`worker_id`,`patient_id`,`clinic_id`,`doctor_id`,`category`,`time`,`patient_type`) values ('REG-220617-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-06-22',0),('REG-230617-0000','WRK-0000','USR-000000','DIV-0000','DOC-0000','clinic','2017-06-23',0);
 
 /*Table structure for table `user` */
 
@@ -382,19 +362,25 @@ CREATE TABLE `user` (
   `status` varchar(255) NOT NULL,
   `doctor_id` varchar(10) DEFAULT NULL,
   `worker_id` varchar(10) DEFAULT NULL,
+  `photo` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `photo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   KEY `worker_id` (`worker_id`),
   KEY `doctor_id` (`doctor_id`),
-  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `user_ibfk_1` FOREIGN KEY (`worker_id`) REFERENCES `worker` (`worker_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user_ibfk_2` FOREIGN KEY (`doctor_id`) REFERENCES `doctor` (`doctor_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 /*Data for the table `user` */
 
-insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`created_at`,`updated_at`,`photo`) values (12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,'2017-01-21 11:06:56',NULL,NULL),(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,'2017-01-23 08:07:27',NULL,NULL),(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,'2017-01-23 08:08:25',NULL,NULL),(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,'2017-01-23 08:09:25',NULL,NULL),(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,'2017-01-23 08:09:49',NULL,NULL),(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,'2017-01-23 08:10:10',NULL,NULL),(18,'dianyuliana','$2y$10$tMAsD6oqM1BDVNwyNbclL.5qDIvlaFOWfx.OdcRM8gUAYTbFyfyXu','registration',NULL,'WRK-0000','2017-01-30 23:00:36',NULL,NULL),(19,'gemawardian','$2y$10$Ne1D54/sklynTCWMtcaQ7eSBM9F0Nev0nT06PU9FwSNNhTeO/W0WS','payment',NULL,'WRK-0001','2017-01-30 23:06:49',NULL,NULL),(20,'iandamien','$2y$10$xLRJLNKbJDfPaw9ANPG2i.NY1xxAxDKJ6WIu1DfHj3yQzHfUq9iGC','pharmacist',NULL,'WRK-0003','2017-01-30 23:09:34',NULL,NULL),(21,'brianrobinson','$2y$10$KrniVWCkkZyljs5a/iQx8OxTFXsl1SdqQfk/Hf/ecsWn0Ly4Up8FO','lab',NULL,'WRK-0002','2017-01-30 23:11:52',NULL,NULL),(22,'annisabaharmin','$2y$10$aSZYNOO3mfTywbg.dV3NZeULhJYHSb4McY6PA2DSY5u45OnuuNeIi','doctor','DOC-0000',NULL,'2017-02-11 23:09:05',NULL,''),(23,'sukarmannugraha','$2y$10$OgsvcIIdqtJjKIb7ETf28uMzIYfmbONirqARs4PiFC325WWYm6jR2','doctor','DOC-0001',NULL,'2017-02-17 20:54:48',NULL,'');
+insert  into `user`(`id_user`,`username`,`password_hash`,`status`,`doctor_id`,`worker_id`,`photo`,`created_at`,`updated_at`) values 
+(12,'admin','$2a$08$BKODr0AWOSfxCob9M4ilIuJ1unzm2OMzad9.2svo1g13mcn3PkfCK','admin',NULL,NULL,NULL,'2017-01-21 11:06:56',NULL),
+(13,'register','$2y$10$w.f.YdmHNcMYAHTwRmk7nu9nr.Y/xl6kWH51J0BlZgoizXFMbAXV.','registration',NULL,NULL,NULL,'2017-01-23 08:07:27',NULL),
+(14,'laboratorium','$2y$10$qwCbIMFGi1tEHqDuRR6ekeBLwxzWBEJYWduOk8FT1unhWTQtiB41u','lab',NULL,NULL,NULL,'2017-01-23 08:08:25',NULL),
+(15,'payment','$2y$10$oUy9Izyym.YU3B04AqTDR.FxguUuapjqaWcmujTc/vgThJ2YH8gl6','payment',NULL,NULL,NULL,'2017-01-23 08:09:25',NULL),
+(16,'pharmacist','$2y$10$pCCwAKcAdkxpItV/l1yuWORWVeYhVEgdptJhP5QDINavI.lWwkC7u','pharmacist',NULL,NULL,NULL,'2017-01-23 08:09:49',NULL),
+(17,'doctor','$2y$10$ldfpGwtpBGBRkETR74sBf.IiccIV5tPgSaPG6gGoxqjWGekv0UDMm','doctor',NULL,NULL,NULL,'2017-01-23 08:10:10',NULL);
 
 /*Table structure for table `user_frontend` */
 
@@ -428,8 +414,6 @@ CREATE TABLE `worker` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `worker` */
-
-insert  into `worker`(`worker_id`,`name`,`gender`,`role`,`dob`,`address`,`created_at`,`updated_at`) values ('WRK-0000','Dian Yuliana','female','registration','1997-06-19','<p>Jl. Sukagalih Gg.H.Gozali</p>','2017-01-21 19:25:42','2017-01-21 19:25:58'),('WRK-0001','Gema Aji Wardian','male','payment','1990-05-22','<p>Home Address</p>','2017-01-21 19:28:40',NULL),('WRK-0002','Brian Robinson','male','lab','1983-12-22','<p>Home Address</p>','2017-01-30 17:38:55',NULL),('WRK-0003','Ian Damien','male','pharmacist','1996-07-11','<p>Home Address</p>','2017-01-30 17:44:58','2017-02-05 11:30:07');
 
 /* Trigger structure for table `prescription_detail` */
 
