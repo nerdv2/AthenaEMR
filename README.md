@@ -7,6 +7,8 @@
 - Modern and user-friendly design
 - Compatible with most modern browser
 
+#### Note : This project is being rebooted and note that most of the feature is unfinished and absolutely not ready for production use.
+
 ## Deployment
 
 **System Requirement**
