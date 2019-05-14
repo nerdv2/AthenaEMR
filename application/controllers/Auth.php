@@ -22,7 +22,6 @@ class Auth extends CI_Controller
 
     public function login()
     {
-
         //set validation rules
         $this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
         $this->form_validation->set_rules('password', 'Password', 'required');
@@ -49,19 +48,7 @@ class Auth extends CI_Controller
                 
                 $auth_status = $user->status;
 
-                if ($auth_status === "admin") {
-                    $_SESSION['status'] = "ADMIN";
-                } elseif ($auth_status === "doctor") {
-                    $_SESSION['status'] = "DOCTOR";
-                } elseif ($auth_status === "payment") {
-                    $_SESSION['status'] = "PAYMENT";
-                } elseif ($auth_status === "registration") {
-                    $_SESSION['status'] = "REGISTRATION";
-                } elseif ($auth_status === "lab") {
-                    $_SESSION['status'] = "LAB";
-                } elseif ($auth_status === "pharmacist") {
-                    $_SESSION['status'] = "PHARMACIST";
-                }
+                $_SESSION['status']     = strtoupper($auth_status);
 
                 redirect('/');
             } else {
