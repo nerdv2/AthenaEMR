@@ -23,7 +23,6 @@ class Labresult extends CI_Controller {
 		redirect('/');
     }
 
-
 	public function adddata()
 	{
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {

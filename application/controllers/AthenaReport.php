@@ -1,5 +1,5 @@
-<?php 
-defined('BASEPATH') OR exit('No direct script access allowed');  
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
  
 /**
  * AthenaReport Controller Class
@@ -12,51 +12,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @link	   https://github.com/nerdv2/AthenaEMR
  */
 
-class AthenaReport extends CI_Controller {
-
-
-  /**
-   * @desc : load list modal and helpers
-   */
-      function __Construct(){
+class AthenaReport extends CI_Controller
+{
+    public function __Construct()
+    {
         parent::__Construct();
         $this->load->library('pdf');
         $this->load->library("PHPExcel");
         $this->load->model('UsersModel');
         $this->load->model('DoctorModel');
-	    $this->load->model('PaymentModel');
+        $this->load->model('PaymentModel');
         $this->load->model('PatientModel');
         $this->load->model('LabResultModel');
         $this->load->model('RegistrationModel');
         $this->load->model('EMRModel');
         $this->load->model('SettingsModel');
         $this->load->model('ReportModel');
-        }
-
-  /**
-   *  @desc : This function is used to get data from database 
-   *  And export data into excel sheet
-   *  @param : void
-   *  @return : void
-   */
-    public function index() {
-		redirect('/');
     }
 
-    public function getPDF(){
+    public function index()
+    {
+        redirect('/');
+    }
+
+    public function getPDF()
+    {
         $this->pdf->load_view('common/template');
         $this->pdf->Output();
-
     }
 
-    public function getregistration(){
+    public function getregistration()
+    {
         $data['query'] = $this->RegistrationModel->getData();
         $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/report_template', $data);
         $this->pdf->Output();
     }
 
-    public function export_visitmonth($start, $end, $doctor_id){
+    public function export_visitmonth($start, $end, $doctor_id)
+    {
         $data['query'] = $this->RegistrationModel->getvisit_month($start, $end, $doctor_id);
         $data['doctor'] = $this->DoctorModel->Read_doctorname($doctor_id);
         $data['setting'] = $this->SettingsModel->getData()->row();
@@ -64,7 +58,8 @@ class AthenaReport extends CI_Controller {
         $this->pdf->Output();
     }
 
-    public function export_medicalrecord($start, $end, $patient_id){
+    public function export_medicalrecord($start, $end, $patient_id)
+    {
         $data['query'] = $this->EMRModel->getrecord_report($patient_id, $start, $end);
         $data['patientid'] = $patient_id;
         $data['patientname'] = $this->PatientModel->Read_patientname($patient_id);
@@ -74,21 +69,24 @@ class AthenaReport extends CI_Controller {
         $this->pdf->Output();
     }
 
-    public function get_invoice($invoice_id){
+    public function get_invoice($invoice_id)
+    {
         $data['query'] = $this->PaymentModel->getInvoiceData($invoice_id)->row();
         $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/invoice_template', $data);
         $this->pdf->Output();
     }
 
-    public function get_labresult($result_id){
+    public function get_labresult($result_id)
+    {
         $data['query'] = $this->LabResultModel->getLabResultData($result_id)->row();
         $data['setting'] = $this->SettingsModel->getData()->row();
         $this->pdf->load_view('common/labresult_template', $data);
         $this->pdf->Output();
     }
 
-    public function get_id($patient_id){
+    public function get_id($patient_id)
+    {
         $data['query'] = $this->PatientModel->Read_specific($patient_id)->row();
         $this->load->view('header');
         $this->load->view('sidebar/management_active');
@@ -97,7 +95,8 @@ class AthenaReport extends CI_Controller {
         $this->load->view('footer/qrcode_footer');
     }
 
-    public function get_entry($payment_id){
+    public function get_entry($payment_id)
+    {
         $data['query'] = $this->PaymentModel->Read_specific($payment_id)->row();
         $this->load->view('header');
         $this->load->view('sidebar/management_active');
@@ -107,122 +106,114 @@ class AthenaReport extends CI_Controller {
     }
 
     public function registration_view()
-	{
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
+    {
+        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
-			// set validation rules
-			$this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
-			$this->form_validation->set_rules('end', 'End Month', 'trim|required');
-			if ($this->form_validation->run() === false) {
-			
-				// validation not ok, send validation errors to the view
-				$this->load->view('header');
-            	$this->load->view('sidebar/report_active');
-            	$this->load->view('navbar');
-            	$this->load->view('report/registration_month_view');
-            	$this->load->view('footer/footer');
-			
-			} else {
-				// set variables from the form
-				$start  = $this->input->post('start');
-				$end    = $this->input->post('end');
+            // set validation rules
+            $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
+            $this->form_validation->set_rules('end', 'End Month', 'trim|required');
+            if ($this->form_validation->run() === false) {
+            
+                // validation not ok, send validation errors to the view
+                $this->load->view('header');
+                $this->load->view('sidebar/report_active');
+                $this->load->view('navbar');
+                $this->load->view('report/registration_month_view');
+                $this->load->view('footer/footer');
+            } else {
+                // set variables from the form
+                $start  = $this->input->post('start');
+                $end    = $this->input->post('end');
 
-				if ($this->export_registrationmonth($start, $end)) {
+                if ($this->export_registrationmonth($start, $end)) {
 
-					// user creation ok
-					
-				} else {
-				
-					// user creation failed, this should never happen
-					$data['error'] = 'There was a problem creating your new account. Please try again.';
-					
-					// send error to the view
-					$this->load->view('header');
+                    // user creation ok
+                } else {
+                
+                    // user creation failed, this should never happen
+                    $data['error'] = 'There was a problem creating your new account. Please try again.';
+                    
+                    // send error to the view
+                    $this->load->view('header');
                     $this->load->view('sidebar/report_active');
                     $this->load->view('navbar');
-                    $this->load->view('report/registration_month_view',$data);
+                    $this->load->view('report/registration_month_view', $data);
                     $this->load->view('footer/footer');
-					
-				}
-
-			}
-
+                }
+            }
         } else {
             redirect('/');
         }
-	}
+    }
 
-    public function visit_view(){
+    public function visit_view()
+    {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
-			// set validation rules
-			$this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
-			$this->form_validation->set_rules('end', 'End Month', 'trim|required');
+            // set validation rules
+            $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
+            $this->form_validation->set_rules('end', 'End Month', 'trim|required');
             $this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|required');
-			if ($this->form_validation->run() === false) {
-			
-				// validation not ok, send validation errors to the view
-				$this->load->view('header');
-            	$this->load->view('sidebar/report_active');
-            	$this->load->view('navbar');
-            	$this->load->view('report/patient_visit_month');
-            	$this->load->view('footer/footer');
-			
-			} else {
-				// set variables from the form
-				$start = $this->input->post('start');
-				$end    = $this->input->post('end');
-				$doctor_id    = $this->input->post('doctor_id');
+            if ($this->form_validation->run() === false) {
+            
+                // validation not ok, send validation errors to the view
+                $this->load->view('header');
+                $this->load->view('sidebar/report_active');
+                $this->load->view('navbar');
+                $this->load->view('report/patient_visit_month');
+                $this->load->view('footer/footer');
+            } else {
+                // set variables from the form
+                $start = $this->input->post('start');
+                $end    = $this->input->post('end');
+                $doctor_id    = $this->input->post('doctor_id');
 
-                try{
+                try {
                     $this->export_visitmonth($start, $end, $doctor_id);
-                }catch(Exception $ex){
+                } catch (Exception $ex) {
                     redirect('/');
                 }
-
-			}
-
+            }
         } else {
             redirect('/');
         }
     }
 
-    public function medical_report_view(){
+    public function medical_report_view()
+    {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
-			// set validation rules
-			$this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
-			$this->form_validation->set_rules('end', 'End Month', 'trim|required');
+            // set validation rules
+            $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
+            $this->form_validation->set_rules('end', 'End Month', 'trim|required');
             $this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required');
-			if ($this->form_validation->run() === false) {
-			
-				// validation not ok, send validation errors to the view
-				$this->load->view('header');
-            	$this->load->view('sidebar/report_active');
-            	$this->load->view('navbar');
-            	$this->load->view('report/patient_record_month');
-            	$this->load->view('footer/footer');
-			
-			} else {
-				// set variables from the form
-				$start = $this->input->post('start');
-				$end    = $this->input->post('end');
-				$patient_id    = $this->input->post('patient_id');
+            if ($this->form_validation->run() === false) {
+            
+                // validation not ok, send validation errors to the view
+                $this->load->view('header');
+                $this->load->view('sidebar/report_active');
+                $this->load->view('navbar');
+                $this->load->view('report/patient_record_month');
+                $this->load->view('footer/footer');
+            } else {
+                // set variables from the form
+                $start = $this->input->post('start');
+                $end    = $this->input->post('end');
+                $patient_id    = $this->input->post('patient_id');
 
-                try{
+                try {
                     $this->export_medicalrecord($start, $end, $patient_id);
-                }catch(Exception $ex){
+                } catch (Exception $ex) {
                     redirect('/');
                 }
-
-			}
-
+            }
         } else {
             redirect('/');
         }
     }
 
-    public function export_registrationmonth($start, $end){
+    public function export_registrationmonth($start, $end)
+    {
         $objPHPExcel = new PHPExcel();
         $query = $this->RegistrationModel->getmonth_report($start, $end);
 
@@ -233,19 +224,16 @@ class AthenaReport extends CI_Controller {
         // Field names in the first row
         $fields = $query->list_fields();
         $col = 0;
-        foreach ($fields as $field)
-        {
+        foreach ($fields as $field) {
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
             $col++;
         }
  
         // Fetching the table data
         $row = 2;
-        foreach($query->result() as $data)
-        {
+        foreach ($query->result() as $data) {
             $col = 0;
-            foreach ($fields as $field)
-            {
+            foreach ($fields as $field) {
                 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
                 $col++;
             }
@@ -265,7 +253,8 @@ class AthenaReport extends CI_Controller {
         $objWriter->save('php://output');
     }
 
-    public function export_visitmonth_excel($start, $end, $doctor_id){
+    public function export_visitmonth_excel($start, $end, $doctor_id)
+    {
         $objPHPExcel = new PHPExcel();
         $query = $this->RegistrationModel->getvisit_month_excel($start, $end, $doctor_id);
 
@@ -276,19 +265,16 @@ class AthenaReport extends CI_Controller {
         // Field names in the first row
         $fields = $query->list_fields();
         $col = 0;
-        foreach ($fields as $field)
-        {
+        foreach ($fields as $field) {
             $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
             $col++;
         }
  
         // Fetching the table data
         $row = 2;
-        foreach($query->result() as $data)
-        {
+        foreach ($query->result() as $data) {
             $col = 0;
-            foreach ($fields as $field)
-            {
+            foreach ($fields as $field) {
                 $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
                 $col++;
             }
@@ -308,24 +294,29 @@ class AthenaReport extends CI_Controller {
         $objWriter->save('php://output');
     }
 
-    public function export_userdata(){
+    public function export_userdata()
+    {
         $this->ReportModel->export_excel('user');
     }
 
-    public function export_doctordata(){
+    public function export_doctordata()
+    {
         $this->ReportModel->export_excel('doctor');
     }
 
-    public function export_workerdata(){
+    public function export_workerdata()
+    {
         $this->ReportModel->export_excel('worker');
     }
 
 
-    public function export_medicinedata(){
+    public function export_medicinedata()
+    {
         $this->ReportModel->export_excel('medicine');
     }
 
-    public function export_patientdata(){
+    public function export_patientdata()
+    {
         $this->ReportModel->export_excel('patient');
     }
 }
