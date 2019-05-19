@@ -152,10 +152,10 @@
               <li><a href="<?php echo base_url('index.php/athenaReport/export_patientdata'); ?>">Complete Patient Data</a></li>
               <li class="line"></li>
               <li class="section"><i class="fa fa-file-o" aria-hidden="true"></i> Management Reports</li>
-              <li><a href="<?php echo base_url('index.php/athenaReport/export_userdata'); ?>">Complete User Data</a></li>
-              <li><a href="<?php echo base_url('index.php/athenaReport/export_doctordata'); ?>">Complete Doctor Data</a></li>
-              <li><a href="<?php echo base_url('index.php/athenaReport/export_workerdata'); ?>">Complete Worker Data</a></li>
-              <li><a href="<?php echo base_url('index.php/athenaReport/export_medicinedata'); ?>">Complete Medicine Data</a></li>
+              <li><a href="<?php echo base_url('index.php/athenaReport/export_completedata?type=user'); ?>">Complete User Data</a></li>
+              <li><a href="<?php echo base_url('index.php/athenaReport/export_completedata?type=doctor'); ?>">Complete Doctor Data</a></li>
+              <li><a href="<?php echo base_url('index.php/athenaReport/export_completedata?type=worker'); ?>">Complete Worker Data</a></li>
+              <li><a href="<?php echo base_url('index.php/athenaReport/export_completedata?type=medicine'); ?>">Complete Medicine Data</a></li>
             </ul>
           </div>
         </li>

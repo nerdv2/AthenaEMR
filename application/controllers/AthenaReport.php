@@ -294,29 +294,13 @@ class AthenaReport extends CI_Controller
         $objWriter->save('php://output');
     }
 
-    public function export_userdata()
+    public function export_completedata()
     {
-        $this->ReportModel->export_excel('user');
-    }
+        $allowed_table = array('user', 'doctor', 'worker', 'medicine');
+        $type = $this->input->get('type');
 
-    public function export_doctordata()
-    {
-        $this->ReportModel->export_excel('doctor');
-    }
-
-    public function export_workerdata()
-    {
-        $this->ReportModel->export_excel('worker');
-    }
-
-
-    public function export_medicinedata()
-    {
-        $this->ReportModel->export_excel('medicine');
-    }
-
-    public function export_patientdata()
-    {
-        $this->ReportModel->export_excel('patient');
+        if (in_array($type, $allowed_table)) {
+            $this->ReportModel->export_excel($type);
+        }
     }
 }
