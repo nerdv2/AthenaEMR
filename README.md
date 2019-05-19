@@ -17,7 +17,10 @@ PHP >=5.6
 
 MySQL >=5 or MariaDB >=5.5
 
+**Default Credentials**
 
+User: admin
+Pass: admin
 
 ## License
 
