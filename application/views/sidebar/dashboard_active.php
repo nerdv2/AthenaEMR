@@ -149,7 +149,7 @@
               <li><a href="<?php echo base_url('index.php/athenaReport/registration_view'); ?>">Registration Data Per Month</a></li>
               <li><a href="<?php echo base_url('index.php/athenaReport/visit_view'); ?>">Patient Record Per Month</a></li>
               <li><a href="<?php echo base_url('index.php/athenaReport/medical_report_view'); ?>">Patient Medical Record Data</a></li>
-              <li><a href="<?php echo base_url('index.php/athenaReport/export_patientdata'); ?>">Complete Patient Data</a></li>
+              <li><a href="<?php echo base_url('index.php/athenaReport/export_completedata?type=patient'); ?>">Complete Patient Data</a></li>
               <li class="line"></li>
               <li class="section"><i class="fa fa-file-o" aria-hidden="true"></i> Management Reports</li>
               <li><a href="<?php echo base_url('index.php/athenaReport/export_completedata?type=user'); ?>">Complete User Data</a></li>

@@ -17,6 +17,11 @@ class AthenaReport extends CI_Controller
     public function __Construct()
     {
         parent::__Construct();
+
+        if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] !== true) {
+            redirect('/');
+        }
+
         $this->load->library('pdf');
         $this->load->library("PHPExcel");
         $this->load->model('UsersModel');
@@ -296,7 +301,7 @@ class AthenaReport extends CI_Controller
 
     public function export_completedata()
     {
-        $allowed_table = array('user', 'doctor', 'worker', 'medicine');
+        $allowed_table = array('user', 'doctor', 'worker', 'medicine', 'patient');
         $type = $this->input->get('type');
 
         if (in_array($type, $allowed_table)) {
