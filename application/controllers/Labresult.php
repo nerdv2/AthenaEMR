@@ -16,14 +16,7 @@ class Labresult extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if ($_SESSION['status'] !== "ADMIN" or $_SESSION['status'] !== "LAB") {
-                redirect('/');
-            }
-        } else {
-            redirect('/');
-        }
+        $this->authentication->sessionCheck('admin,lab');
 
         $this->load->model('LabResultModel');
     }

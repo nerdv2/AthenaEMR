@@ -1,5 +1,5 @@
 <?php
-if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+if($_SESSION['role'] == "admin" or $_SESSION['role'] == "REGISTRATION"){
 ?>
 <a href="<?php echo base_url("index.php/patient/add"); ?>">
 <div class="btn-floating" id="help-actions">

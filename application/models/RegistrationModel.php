@@ -123,8 +123,7 @@ class RegistrationModel extends CI_Model
         $doctor_id,
         $category,
         $patient_type
-    )
-    {
+    ) {
     
     //$entrynumber = $this->get_entrynumber($clinic_id);
         //$entrynumber++;

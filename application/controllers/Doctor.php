@@ -17,12 +17,8 @@ class Doctor extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
-        if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] !== true && $_SESSION['status'] !== "ADMIN") {
-            redirect('/');
-        }
-
-
+        $this->authentication->sessionCheck('admin');
+        
         $this->load->model('DoctorModel');
     }
 

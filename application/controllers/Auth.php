@@ -17,7 +17,6 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('AuthModel');
     }
 
     public function login()
@@ -35,9 +34,9 @@ class Auth extends CI_Controller
             $username = $this->input->post('username');
             $password = $this->input->post('password');
 
-            if ($this->AuthModel->resolve_user_login($username, $password)) {
-                $user_id = $this->AuthModel->get_user_id_from_username($username);
-                $user = $this->AuthModel->get_user($user_id);
+            if ($this->authentication->resolve_user_login($username, $password)) {
+                $user_id    = $this->authentication->get_user_id_from_username($username);
+                $user       = $this->authentication->get_user($user_id);
 
                 //set session user data
                 $_SESSION['user_id']    = (int)$user->id_user;
@@ -45,10 +44,8 @@ class Auth extends CI_Controller
                 $_SESSION['doctor_id']  = (string)$user->doctor_id;
                 $_SESSION['worker_id']  = (string)$user->worker_id;
                 $_SESSION['logged_in']  = (bool)true;
-                
-                $auth_status = $user->status;
-
-                $_SESSION['status']     = strtoupper($auth_status);
+                $_SESSION['status']     = $user->status;
+                $_SESSION['role']       = $user->status;
 
                 redirect('/');
             } else {

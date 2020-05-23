@@ -97,4 +97,19 @@ class AuthModel extends CI_Model
     {
         return password_verify($password, $hash);
     }
+
+    public function sessionCheck($rolecheck='', $redirect = '/')
+    {
+        if ($this->session->userdata('logged_in')) {
+            if (!empty($rolecheck)) {
+                $roledata = explode(",", $rolecheck);
+
+                if (!in_array($this->session->userdata('role'), $roledata)) {
+                    redirect($redirect);
+                }
+            }
+        } else {
+            redirect($redirect);
+        }
+    }
 }

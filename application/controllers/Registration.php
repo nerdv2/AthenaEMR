@@ -16,14 +16,7 @@ class Registration extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if ($_SESSION['status'] !== "ADMIN" or $_SESSION['status'] !== "REGISTRATION") {
-                redirect('/');
-            }
-        } else {
-            redirect('/');
-        }
+        $this->authentication->sessionCheck('admin,registration');
 
         $this->load->model('RegistrationModel');
     }
@@ -57,7 +50,7 @@ class Registration extends CI_Controller
             $this->load->view('footer/registration_footer');
         } else {
             $register_id = $this->input->post('register_id');
-            if ($_SESSION['status'] == "ADMIN") {
+            if ($_SESSION['role'] == "admin") {
                 $worker_id = null;
             } else {
                 $worker_id    = $this->input->post('worker_id');
@@ -111,7 +104,7 @@ class Registration extends CI_Controller
 
     public function delete($register_id)
     {
-        if ($_SESSION['status'] == "ADMIN") {
+        if ($_SESSION['role'] == "admin") {
             $data['register_id'] = $register_id;
             $this->RegistrationModel->Delete($data);
             $this->RegistrationModel->redirect();

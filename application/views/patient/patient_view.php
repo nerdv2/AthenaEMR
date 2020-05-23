@@ -14,7 +14,7 @@
 
                 $this->table->set_heading('PatientID','Name','D.O.B','Gender','Created At','Updated At','Action');
                 foreach($query as $row){
-                  if($_SESSION['status'] == "ADMIN"){
+                  if($_SESSION['role'] == "admin"){
                       $edit = "<a href='".site_url()."/athenaReport/get_id/".$row->patient_id."' title='".$row->name."'>Get ID</a>
                       <br>
                       <a href='".site_url()."/patient/view/".$row->patient_id."' title='".$row->name."'>View</a>

@@ -16,23 +16,18 @@ class Patient extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->authentication->sessionCheck('admin,registration,doctor');
+
         $this->load->model('PatientModel');
         $this->load->model('EMRModel');
-
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if ($_SESSION['status'] !== "ADMIN" or $_SESSION['status'] !== "REGISTRATION" or $_SESSION['status'] === "DOCTOR") {
-                redirect('/');
-            }
-        } else {
-            redirect('/');
-        }
     }
 
     public function index()
     {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION") {
+        $data = array();
+        if ($_SESSION['role'] === "admin" or $_SESSION['role'] === "registration") {
             $data['query'] = $this->PatientModel->getData();
-        } elseif ($_SESSION['status'] === "DOCTOR") {
+        } elseif ($_SESSION['role'] === "doctor") {
             $data['query'] = $this->PatientModel->getDoctorPatientData($_SESSION['doctor_id']);
         }
 
@@ -149,7 +144,7 @@ class Patient extends CI_Controller
 
     public function delete($patient_id)
     {
-        if ($_SESSION['status'] === "ADMIN") {
+        if ($_SESSION['role'] == "admin") {
             $data['patient_id'] = $patient_id;
             $this->PatientModel->Delete($data);
             $this->PatientModel->redirect();

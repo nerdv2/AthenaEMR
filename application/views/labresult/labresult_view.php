@@ -14,7 +14,7 @@
 
                 $this->table->set_heading('LabResultID','WorkerID','Time of Entry','Action');
                 foreach($query as $row){
-                  if($_SESSION['status'] == "ADMIN"){
+                  if($_SESSION['role'] == "admin"){
                     $edit = "<a href='".site_url()."/athenaReport/get_labresult/".$row->result_id."' title='".$row->result_id."'>Print</a><br>
                     <a href='".site_url()."/labresult/view/".$row->result_id."' title='".$row->result_id."'>View</a>
                     <br>

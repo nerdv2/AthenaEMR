@@ -14,7 +14,7 @@
 
                 $this->table->set_heading('PaymentID','RegisterID','WorkerID','Type of Payment','Amount','Time of Payment','Action');
                 foreach($query as $row){
-                    if($_SESSION['status'] == "ADMIN"){
+                    if($_SESSION['role'] == "admin"){
                       $edit = "
                       <a href='".site_url()."/athenaReport/get_entry/".$row->payment_id."' title='".$row->payment_id."'>Print Entry</a>
                       <br>

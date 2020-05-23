@@ -19,10 +19,8 @@ class AthenaReport extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->authentication->sessionCheck();
 
-        if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] !== true) {
-            redirect('/');
-        }
         $this->load->model('UsersModel');
         $this->load->model('DoctorModel');
         $this->load->model('PaymentModel');
@@ -130,88 +128,76 @@ class AthenaReport extends CI_Controller
 
     public function registration_view()
     {
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
-            $this->form_validation->set_rules('end', 'End Month', 'trim|required');
-            if ($this->form_validation->run() === false) {
+        $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
+        $this->form_validation->set_rules('end', 'End Month', 'trim|required');
+        if ($this->form_validation->run() === false) {
+            $this->load->view('header');
+            $this->load->view('sidebar/report_active');
+            $this->load->view('navbar');
+            $this->load->view('report/registration_month_view');
+            $this->load->view('footer/footer');
+        } else {
+            $start  = $this->input->post('start');
+            $end    = $this->input->post('end');
+
+            if ($this->export_registrationmonth($start, $end)) {
+            } else {
+                $data['error'] = 'There was a problem creating your new account. Please try again.';
+                
                 $this->load->view('header');
                 $this->load->view('sidebar/report_active');
                 $this->load->view('navbar');
-                $this->load->view('report/registration_month_view');
+                $this->load->view('report/registration_month_view', $data);
                 $this->load->view('footer/footer');
-            } else {
-                $start  = $this->input->post('start');
-                $end    = $this->input->post('end');
-
-                if ($this->export_registrationmonth($start, $end)) {
-                } else {
-                    $data['error'] = 'There was a problem creating your new account. Please try again.';
-                    
-                    $this->load->view('header');
-                    $this->load->view('sidebar/report_active');
-                    $this->load->view('navbar');
-                    $this->load->view('report/registration_month_view', $data);
-                    $this->load->view('footer/footer');
-                }
             }
-        } else {
-            redirect('/');
         }
     }
 
     public function visit_view()
     {
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
-            $this->form_validation->set_rules('end', 'End Month', 'trim|required');
-            $this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|required');
-            if ($this->form_validation->run() === false) {
-                $this->load->view('header');
-                $this->load->view('sidebar/report_active');
-                $this->load->view('navbar');
-                $this->load->view('report/patient_visit_month');
-                $this->load->view('footer/footer');
-            } else {
-                $start = $this->input->post('start');
-                $end    = $this->input->post('end');
-                $doctor_id    = $this->input->post('doctor_id');
-
-                try {
-                    $this->export_visitmonth($start, $end, $doctor_id);
-                } catch (Exception $ex) {
-                    redirect('/');
-                }
-            }
+        $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
+        $this->form_validation->set_rules('end', 'End Month', 'trim|required');
+        $this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|required');
+        if ($this->form_validation->run() === false) {
+            $this->load->view('header');
+            $this->load->view('sidebar/report_active');
+            $this->load->view('navbar');
+            $this->load->view('report/patient_visit_month');
+            $this->load->view('footer/footer');
         } else {
-            redirect('/');
+            $start = $this->input->post('start');
+            $end    = $this->input->post('end');
+            $doctor_id    = $this->input->post('doctor_id');
+
+            try {
+                $this->export_visitmonth($start, $end, $doctor_id);
+            } catch (Exception $ex) {
+                redirect('/');
+            }
         }
     }
 
     public function medical_report_view()
     {
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
-            $this->form_validation->set_rules('end', 'End Month', 'trim|required');
-            $this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required');
-            if ($this->form_validation->run() === false) {
-                $this->load->view('header');
-                $this->load->view('sidebar/report_active');
-                $this->load->view('navbar');
-                $this->load->view('report/patient_record_month');
-                $this->load->view('footer/footer');
-            } else {
-                $start          = $this->input->post('start');
-                $end            = $this->input->post('end');
-                $patient_id     = $this->input->post('patient_id');
-
-                try {
-                    $this->export_medicalrecord($start, $end, $patient_id);
-                } catch (Exception $ex) {
-                    redirect('/');
-                }
-            }
+        $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
+        $this->form_validation->set_rules('end', 'End Month', 'trim|required');
+        $this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required');
+        if ($this->form_validation->run() === false) {
+            $this->load->view('header');
+            $this->load->view('sidebar/report_active');
+            $this->load->view('navbar');
+            $this->load->view('report/patient_record_month');
+            $this->load->view('footer/footer');
         } else {
-            redirect('/');
+            $start          = $this->input->post('start');
+            $end            = $this->input->post('end');
+            $patient_id     = $this->input->post('patient_id');
+
+            try {
+                $this->export_medicalrecord($start, $end, $patient_id);
+            } catch (Exception $ex) {
+                redirect('/');
+            }
         }
     }
 

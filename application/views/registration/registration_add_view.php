@@ -32,7 +32,7 @@
                 </div>
                 <div class="col-md-12">
                      <?php
-                     if($_SESSION['status'] == "ADMIN"){
+                     if($_SESSION['role'] == "admin"){
                         echo "<select class='select2' style='width: 100%;' name='worker_id' id='worker_id'>";
                         echo "<option value='ADMIN'>ADMINISTRATOR</option>";
                      } else {

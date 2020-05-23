@@ -14,7 +14,7 @@
 
                 $this->table->set_heading('RegisterID','WorkerID','PatientID','ClinicID','Time of Register','Action');
                 foreach($query as $row){
-                  if($_SESSION['status'] == "ADMIN"){
+                  if($_SESSION['role'] == "admin"){
                     $edit = "
                     <a href='".site_url()."/registration/delete/".$row->register_id."' title='".$row->patient_id."' onclick='return confirmDelete();'>Delete</a>"; 
                   } else {

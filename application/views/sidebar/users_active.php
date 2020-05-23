@@ -19,7 +19,7 @@
           </a>
         </li>
         <?php
-          if($_SESSION['status'] == "ADMIN"){
+          if($_SESSION['role'] == "admin"){
         ?>
         <li class="active dropdown ">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -58,12 +58,12 @@
           <div class="dropdown-menu">
             <ul>
               <?php
-                  if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION"){
+                  if($_SESSION['role'] == "admin" or $_SESSION['role'] == "registration"){
               ?>
               <li class="section"><i class="fa fa-group" aria-hidden="true"></i> Registration Management</li>
               <li><a href="<?php echo base_url('index.php/registration'); ?>">Registration Data</a></li>
               <?php
-                  if($_SESSION['status'] == "ADMIN"){
+                  if($_SESSION['role'] == "admin"){
               ?>
               <li><a href="<?php echo base_url('index.php/clinic'); ?>">Clinic Data</a></li>
               <?php
@@ -74,7 +74,7 @@
                   }
               ?>
               <?php
-                  if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "PAYMENT"){
+                  if($_SESSION['role'] == "admin" or $_SESSION['role'] == "payment"){
               ?>
               <li class="section"><i class="fa fa-usd" aria-hidden="true"></i> Payment Management</li>
               <li><a href="<?php echo base_url('index.php/payment'); ?>">Payment Data</a></li>
@@ -83,18 +83,18 @@
                   }
               ?>
               <?php
-                  if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION" or $_SESSION['status'] == "DOCTOR"){
+                  if($_SESSION['role'] == "admin" or $_SESSION['role'] == "registration" or $_SESSION['role'] == "doctor"){
               ?>
               <li class="section"><i class="fa fa-stethoscope" aria-hidden="true"></i> Records Management</li>
               <?php
-                  if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "REGISTRATION" or $_SESSION['status'] == "DOCTOR"){
+                  if($_SESSION['role'] == "admin" or $_SESSION['role'] == "registration" or $_SESSION['role'] == "doctor"){
               ?>
               <li><a href="<?php echo base_url('index.php/patient'); ?>">Patient Data</a></li>
               <?php
                   }
               ?>
               <?php
-                  if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "DOCTOR"){
+                  if($_SESSION['role'] == "admin" or $_SESSION['role'] == "doctor"){
               ?>
               <li><a href="<?php echo base_url('index.php/emr'); ?>">Medical Records Data</a></li>
               <?php
@@ -105,11 +105,11 @@
                   }
               ?>
               <?php
-                  if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "LAB"){
+                  if($_SESSION['role'] == "admin" or $_SESSION['role'] == "lab"){
               ?>
               <li class="section"><i class="fa fa-heartbeat" aria-hidden="true"></i> Lab Management</li>
               <?php
-                  if($_SESSION['status'] == "ADMIN"){
+                  if($_SESSION['role'] == "admin"){
               ?>
               <li><a href="<?php echo base_url('index.php/lab'); ?>">Lab Data</a></li>
               <?php
@@ -121,7 +121,7 @@
                   }
               ?>
               <?php
-                  if($_SESSION['status'] == "ADMIN" or $_SESSION['status'] == "PHARMACIST"){
+                  if($_SESSION['role'] == "admin" or $_SESSION['role'] == "pharmacist"){
               ?>
               <li class="section"><i class="fa fa-medkit" aria-hidden="true"></i> Pharmacist Management</li>
               <li><a href="<?php echo base_url('index.php/prescription'); ?>">Prescription Data</a></li>
@@ -134,7 +134,7 @@
           </div>
         </li>
         <?php
-          if($_SESSION['status'] == "ADMIN"){
+          if($_SESSION['role'] == "admin"){
         ?>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">

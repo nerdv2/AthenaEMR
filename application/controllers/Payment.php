@@ -16,14 +16,7 @@ class Payment extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if ($_SESSION['status'] !== "ADMIN" or $_SESSION['status'] !== "PAYMENT") {
-                redirect('/');
-            }
-        } else {
-            redirect('/');
-        }
+        $this->authentication->sessionCheck('admin,payment');
 
         $this->load->model('PaymentModel');
     }
@@ -178,7 +171,7 @@ class Payment extends CI_Controller
 
     public function delete($payment_id)
     {
-        if ($_SESSION['status'] === "ADMIN") {
+        if ($_SESSION['role'] == "admin") {
             $data['payment_id'] = $payment_id;
             $this->PaymentModel->Delete($data);
             $this->PaymentModel->redirect();

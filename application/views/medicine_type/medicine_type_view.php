@@ -14,7 +14,7 @@
 
                 $this->table->set_heading('Medicine Type ID','Medicine Type Name','Created At','Updated At','Action');
                 foreach($query as $row){
-                  if($_SESSION['status'] == "ADMIN"){
+                  if($_SESSION['role'] == "admin"){
                     $edit = "
                     <a href='".site_url()."/medicineType/edit/".$row->type_id."' title='".$row->name."'>Edit</a>
                     <br>

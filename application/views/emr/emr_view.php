@@ -14,7 +14,7 @@
 
                 $this->table->set_heading('RecordID','Doctor','Patient','Time of Admission','Action');
                 foreach($query as $row){
-                  if($_SESSION['status'] == "ADMIN"){
+                  if($_SESSION['role'] == "admin"){
                      $edit = "<a href='".site_url()."/emr/view/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
                   } else {
                     $edit = "<a href='".site_url()."/emr/view/".$row->record_id."' title='".$row->register_id."'>View</a>"; 

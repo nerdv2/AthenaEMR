@@ -16,14 +16,7 @@ class Prescription extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-
-        if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-            if ($_SESSION['status'] !== "ADMIN" or $_SESSION['status'] !== "PHARMACIST" or $_SESSION['status'] !== "DOCTOR") {
-                redirect('/');
-            }
-        } else {
-            redirect('/');
-        }
+        $this->authentication->sessionCheck('admin,pharmacist,doctor');
 
         $this->load->model('PrescriptionModel');
     }
@@ -300,7 +293,7 @@ class Prescription extends CI_Controller
 
     public function delete($prescription_id)
     {
-        if ($_SESSION['status'] === "ADMIN") {
+        if ($_SESSION['role'] == "admin") {
             $data['prescription_id'] = $prescription_id;
             $this->PrescriptionModel->Delete($data);
             $this->PrescriptionModel->redirect();

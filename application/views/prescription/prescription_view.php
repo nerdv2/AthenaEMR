@@ -14,7 +14,7 @@
 
                 $this->table->set_heading('PrescriptionID','RecordID','WorkerID','Time of Entry','Action');
                 foreach($query as $row){
-                  if($_SESSION['status'] == "ADMIN"){
+                  if($_SESSION['role'] == "admin"){
                     $edit = "<a href='".site_url()."/prescription/view/".$row->prescription_id."' title='".$row->record_id."'>View</a>
                     <br>
                     <a href='".site_url()."/prescription/delete/".$row->prescription_id."' title='".$row->record_id."' onclick='return confirmDelete();'>Delete</a>"; 

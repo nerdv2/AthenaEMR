@@ -43,7 +43,7 @@
                 </a>
               </li>
               <?php
-                if($_SESSION['status'] == "ADMIN"){
+                if($_SESSION['role'] == "admin"){
               ?>
               <li>
                 <a href="<?= base_url('index.php/athenaMain/settings'); ?>">
