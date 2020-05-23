@@ -22,7 +22,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-              <?= form_open('prescription/process_adddata') ?>
+              <?= form_open('prescription/process_add') ?>
                 <div class="col-md-12">
                      <input type="text" value="<?= $prescription_id; ?>" class="form-control" placeholder="PrescriptionID" name="prescription_id" readonly>
                 </div>

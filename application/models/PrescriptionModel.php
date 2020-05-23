@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
     class PrescriptionModel extends CI_Model {
 
-        public function Redirect(){
-            redirect(base_url("index.php/athenaMain/prescription_view"));
+        public function redirect(){
+            redirect(base_url("index.php/prescription"));
         }
 
         public function getData(){
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -63,7 +63,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -75,7 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -135,7 +135,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $this->db->where("record_id", $record_id);
             $this->db->update("medical_record",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function generate_id(){
@@ -144,7 +144,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $getprefix = $this->db->get('app_settings')->row();
             $prefix = $getprefix->prescription_id_prefix;
             
-            $iddata = $this->extfnc->id_generate(4);
+            $iddata = bin2hex(random_bytes(6));
             
             $query = $prefix . "-". $date ."-" . $iddata;
 
@@ -156,7 +156,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $execute = $this->db->query($dataquery,array($prescription_id));
             $ret = $execute->row();
             $execute->next_result();
-            $execute->free_result();
+            $execute->result();
             return $ret;
         }
 
@@ -193,7 +193,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $this->db->where("prescription_id", $prescription_id);
             $this->db->update("prescription_detail",$data2);
 
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function Delete($data){

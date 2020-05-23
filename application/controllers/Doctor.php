@@ -28,13 +28,18 @@ class Doctor extends CI_Controller
 
     public function index()
     {
-        redirect('/');
+        $data['query'] = $this->DoctorModel->getData();
+        $this->load->view('header');
+        $this->load->view('sidebar/users_active');
+        $this->load->view('navbar');
+        $this->load->view('floatnav/doctor_floatbar');
+        $this->load->view('doctor/doctor_view', $data);
+        $this->load->view('footer/table_footer');
     }
 
-
-    public function adddata()
+    public function add()
     {
-        // set validation rules
+        $data = array();
         $this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|required|alpha_dash|min_length[8]|is_unique[doctor.doctor_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
         $this->form_validation->set_rules('clinic_id', 'ClinicID', 'trim|required|min_length[4]');
         $this->form_validation->set_rules('name', 'Doctor Name', 'trim|required');
@@ -44,30 +49,19 @@ class Doctor extends CI_Controller
         $this->form_validation->set_rules('phone', 'Phone Number', 'trim|numeric');
 
         if ($this->form_validation->run() === false) {
-            $data['id'] = $this->DoctorModel->generate_id();
-            $data['clinic'] = $this->DoctorModel->getClinicID();
 
-            // validation not ok, send validation errors to the view
-            $this->load->view('header');
             $this->load->view('sidebar/users_active');
             $this->load->view('navbar');
             $this->load->view('doctor/doctor_add_view', $data);
             $this->load->view('footer/footer');
         } else {
-            // set variables from the form
-                
-
             if ($this->DoctorModel->create_doctor()) {
-                
-                    // user creation ok
-                $this->DoctorModel->Redirect();
+                $this->DoctorModel->redirect();
             } else {
-                
-                    // user creation failed, this should never happen
                 $data['error'] = 'There was a problem creating your new account. Please try again.';
                 $data['id'] = $this->DoctorModel->generate_id();
                 $data['clinic'] = $this->DoctorModel->getClinicID();
-                // send error to the view
+                
                 $this->load->view('header');
                 $this->load->view('sidebar/users_active');
                 $this->load->view('navbar');
@@ -77,10 +71,8 @@ class Doctor extends CI_Controller
         }
     }
 
-
-    public function editdata($doctor_id)
+    public function edit($doctor_id)
     {
-        // set validation rules
         $this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|required|alpha_dash|min_length[8]', array('is_unique' => 'This id already exists. Please choose another one.'));
         $this->form_validation->set_rules('clinic_id', 'ClinicID', 'trim|required|min_length[4]');
         $this->form_validation->set_rules('name', 'Doctor Name', 'trim|required');
@@ -90,8 +82,6 @@ class Doctor extends CI_Controller
         $this->form_validation->set_rules('phone', 'Phone Number', 'trim|numeric');
 
         if ($this->form_validation->run() === false) {
-            
-                // validation not ok, send validation errors to the view
             $data['query'] = $this->DoctorModel->Read_specific($doctor_id)->row();
             $this->load->view('header');
             $this->load->view('sidebar/users_active');
@@ -99,17 +89,12 @@ class Doctor extends CI_Controller
             $this->load->view('doctor/doctor_edit_view', $data);
             $this->load->view('footer/footer');
         } else {
-            // set variables from the form
-			if ($this->DoctorModel->Update()) {
-                
-                // user creation ok
-                $this->DoctorModel->Redirect();
+            if ($this->DoctorModel->Update()) {
+                $this->DoctorModel->redirect();
             } else {
-                
-                // user creation failed, this should never happen
                 $data['error'] = 'There was a problem creating your new account. Please try again.';
                     
-                // send error to the view
+                
                 $this->load->view('header');
                 $this->load->view('sidebar/users_active');
                 $this->load->view('navbar');
@@ -119,7 +104,7 @@ class Doctor extends CI_Controller
         }
     }
 
-    public function viewdata($doctor_id)
+    public function view($doctor_id)
     {
         $data['query'] = $this->DoctorModel->Read_specific($doctor_id)->row();
         $this->load->view('header');
@@ -129,10 +114,10 @@ class Doctor extends CI_Controller
         $this->load->view('footer/footer');
     }
 
-    public function deletedata($doctor_id)
+    public function delete($doctor_id)
     {
         $data['doctor_id'] = $doctor_id;
         $this->DoctorModel->Delete($data);
-        $this->DoctorModel->Redirect();
+        $this->DoctorModel->redirect();
     }
 }

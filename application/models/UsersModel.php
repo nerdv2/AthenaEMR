@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
     class UsersModel extends CI_Model {
 
-        public function Redirect(){
-            redirect(base_url("index.php/athenaMain/users_view"));
+        public function redirect(){
+            redirect(base_url("index.php/users"));
         }
 
         public function getData(){
@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -43,7 +43,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -130,7 +130,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             $this->db->where("id_user", $id_user);
             $this->db->update("user",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function update_user_doctor($id_user,
@@ -147,7 +147,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             $this->db->where("id_user", $id_user);
             $this->db->update("user",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function update_user_worker($id_user,
@@ -164,7 +164,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             
             $this->db->where("id_user", $id_user);
             $this->db->update("user",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function Delete($data){

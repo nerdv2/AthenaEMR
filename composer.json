@@ -1,22 +1,16 @@
 {
-	"description": "The CodeIgniter framework",
-	"name": "codeigniter/framework",
-	"type": "project",
-	"homepage": "https://codeigniter.com",
-	"license": "MIT",
-	"support": {
-		"forum": "http://forum.codeigniter.com/",
-		"wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
-		"irc": "irc://irc.freenode.net/codeigniter",
-		"source": "https://github.com/bcit-ci/CodeIgniter"
-	},
+	"name": "nerdv2/athenaemr",
+	"description" : "AthenaEMR base program",
 	"require": {
-		"php": ">=5.2.4"
-	},
-	"suggest": {
-		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
+		"php": ">=5.6.0",
+		"codeigniter/framework": "3.1.*",
+		"mpdf/mpdf": "^8.0",
+		"tracy/tracy": "^2.7",
+		"vlucas/phpdotenv": "^4.1",
+		"phpoffice/phpspreadsheet": "^1.12",
+		"paragonie/random_compat": ">=2"
 	},
 	"require-dev": {
-		"mikey179/vfsStream": "1.1.*"
+		"mikey179/vfsstream": "1.1.*"
 	}
 }

@@ -31,12 +31,17 @@ class Emr extends CI_Controller
 
     public function index()
     {
-        redirect('/');
+        $data['query'] = $this->EMRModel->getDataSpecific($_SESSION['doctor_id']);
+        $this->load->view('header');
+        $this->load->view('sidebar/management_active');
+        $this->load->view('navbar');
+        $this->load->view('floatnav/emr_floatbar');
+        $this->load->view('emr/emr_view', $data);
+        $this->load->view('footer/table_footer');
     }
     
-    public function adddata()
+    public function add()
     {
-		// set validation rules
         $this->form_validation->set_rules('record_id', 'RecordID', 'trim|required|alpha_dash|min_length[15]|is_unique[medical_record.record_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
         $this->form_validation->set_rules('register_id', 'RegisterID', 'trim|required|min_length[4]');
         $this->form_validation->set_rules('additional_notes', 'Additional Notes', 'trim');
@@ -58,30 +63,22 @@ class Emr extends CI_Controller
         $this->form_validation->set_rules('handling', 'Handling', 'trim');
 
         if ($this->form_validation->run() === false) {
-                
-			// validation not ok, send validation errors to the view
             $this->load->view('header');
             $this->load->view('sidebar/management_active');
             $this->load->view('navbar');
             $this->load->view('emr/emr_add_view');
             $this->load->view('footer/emr_footer');
         } else {
-            // set variables from the form
             $register_id 		= $this->input->post('register_id');
 
             $doctor_id 			= $this->EMRModel->getRegistrationDoctor($register_id);
             $patient_id 		= $this->EMRModel->getRegistrationPatient($register_id);
 
             if ($this->EMRModel->create_emr($doctor_id, $patient_id)) {
-                    
-				// user creation ok
-                $this->EMRModel->Redirect();
+                $this->EMRModel->redirect();
             } else {
-                    
-				// user creation failed, this should never happen
                 $data['error'] = 'There was a problem creating your new account. Please try again.';
-                        
-                // send error to the view
+
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
                 $this->load->view('navbar');
@@ -91,7 +88,7 @@ class Emr extends CI_Controller
         }
     }
 
-    public function viewdata($record_id)
+    public function view($record_id)
     {
         $data['query'] = $this->EMRModel->Read_specific($record_id)->row();
         $this->load->view('header');

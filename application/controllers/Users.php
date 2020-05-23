@@ -26,12 +26,17 @@ class Users extends CI_Controller
 
     public function index()
     {
-        redirect('/');
+        $data['query'] = $this->UsersModel->getData();
+        $this->load->view('header');
+        $this->load->view('sidebar/users_active');
+        $this->load->view('navbar');
+        $this->load->view('floatnav/users_floatbar');
+        $this->load->view('users/users_view', $data);
+        $this->load->view('footer/table_footer');
     }
 
-    public function adddata()
+    public function add()
     {
-        // set validation rules
         $this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[user.username]', array('is_unique' => 'This username already exists. Please choose another one.'));
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
         $this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
@@ -43,28 +48,25 @@ class Users extends CI_Controller
             $data['doctor'] = $this->UsersModel->getDoctorID();
             $data['worker'] = $this->UsersModel->getWorkerID();
 
-            // validation not ok, send validation errors to the view
+            
             $this->load->view('header');
             $this->load->view('sidebar/users_active');
             $this->load->view('navbar');
             $this->load->view('users/users_add_view', $data);
             $this->load->view('footer/footer');
         } else {
-            // set variables from the form
-
+            $doctor_id = $this->input->post('doctor_id');
+            $worker_id = $this->input->post('worker_id');
+            
             if ($doctor_id == "" && $worker_id == "") {
                 if ($this->UsersModel->create_user()) {
-                
-                        // user creation ok
-                    $this->UsersModel->Redirect();
+                    $this->UsersModel->redirect();
                 } else {
-                            
-                        // user creation failed, this should never happen
                     $data['error'] = 'There was a problem creating your new account. Please try again.';
                         
                     $data['doctor'] = $this->UsersModel->getDoctorID();
                     $data['worker'] = $this->UsersModel->getWorkerID();
-                    // send error to the view
+                    
                     $this->load->view('header');
                     $this->load->view('sidebar/users_active');
                     $this->load->view('navbar');
@@ -73,16 +75,12 @@ class Users extends CI_Controller
                 }
             } elseif ($doctor_id == "" && $worker_id !== "") {
                 if ($this->UsersModel->create_user_worker()) {
-                
-                    // user creation ok
-                    $this->UsersModel->Redirect();
+                    $this->UsersModel->redirect();
                 } else {
-                            
-                    // user creation failed, this should never happen
                     $data['error'] = 'There was a problem creating your new account. Please try again.';
                     $data['doctor'] = $this->UsersModel->getDoctorID();
                     $data['worker'] = $this->UsersModel->getWorkerID();
-                    // send error to the view
+                    
                     $this->load->view('header');
                     $this->load->view('sidebar/users_active');
                     $this->load->view('navbar');
@@ -91,15 +89,12 @@ class Users extends CI_Controller
                 }
             } elseif ($doctor_id !== "" && $worker_id == "") {
                 if ($this->UsersModel->create_user_doctor()) {
-                
-                	// user creation ok
-                    $this->UsersModel->Redirect();
-                } else {        
-                    // user creation failed, this should never happen
+                    $this->UsersModel->redirect();
+                } else {
                     $data['error'] = 'There was a problem creating your new account. Please try again.';
                     $data['doctor'] = $this->UsersModel->getDoctorID();
                     $data['worker'] = $this->UsersModel->getWorkerID();
-                    // send error to the view
+                    
                     $this->load->view('header');
                     $this->load->view('sidebar/users_active');
                     $this->load->view('navbar');
@@ -111,9 +106,8 @@ class Users extends CI_Controller
     }
 
 
-    public function editdata($user_id)
+    public function edit($user_id)
     {
-        // set validation rules
         $this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]', array('is_unique' => 'This username already exists. Please choose another one.'));
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
         $this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
@@ -122,7 +116,6 @@ class Users extends CI_Controller
         $this->form_validation->set_rules('photo', 'Photo', 'trim');
 
         if ($this->form_validation->run() === false) {
-            // validation not ok, send validation errors to the view
             $data['query'] = $this->UsersModel->Read_specific($user_id)->row();
             $this->load->view('header');
             $this->load->view('sidebar/users_active');
@@ -130,7 +123,6 @@ class Users extends CI_Controller
             $this->load->view('users/users_edit_view', $data);
             $this->load->view('footer/footer');
         } else {
-            // set variables from the form
             $id_user = $this->input->post('id_user');
             $username = $this->input->post('username');
             $password    = $this->input->post('password');
@@ -141,15 +133,10 @@ class Users extends CI_Controller
 
             if ($doctor_id == "" && $worker_id == "") {
                 if ($this->UsersModel->update_user($username, $password, $status, $doctor_id, $worker_id, $photo)) {
-                
-                    // user creation ok
-                    $this->UsersModel->Redirect();
+                    $this->UsersModel->redirect();
                 } else {
-                            
-                    // user creation failed, this should never happen
                     $data['error'] = 'There was a problem creating your new account. Please try again.';
-                                
-                    // send error to the view
+                    
                     $this->load->view('header');
                     $this->load->view('sidebar/users_active');
                     $this->load->view('navbar');
@@ -158,15 +145,10 @@ class Users extends CI_Controller
                 }
             } elseif ($doctor_id == "" && $worker_id !== "") {
                 if ($this->UsersModel->update_user_worker($username, $password, $status, $worker_id, $photo)) {
-                
-                    // user creation ok
-                    $this->UsersModel->Redirect();
+                    $this->UsersModel->redirect();
                 } else {
-                            
-                    // user creation failed, this should never happen
                     $data['error'] = 'There was a problem creating your new account. Please try again.';
-                                
-                    // send error to the view
+                    
                     $this->load->view('header');
                     $this->load->view('sidebar/users_active');
                     $this->load->view('navbar');
@@ -175,15 +157,10 @@ class Users extends CI_Controller
                 }
             } elseif ($doctor_id !== "" && $worker_id == "") {
                 if ($this->UsersModel->update_user_doctor($username, $password, $status, $doctor_id, $photo)) {
-                
-                    // user creation ok
-                    $this->UsersModel->Redirect();
+                    $this->UsersModel->redirect();
                 } else {
-                            
-                    // user creation failed, this should never happen
                     $data['error'] = 'There was a problem creating your new account. Please try again.';
-                                
-                    // send error to the view
+                    
                     $this->load->view('header');
                     $this->load->view('sidebar/users_active');
                     $this->load->view('navbar');
@@ -194,10 +171,10 @@ class Users extends CI_Controller
         }
     }
 
-    public function deletedata($user_id)
+    public function delete($user_id)
     {
         $data['id_user'] = $user_id;
         $this->UsersModel->Delete($data);
-        $this->UsersModel->Redirect();
+        $this->UsersModel->redirect();
     }
 }

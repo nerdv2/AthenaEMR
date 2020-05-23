@@ -80,7 +80,7 @@
 
                 $this->table->set_heading('Time','Complaint','');
                 foreach($emr as $row){
-                    $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>";
+                    $edit = "<a href='".site_url()."/emr/view/".$row->record_id."' title='".$row->register_id."'>View</a>";
                     $this->table->add_row($row->time, $row->complaint, $edit);
                 }
                 echo $this->table->generate();
@@ -93,7 +93,7 @@
 
                 $this->table->set_heading('Time','Lab Result ID','');
                 foreach($lab as $row){
-                    $edit = "<a href='".site_url()."/labresult/viewdata/".$row->result_id."' title='".$row->result_id."'>View</a>";
+                    $edit = "<a href='".site_url()."/labresult/view/".$row->result_id."' title='".$row->result_id."'>View</a>";
                     $this->table->add_row($row->time, $row->result_id, $edit);
                 }
                 echo $this->table->generate();
@@ -106,7 +106,7 @@
 
                 $this->table->set_heading('Time','Prescription ID','');
                 foreach($prescription as $row){
-                    $edit = "<a href='".site_url()."/prescription/viewdata/".$row->prescription_id."' title='".$row->prescription_id."'>View</a>";
+                    $edit = "<a href='".site_url()."/prescription/view/".$row->prescription_id."' title='".$row->prescription_id."'>View</a>";
                     $this->table->add_row($row->time, $row->prescription_id, $edit);
                 }
                 echo $this->table->generate();

@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
     class MedicineTypeModel extends CI_Model {
 
-        public function Redirect(){
-            redirect(base_url("index.php/athenaMain/medicine_type_view"));
+        public function redirect(){
+            redirect(base_url("index.php/medicine_type"));
         }
 
         public function getData(){
@@ -42,7 +42,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $getprefix = $this->db->get('app_settings')->row();
             $prefix = $getprefix->medicine_type_prefix;
 
-            $iddata = $this->extfnc->id_generate(4);
+            $iddata = bin2hex(random_bytes(6));
             
             $query = $prefix . "-". $iddata;
 
@@ -69,7 +69,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $this->db->where("type_id", $type_id);
             $this->db->update("medicine_type",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function Delete($data){

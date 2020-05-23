@@ -10,14 +10,14 @@
                 $template = array('table_open' => '<table class="datatable table table-striped primary" cellspacing="0" width="100%">');
                 $this->table->set_template($template);
 
-                $cell_add = array('data' => '<a href="'.site_url().'/clinic/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
+                $cell_add = array('data' => '<a href="'.site_url().'/clinic/add">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
                 $this->table->set_heading('Clinic ID','Name','Tariff','Created At','Updated At','Action');
                 foreach($query as $row){
                     $edit = "
-                    <a href='".site_url()."/clinic/editdata/".$row->clinic_id."' title='".$row->name."'>Edit</a>
+                    <a href='".site_url()."/clinic/edit/".$row->clinic_id."' title='".$row->name."'>Edit</a>
                     <br>
-                    <a href='".site_url()."/clinic/deletedata/".$row->clinic_id."' title='".$row->name."' onclick='return confirmDelete();'>Delete</a>"; 
+                    <a href='".site_url()."/clinic/delete/".$row->clinic_id."' title='".$row->name."' onclick='return confirmDelete();'>Delete</a>"; 
                     $this->table->add_row($row->clinic_id, $row->name, $row->tariff, $row->created_at, $row->updated_at,$edit);
                 }
                 echo $this->table->generate();

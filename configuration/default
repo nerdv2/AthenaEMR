@@ -1,0 +1,4 @@
+DB_HOST=localhost
+DB_USER=administrator
+DB_PASS=development
+DB_NAME=project_athena_emr

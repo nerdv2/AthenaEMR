@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
     class LabModel extends CI_Model {
 
-        public function Redirect(){
-            redirect(base_url("index.php/athenaMain/lab_view"));
+        public function redirect(){
+            redirect(base_url("index.php/lab"));
         }
 
         public function getData(){
@@ -44,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $getprefix = $this->db->get('app_settings')->row();
             $prefix = $getprefix->lab_id_prefix;
 
-            $iddata = $this->extfnc->id_generate(4);
+            $iddata = bin2hex(random_bytes(6));
             
             $query = $prefix . "-". $iddata;
 
@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $this->db->where("lab_id", $lab_id);
             $this->db->update("lab",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function Delete($data){

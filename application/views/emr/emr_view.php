@@ -10,14 +10,14 @@
                 $template = array('table_open' => '<table class="datatable table table-striped primary" cellspacing="0" width="100%">');
                 $this->table->set_template($template);
 
-                $cell_add = array('data' => '<a href="'.site_url().'/emr/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
+                $cell_add = array('data' => '<a href="'.site_url().'/emr/add">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
                 $this->table->set_heading('RecordID','Doctor','Patient','Time of Admission','Action');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
-                     $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
+                     $edit = "<a href='".site_url()."/emr/view/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
                   } else {
-                    $edit = "<a href='".site_url()."/emr/viewdata/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
+                    $edit = "<a href='".site_url()."/emr/view/".$row->record_id."' title='".$row->register_id."'>View</a>"; 
                   }
                    
                     $this->table->add_row($row->record_id, $row->doctor_name, $row->patient_name, $row->time ,$edit);

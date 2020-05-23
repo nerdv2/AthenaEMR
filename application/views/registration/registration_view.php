@@ -10,13 +10,13 @@
                 $template = array('table_open' => '<table class="datatable table table-striped primary" cellspacing="0" width="100%">');
                 $this->table->set_template($template);
 
-                $cell_add = array('data' => '<a href="'.site_url().'/registration/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
+                $cell_add = array('data' => '<a href="'.site_url().'/registration/add">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
                 $this->table->set_heading('RegisterID','WorkerID','PatientID','ClinicID','Time of Register','Action');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                     $edit = "
-                    <a href='".site_url()."/registration/deletedata/".$row->register_id."' title='".$row->patient_id."' onclick='return confirmDelete();'>Delete</a>"; 
+                    <a href='".site_url()."/registration/delete/".$row->register_id."' title='".$row->patient_id."' onclick='return confirmDelete();'>Delete</a>"; 
                   } else {
                     $edit = "";
                   }

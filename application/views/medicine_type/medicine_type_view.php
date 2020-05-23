@@ -10,15 +10,15 @@
                 $template = array('table_open' => '<table class="datatable table table-striped primary" cellspacing="0" width="100%">');
                 $this->table->set_template($template);
 
-                $cell_add = array('data' => '<a href="'.site_url().'/medicinetype/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
+                $cell_add = array('data' => '<a href="'.site_url().'/medicinetype/add">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
                 $this->table->set_heading('Medicine Type ID','Medicine Type Name','Created At','Updated At','Action');
                 foreach($query as $row){
                   if($_SESSION['status'] == "ADMIN"){
                     $edit = "
-                    <a href='".site_url()."/medicineType/editdata/".$row->type_id."' title='".$row->name."'>Edit</a>
+                    <a href='".site_url()."/medicineType/edit/".$row->type_id."' title='".$row->name."'>Edit</a>
                     <br>
-                    <a href='".site_url()."/medicineType/deletedata/".$row->type_id."' title='".$row->name."' onclick='return confirmDelete();'>Delete</a>"; 
+                    <a href='".site_url()."/medicineType/delete/".$row->type_id."' title='".$row->name."' onclick='return confirmDelete();'>Delete</a>"; 
                   } else {
                     $edit = "";
                   }

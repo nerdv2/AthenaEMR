@@ -30,12 +30,17 @@ class Registration extends CI_Controller
 
     public function index()
     {
-        redirect('/');
+        $data['query'] = $this->RegistrationModel->getData();
+        $this->load->view('header');
+        $this->load->view('sidebar/management_active');
+        $this->load->view('navbar');
+        $this->load->view('floatnav/registration_floatbar');
+        $this->load->view('registration/registration_view', $data);
+        $this->load->view('footer/table_footer');
     }
 
-    public function adddata()
+    public function add()
     {
-        // set validation rules
         $this->form_validation->set_rules('register_id', 'RegisterID', 'trim|required|alpha_dash|min_length[11]|is_unique[registration.register_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
         $this->form_validation->set_rules('worker_id', 'WorkerID', 'trim|required|min_length[4]');
         $this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required|min_length[4]');
@@ -45,15 +50,12 @@ class Registration extends CI_Controller
         $this->form_validation->set_rules('patient_type', 'Patient Type', 'required');
 
         if ($this->form_validation->run() === false) {
-                
-            // validation not ok, send validation errors to the view
             $this->load->view('header');
             $this->load->view('sidebar/management_active');
             $this->load->view('navbar');
             $this->load->view('registration/registration_add_view');
             $this->load->view('footer/registration_footer');
         } else {
-            // set variables from the form
             $register_id = $this->input->post('register_id');
             if ($_SESSION['status'] == "ADMIN") {
                 $worker_id = null;
@@ -67,21 +69,18 @@ class Registration extends CI_Controller
             $patient_type = $this->input->post('patient_type');
 
             if ($this->RegistrationModel->create_registration(
-                        $register_id,
-                        $worker_id,
-                        $patient_id,
-                        $clinic_id,
-                        $doctor_id,
-                        $category,
-                        $patient_type
-                    )) {
-                $this->RegistrationModel->Redirect();
+                $register_id,
+                $worker_id,
+                $patient_id,
+                $clinic_id,
+                $doctor_id,
+                $category,
+                $patient_type
+            )) {
+                $this->RegistrationModel->redirect();
             } else {
-                    
-                // user creation failed, this should never happen
                 $data['error'] = 'There was a problem creating your new account. Please try again.';
-                        
-                // send error to the view
+
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
                 $this->load->view('navbar');
@@ -94,11 +93,13 @@ class Registration extends CI_Controller
     public function getDoctor()
     {
         $doctor_id = $this->input->post('id');
+
+        header('Content: application/json');
         echo(json_encode($this->RegistrationModel->getDoctorID($doctor_id)));
+        exit();
     }
 
-
-    public function viewdata($register_id)
+    public function view($register_id)
     {
         $data['query'] = $this->RegistrationModel->Read_specific($register_id)->row();
         $this->load->view('header');
@@ -108,14 +109,14 @@ class Registration extends CI_Controller
         $this->load->view('footer/footer');
     }
 
-    public function deletedata($register_id)
+    public function delete($register_id)
     {
         if ($_SESSION['status'] == "ADMIN") {
             $data['register_id'] = $register_id;
             $this->RegistrationModel->Delete($data);
-            $this->RegistrationModel->Redirect();
+            $this->RegistrationModel->redirect();
         } else {
-			redirect('/');
-		}
+            redirect('/');
+        }
     }
 }

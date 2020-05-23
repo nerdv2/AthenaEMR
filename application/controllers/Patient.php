@@ -30,13 +30,22 @@ class Patient extends CI_Controller
 
     public function index()
     {
-        redirect('/');
+        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION") {
+            $data['query'] = $this->PatientModel->getData();
+        } elseif ($_SESSION['status'] === "DOCTOR") {
+            $data['query'] = $this->PatientModel->getDoctorPatientData($_SESSION['doctor_id']);
+        }
+
+        $this->load->view('header');
+        $this->load->view('sidebar/management_active');
+        $this->load->view('navbar');
+        $this->load->view('floatnav/patient_floatbar');
+        $this->load->view('patient/patient_view', $data);
+        $this->load->view('footer/table_footer');
     }
 
-
-    public function adddata()
+    public function add()
     {
-        // set validation rules
         $this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required|alpha_dash|min_length[10]|is_unique[patient.patient_id]', array('is_unique' => 'This id already exists. Please choose another one.'));
         $this->form_validation->set_rules('name', 'Patient Name', 'trim|required|min_length[6]');
         $this->form_validation->set_rules('dob', 'D.O.B', 'trim|required');
@@ -59,27 +68,17 @@ class Patient extends CI_Controller
         $this->form_validation->set_rules('ethnicity', 'Ethnicity', 'trim');
 
         if ($this->form_validation->run() === false) {
-                
-			// validation not ok, send validation errors to the view
             $this->load->view('header');
             $this->load->view('sidebar/management_active');
             $this->load->view('navbar');
             $this->load->view('patient/patient_add_view');
             $this->load->view('footer/footer');
         } else {
-            // set variables from the form
-                    
-
             if ($this->PatientModel->create_patient()) {
-                    
-				// user creation ok
-                $this->PatientModel->Redirect();
+                $this->PatientModel->redirect();
             } else {
-                    
-				// user creation failed, this should never happen
                 $data['error'] = 'There was a problem creating your new account. Please try again.';
-                        
-                // send error to the view
+                
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
                 $this->load->view('navbar');
@@ -90,9 +89,8 @@ class Patient extends CI_Controller
     }
 
 
-    public function editdata($patient_id)
+    public function edit($patient_id)
     {
-        // set validation rules
         $this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required|alpha_dash|min_length[10]', array('is_unique' => 'This id already exists. Please choose another one.'));
         $this->form_validation->set_rules('name', 'Patient Name', 'trim|required|min_length[6]');
         $this->form_validation->set_rules('dob', 'D.O.B', 'trim|required');
@@ -115,8 +113,6 @@ class Patient extends CI_Controller
         $this->form_validation->set_rules('ethnicity', 'Ethnicity', 'trim');
 
         if ($this->form_validation->run() === false) {
-                
-                    // validation not ok, send validation errors to the view
             $data['query'] = $this->PatientModel->Read_specific($patient_id)->row();
             $this->load->view('header');
             $this->load->view('sidebar/management_active');
@@ -124,16 +120,11 @@ class Patient extends CI_Controller
             $this->load->view('patient/patient_edit_view', $data);
             $this->load->view('footer/footer');
         } else {
-            // set variables from the form
             if ($this->PatientModel->Update()) {
-                // user creation ok
-                $this->PatientModel->Redirect();
+                $this->PatientModel->redirect();
             } else {
-                    
-				// user creation failed, this should never happen
                 $data['error'] = 'There was a problem creating your new account. Please try again.';
-                        
-                // send error to the view
+                
                 $this->load->view('header');
                 $this->load->view('sidebar/management_active');
                 $this->load->view('navbar');
@@ -143,7 +134,7 @@ class Patient extends CI_Controller
         }
     }
 
-    public function viewdata($patient_id)
+    public function view($patient_id)
     {
         $data['query'] = $this->PatientModel->Read_specific($patient_id)->row();
         $data['emr'] = $this->EMRModel->getPatientEMR($patient_id);
@@ -156,12 +147,12 @@ class Patient extends CI_Controller
         $this->load->view('footer/footer');
     }
 
-    public function deletedata($patient_id)
+    public function delete($patient_id)
     {
         if ($_SESSION['status'] === "ADMIN") {
             $data['patient_id'] = $patient_id;
             $this->PatientModel->Delete($data);
-            $this->PatientModel->Redirect();
+            $this->PatientModel->redirect();
         } else {
             redirect('/');
         }

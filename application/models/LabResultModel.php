@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
     class LabResultModel extends CI_Model {
 
-        public function Redirect(){
-            redirect(base_url("index.php/athenaMain/labresult_view"));
+        public function redirect(){
+            redirect(base_url("index.php/labresult"));
         }
 
         public function getData(){
@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -71,7 +71,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -105,7 +105,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $this->db->where("record_id", $record_id);
             $this->db->update("medical_record",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function getLabResultData($UID){
@@ -120,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $getprefix = $this->db->get('app_settings')->row();
             $prefix = $getprefix->result_id_prefix;
             
-            $iddata = $this->extfnc->id_generate(5);
+            $iddata = bin2hex(random_bytes(6));
             
             $query = $prefix . "-". $date ."-" . $iddata;
 
@@ -149,7 +149,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $this->db->where("result_id", $result_id);
             $this->db->update("lab_result",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function Delete($data){

@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
     class DoctorModel extends CI_Model {
 
-        public function Redirect(){
-            redirect(base_url("index.php/athenaMain/doctor_view"));
+        public function redirect(){
+            redirect(base_url("index.php/doctor"));
         }
 
         public function getData(){
@@ -31,7 +31,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -64,7 +64,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $getprefix = $this->db->get('app_settings')->row();
             $prefix = $getprefix->doctor_id_prefix;
 
-            $iddata = $this->extfnc->id_generate(4);
+            $iddata = bin2hex(random_bytes(6));
             
             $query = $prefix . "-". $iddata;
 
@@ -111,7 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
             $this->db->where("doctor_id", $doctor_id);
             $this->db->update("doctor",$data);
-            $this->Redirect();
+            $this->redirect();
         }
 
         public function Delete($data){

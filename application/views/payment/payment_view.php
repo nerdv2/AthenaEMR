@@ -10,7 +10,7 @@
                 $template = array('table_open' => '<table class="datatable table table-striped primary" cellspacing="0" width="100%">');
                 $this->table->set_template($template);
 
-                $cell_add = array('data' => '<a href="'.site_url().'/payment/adddata">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
+                $cell_add = array('data' => '<a href="'.site_url().'/payment/add">Add New Data</a>', 'class' => 'highlight', 'colspan' => 2);
 
                 $this->table->set_heading('PaymentID','RegisterID','WorkerID','Type of Payment','Amount','Time of Payment','Action');
                 foreach($query as $row){
@@ -19,7 +19,7 @@
                       <a href='".site_url()."/athenaReport/get_entry/".$row->payment_id."' title='".$row->payment_id."'>Print Entry</a>
                       <br>
                       <a href='".site_url()."/athenaReport/get_invoice/".$row->payment_id."' title='".$row->payment_id."'>Print</a><br>
-                      <a href='".site_url()."/payment/deletedata/".$row->payment_id."' title='".$row->register_id."' onclick='return confirmDelete();'>Delete</a>"; 
+                      <a href='".site_url()."/payment/delete/".$row->payment_id."' title='".$row->register_id."' onclick='return confirmDelete();'>Delete</a>"; 
                     } else {
                       $edit = "
                       <a href='".site_url()."/athenaReport/get_entry/".$row->payment_id."' title='".$row->payment_id."'>Print Entry</a>

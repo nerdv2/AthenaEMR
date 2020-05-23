@@ -12,8 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
     class EMRModel extends CI_Model {
 
-        public function Redirect(){
-            redirect(base_url("index.php/athenaMain/emr_view"));
+        public function redirect(){
+            redirect(base_url("index.php/emr"));
         }
 
         public function getData(){
@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -62,7 +62,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -74,7 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -98,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -110,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         $data[] = $row;
                     }
             }
-            $query->free_result();
+            $query->result();
             return $data;
         }
 
@@ -198,7 +198,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $getprefix = $this->db->get('app_settings')->row();
             $prefix = $getprefix->record_id_prefix;
             
-            $iddata = $this->extfnc->id_generate(6);
+            $iddata = bin2hex(random_bytes(6));
             
             $query = $prefix . "-". $date ."-" . $iddata;
 
@@ -217,7 +217,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             $execute = $this->db->query($dataquery,array($patient_id, $start, $end));
             $ret = $execute->result();
             $execute->next_result();
-            $execute->free_result();
+            $execute->result();
             return $ret;
         }
 

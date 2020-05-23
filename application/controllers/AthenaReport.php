@@ -12,18 +12,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @link	   https://github.com/nerdv2/AthenaEMR
  */
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class AthenaReport extends CI_Controller
 {
-    public function __Construct()
+    public function __construct()
     {
-        parent::__Construct();
+        parent::__construct();
 
         if (!isset($_SESSION['logged_in']) && $_SESSION['logged_in'] !== true) {
             redirect('/');
         }
-
-        $this->load->library('pdf');
-        $this->load->library("PHPExcel");
         $this->load->model('UsersModel');
         $this->load->model('DoctorModel');
         $this->load->model('PaymentModel');
@@ -42,52 +41,71 @@ class AthenaReport extends CI_Controller
 
     public function getPDF()
     {
-        $this->pdf->load_view('common/template');
-        $this->pdf->Output();
+        $pdf = new \Mpdf\Mpdf(['tempDir' => APPPATH . 'cache/mpdf']);
+        $html = $this->load->view('common/template', array(), TRUE);
+
+		$pdf->WriteHtml($html);
+        $pdf->Output('export.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
     public function getregistration()
     {
+        $pdf = new \Mpdf\Mpdf(['tempDir' => APPPATH . 'cache/mpdf']);
         $data['query'] = $this->RegistrationModel->getData();
         $data['setting'] = $this->SettingsModel->getData()->row();
-        $this->pdf->load_view('common/report_template', $data);
-        $this->pdf->Output();
+
+        $html = $this->load->view('common/report_template', $data, TRUE);
+		$pdf->WriteHtml($html);
+        $pdf->Output('export.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
     public function export_visitmonth($start, $end, $doctor_id)
     {
+        $pdf = new \Mpdf\Mpdf(['tempDir' => APPPATH . 'cache/mpdf']);
+
         $data['query'] = $this->RegistrationModel->getvisit_month($start, $end, $doctor_id);
         $data['doctor'] = $this->DoctorModel->Read_doctorname($doctor_id);
         $data['setting'] = $this->SettingsModel->getData()->row();
-        $this->pdf->load_view('common/visit_template', $data);
-        $this->pdf->Output();
+        
+        $html = $this->load->view('common/visit_template', $data, TRUE);
+		$pdf->WriteHtml($html);
+        $pdf->Output('export.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
     public function export_medicalrecord($start, $end, $patient_id)
     {
+        $pdf = new \Mpdf\Mpdf(['tempDir' => APPPATH . 'cache/mpdf', 'orientation' => 'L']);
+
         $data['query'] = $this->EMRModel->getrecord_report($patient_id, $start, $end);
         $data['patientid'] = $patient_id;
         $data['patientname'] = $this->PatientModel->Read_patientname($patient_id);
         $data['setting'] = $this->SettingsModel->getData()->row();
-        //$this->load->view('common/medical_record_template', $data);
-        $this->pdf->load_view_landscape('common/medical_record_template', $data);
-        $this->pdf->Output();
+
+        $html = $this->load->view('common/medical_record_template', $data, TRUE);
+		$pdf->WriteHtml($html);
+        $pdf->Output('export.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
     public function get_invoice($invoice_id)
     {
+        $pdf = new \Mpdf\Mpdf(['tempDir' => APPPATH . 'cache/mpdf']);
         $data['query'] = $this->PaymentModel->getInvoiceData($invoice_id)->row();
         $data['setting'] = $this->SettingsModel->getData()->row();
-        $this->pdf->load_view('common/invoice_template', $data);
-        $this->pdf->Output();
+
+        $html = $this->load->view('common/invoice_template', $data, TRUE);
+        $pdf->WriteHtml($html);
+        $pdf->Output('export.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
     public function get_labresult($result_id)
     {
+        $pdf = new \Mpdf\Mpdf(['tempDir' => APPPATH . 'cache/mpdf']);
         $data['query'] = $this->LabResultModel->getLabResultData($result_id)->row();
         $data['setting'] = $this->SettingsModel->getData()->row();
-        $this->pdf->load_view('common/labresult_template', $data);
-        $this->pdf->Output();
+
+        $html = $this->load->view('common/labresult_template', $data, TRUE);
+        $pdf->WriteHtml($html);
+        $pdf->Output('export.pdf', \Mpdf\Output\Destination::INLINE);
     }
 
     public function get_id($patient_id)
@@ -113,32 +131,22 @@ class AthenaReport extends CI_Controller
     public function registration_view()
     {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-
-            // set validation rules
             $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
             $this->form_validation->set_rules('end', 'End Month', 'trim|required');
             if ($this->form_validation->run() === false) {
-            
-                // validation not ok, send validation errors to the view
                 $this->load->view('header');
                 $this->load->view('sidebar/report_active');
                 $this->load->view('navbar');
                 $this->load->view('report/registration_month_view');
                 $this->load->view('footer/footer');
             } else {
-                // set variables from the form
                 $start  = $this->input->post('start');
                 $end    = $this->input->post('end');
 
                 if ($this->export_registrationmonth($start, $end)) {
-
-                    // user creation ok
                 } else {
-                
-                    // user creation failed, this should never happen
                     $data['error'] = 'There was a problem creating your new account. Please try again.';
                     
-                    // send error to the view
                     $this->load->view('header');
                     $this->load->view('sidebar/report_active');
                     $this->load->view('navbar');
@@ -154,21 +162,16 @@ class AthenaReport extends CI_Controller
     public function visit_view()
     {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-
-            // set validation rules
             $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
             $this->form_validation->set_rules('end', 'End Month', 'trim|required');
             $this->form_validation->set_rules('doctor_id', 'DoctorID', 'trim|required');
             if ($this->form_validation->run() === false) {
-            
-                // validation not ok, send validation errors to the view
                 $this->load->view('header');
                 $this->load->view('sidebar/report_active');
                 $this->load->view('navbar');
                 $this->load->view('report/patient_visit_month');
                 $this->load->view('footer/footer');
             } else {
-                // set variables from the form
                 $start = $this->input->post('start');
                 $end    = $this->input->post('end');
                 $doctor_id    = $this->input->post('doctor_id');
@@ -187,24 +190,19 @@ class AthenaReport extends CI_Controller
     public function medical_report_view()
     {
         if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-
-            // set validation rules
             $this->form_validation->set_rules('start', 'Start Month', 'trim|required', array('is_unique' => 'This id already exists. Please choose another one.'));
             $this->form_validation->set_rules('end', 'End Month', 'trim|required');
             $this->form_validation->set_rules('patient_id', 'PatientID', 'trim|required');
             if ($this->form_validation->run() === false) {
-            
-                // validation not ok, send validation errors to the view
                 $this->load->view('header');
                 $this->load->view('sidebar/report_active');
                 $this->load->view('navbar');
                 $this->load->view('report/patient_record_month');
                 $this->load->view('footer/footer');
             } else {
-                // set variables from the form
-                $start = $this->input->post('start');
-                $end    = $this->input->post('end');
-                $patient_id    = $this->input->post('patient_id');
+                $start          = $this->input->post('start');
+                $end            = $this->input->post('end');
+                $patient_id     = $this->input->post('patient_id');
 
                 try {
                     $this->export_medicalrecord($start, $end, $patient_id);
@@ -219,18 +217,16 @@ class AthenaReport extends CI_Controller
 
     public function export_registrationmonth($start, $end)
     {
-        $objPHPExcel = new PHPExcel();
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+        
         $query = $this->RegistrationModel->getmonth_report($start, $end);
 
-        $objPHPExcel->getProperties()->setTitle("export")->setDescription("none");
- 
-        $objPHPExcel->setActiveSheetIndex(0);
- 
         // Field names in the first row
         $fields = $query->list_fields();
         $col = 0;
         foreach ($fields as $field) {
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+            $sheet->setCellValueByColumnAndRow($col, 1, $field);
             $col++;
         }
  
@@ -239,39 +235,34 @@ class AthenaReport extends CI_Controller
         foreach ($query->result() as $data) {
             $col = 0;
             foreach ($fields as $field) {
-                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+                $sheet->setCellValueByColumnAndRow($col, $row, $data->$field);
                 $col++;
             }
  
             $row++;
         }
  
-        $objPHPExcel->setActiveSheetIndex(0);
- 
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
- 
-        // Sending headers to force the user to download the file
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="RegistrationReport_'.date('dMy').'.xls"');
+        $writer = new Xlsx($spreadsheet);
+
+        // force download
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment;filename="RegistrationReport_'.date('dMy').'.xlsx"');
         header('Cache-Control: max-age=0');
- 
-        $objWriter->save('php://output');
+        $writer->save('php://output');
     }
 
     public function export_visitmonth_excel($start, $end, $doctor_id)
     {
-        $objPHPExcel = new PHPExcel();
-        $query = $this->RegistrationModel->getvisit_month_excel($start, $end, $doctor_id);
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
 
-        $objPHPExcel->getProperties()->setTitle("export")->setDescription("none");
- 
-        $objPHPExcel->setActiveSheetIndex(0);
+        $query = $this->RegistrationModel->getvisit_month_excel($start, $end, $doctor_id);
  
         // Field names in the first row
         $fields = $query->list_fields();
         $col = 0;
         foreach ($fields as $field) {
-            $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, 1, $field);
+            $sheet->setCellValueByColumnAndRow($col, 1, $field);
             $col++;
         }
  
@@ -280,23 +271,20 @@ class AthenaReport extends CI_Controller
         foreach ($query->result() as $data) {
             $col = 0;
             foreach ($fields as $field) {
-                $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($col, $row, $data->$field);
+                $sheet->setCellValueByColumnAndRow($col, $row, $data->$field);
                 $col++;
             }
  
             $row++;
         }
  
-        $objPHPExcel->setActiveSheetIndex(0);
- 
-        $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
- 
-        // Sending headers to force the user to download the file
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="VisitReport_'.date('dMy').'.xls"');
+        $writer = new Xlsx($spreadsheet);
+
+        // force download
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment;filename="VisitReport_'.date('dMy').'.xlsx"');
         header('Cache-Control: max-age=0');
- 
-        $objWriter->save('php://output');
+        $writer->save('php://output');
     }
 
     public function export_completedata()

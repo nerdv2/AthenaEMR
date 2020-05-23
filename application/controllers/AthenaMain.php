@@ -24,19 +24,6 @@ class AthenaMain extends CI_Controller
         }
 
         $this->load->model('DashModel');
-        $this->load->model('UsersModel');
-        $this->load->model('WorkersModel');
-        $this->load->model('LabModel');
-        $this->load->model('DoctorModel');
-        $this->load->model('PatientModel');
-        $this->load->model('ClinicModel');
-        $this->load->model('PaymentModel');
-        $this->load->model('RegistrationModel');
-        $this->load->model('EMRModel');
-        $this->load->model('MedicineModel');
-        $this->load->model('MedicineTypeModel');
-        $this->load->model('LabResultModel');
-        $this->load->model('PrescriptionModel');
         $this->load->model('SettingsModel');
     }
 
@@ -57,214 +44,9 @@ class AthenaMain extends CI_Controller
         $this->load->view('footer/footer');
     }
 
-    public function users_view()
-    {
-        if ($_SESSION['status'] === "ADMIN") {
-            $data['query'] = $this->UsersModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/users_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/users_floatbar');
-            $this->load->view('users/users_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("users");
-        }
-    }
-
-    public function workers_view()
-    {
-        if ($_SESSION['status'] === "ADMIN") {
-            $data['query'] = $this->WorkersModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/users_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/workers_floatbar');
-            $this->load->view('workers/workers_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("worker");
-        }
-    }
-
-    public function lab_view()
-    {
-        if ($_SESSION['status'] === "ADMIN") {
-            $data['query'] = $this->LabModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/lab_floatbar');
-            $this->load->view('lab/lab_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("lab");
-        }
-    }
-
-    public function doctor_view()
-    {
-        if ($_SESSION['status'] === "ADMIN") {
-            $data['query'] = $this->DoctorModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/users_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/doctor_floatbar');
-            $this->load->view('doctor/doctor_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("doctor");
-        }
-    }
-
-    public function patient_view()
-    {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION") {
-            $data['query'] = $this->PatientModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/patient_floatbar');
-            $this->load->view('patient/patient_view', $data);
-            $this->load->view('footer/table_footer');
-        } elseif ($_SESSION['status'] === "DOCTOR") {
-            $data['query'] = $this->PatientModel->getDoctorPatientData($_SESSION['doctor_id']);
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/patient_floatbar');
-            $this->load->view('patient/patient_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("patient");
-        }
-    }
-
-    public function clinic_view()
-    {
-        if ($_SESSION['status'] === "ADMIN") {
-            $data['query'] = $this->ClinicModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/clinic_floatbar');
-            $this->load->view('clinic/clinic_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("clinic");
-        }
-    }
-
-    public function payment_view()
-    {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PAYMENT") {
-            $data['query'] = $this->PaymentModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/payment_floatbar');
-            $this->load->view('payment/payment_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("payment");
-        }
-    }
-
-    public function registration_view()
-    {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "REGISTRATION") {
-            $data['query'] = $this->RegistrationModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/registration_floatbar');
-            $this->load->view('registration/registration_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("registration");
-        }
-    }
-
-    public function emr_view()
-    {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "DOCTOR") {
-            $data['query'] = $this->EMRModel->getDataSpecific($_SESSION['doctor_id']);
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/emr_floatbar');
-            $this->load->view('emr/emr_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("medical record");
-        }
-    }
-
-    public function medicine_view()
-    {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST") {
-            $data['query'] = $this->MedicineModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/medicine_floatbar');
-            $this->load->view('medicine/medicine_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("medicine");
-        }
-    }
-
-    public function medicine_type_view()
-    {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST") {
-            $data['query'] = $this->MedicineTypeModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/medicine_type_floatbar');
-            $this->load->view('medicine_type/medicine_type_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("medicine type");
-        }
-    }
-
-    public function labresult_view()
-    {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "LAB") {
-            $data['query'] = $this->LabResultModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/labresult_floatbar');
-            $this->load->view('labresult/labresult_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("lab result");
-        }
-    }
-
-    public function prescription_view()
-    {
-        if ($_SESSION['status'] === "ADMIN" or $_SESSION['status'] === "PHARMACIST" or $_SESSION['status'] === "DOCTOR") {
-            $data['query'] = $this->PrescriptionModel->getData();
-            $this->load->view('header');
-            $this->load->view('sidebar/management_active');
-            $this->load->view('navbar');
-            $this->load->view('floatnav/prescription_floatbar');
-            $this->load->view('prescription/prescription_view', $data);
-            $this->load->view('footer/table_footer');
-        } else {
-            $this->access_denied("prescription");
-        }
-    }
-
     public function settings()
     {
         if ($_SESSION['status'] === "ADMIN") {
-
-            // set validation rules
             $this->form_validation->set_rules('hospital_name', 'Hospital Name', 'trim|required');
             $this->form_validation->set_rules('hospital_address', 'Hospital Address', 'trim|required');
             $this->form_validation->set_rules('hospital_phone', 'Hospital Phone', 'trim|required');
@@ -293,7 +75,7 @@ class AthenaMain extends CI_Controller
                 if ($this->SettingsModel->saveData()) {
 
                     // input data success, redirect
-                    $this->SettingsModel->Redirect();
+                    $this->SettingsModel->redirect();
                 } else {
                     $data['error'] = 'There was a problem updating data. Please try again.';
 
