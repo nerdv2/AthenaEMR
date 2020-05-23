@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-xs-12">
         <div class="footer-copyright">
-          Copyright © 2016-2017 AthenaEMR Development Team / Gema Aji Wardian. For license info <a href="<?php echo base_url("LICENSE"); ?>">LICENSE</a>
+          Copyright © 2020 Gema Aji Wardian, All right reserved.
         </div>
       </div>
     </div>

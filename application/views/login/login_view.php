@@ -8,7 +8,7 @@
       <div class="app-form">
       
         <div class="form-header">
-          <div class="app-brand"><span class="highlight">Athena</span> EMR</div>
+          <div class="sidebar-brand"><span class="highlight">Athena</span> EMR<sup>alpha</sup></div>
         </div>
         <?php if (validation_errors()) : ?>
 					<?= validation_errors() ?>
