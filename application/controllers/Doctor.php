@@ -18,7 +18,7 @@ class Doctor extends CI_Controller
     {
         parent::__construct();
         $this->authentication->sessionCheck('admin');
-        
+
         $this->load->model('DoctorModel');
     }
 
@@ -45,7 +45,7 @@ class Doctor extends CI_Controller
         $this->form_validation->set_rules('phone', 'Phone Number', 'trim|numeric');
 
         if ($this->form_validation->run() === false) {
-
+            $this->load->view('header');
             $this->load->view('sidebar/users_active');
             $this->load->view('navbar');
             $this->load->view('doctor/doctor_add_view', $data);
@@ -57,7 +57,7 @@ class Doctor extends CI_Controller
                 $data['error'] = 'There was a problem creating your new account. Please try again.';
                 $data['id'] = $this->DoctorModel->generate_id();
                 $data['clinic'] = $this->DoctorModel->getClinicID();
-                
+
                 $this->load->view('header');
                 $this->load->view('sidebar/users_active');
                 $this->load->view('navbar');
@@ -89,8 +89,8 @@ class Doctor extends CI_Controller
                 $this->DoctorModel->redirect();
             } else {
                 $data['error'] = 'There was a problem creating your new account. Please try again.';
-                    
-                
+
+
                 $this->load->view('header');
                 $this->load->view('sidebar/users_active');
                 $this->load->view('navbar');

@@ -14,7 +14,7 @@ class SettingsModel extends CI_Model
 {
     public function redirect()
     {
-        redirect(base_url("index.php/athenaMain/"));
+        redirect(base_url("athenaMain/"));
     }
 
     public function getData()

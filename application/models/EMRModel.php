@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     class EMRModel extends CI_Model {
 
         public function redirect(){
-            redirect(base_url("index.php/emr"));
+            redirect(base_url("emr"));
         }
 
         public function getData(){

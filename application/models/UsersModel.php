@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     class UsersModel extends CI_Model {
 
         public function redirect(){
-            redirect(base_url("index.php/users"));
+            redirect(base_url("users"));
         }
 
         public function getData(){

@@ -14,7 +14,7 @@ class MedicineTypeModel extends CI_Model
 {
     public function redirect()
     {
-        redirect(base_url("index.php/medicine_type"));
+        redirect(base_url("medicine_type"));
     }
 
     public function getData()

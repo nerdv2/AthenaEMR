@@ -14,7 +14,7 @@ class WorkersModel extends CI_Model
 {
     public function redirect()
     {
-        redirect(base_url("index.php/workers"));
+        redirect(base_url("workers"));
     }
 
     public function getData()

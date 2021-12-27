@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     class LabModel extends CI_Model {
 
         public function redirect(){
-            redirect(base_url("index.php/lab"));
+            redirect(base_url("lab"));
         }
 
         public function getData(){

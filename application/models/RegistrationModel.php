@@ -14,7 +14,7 @@ class RegistrationModel extends CI_Model
 {
     public function redirect()
     {
-        redirect(base_url("index.php/registration"));
+        redirect(base_url("registration"));
     }
 
     public function getData()

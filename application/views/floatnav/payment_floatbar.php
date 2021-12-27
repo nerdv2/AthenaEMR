@@ -1,4 +1,4 @@
-<a href="<?php echo base_url("index.php/payment/pre_add"); ?>">
+<a href="<?php echo base_url("payment/pre_add"); ?>">
 <div class="btn-floating" id="help-actions">
   <div class="btn-bg"></div>
   <button type="button" class="btn btn-default btn-toggle" data-toggle="toggle" data-target="#help-actions">

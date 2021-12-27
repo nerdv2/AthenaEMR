@@ -14,7 +14,7 @@ class PaymentModel extends CI_Model
 {
     public function redirect()
     {
-        redirect(base_url("index.php/payment"));
+        redirect(base_url("payment"));
     }
 
     public function getData()

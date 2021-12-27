@@ -13,7 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     class MedicineModel extends CI_Model {
 
         public function redirect(){
-            redirect(base_url("index.php/medicine"));
+            redirect(base_url("medicine"));
         }
 
         public function getData(){
